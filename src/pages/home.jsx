@@ -1,16 +1,15 @@
 import React from 'react'
+import Cards from '../components/cards'
+import img from '../assets/a3.jpg'
+import { motion } from 'framer-motion'
 
-
-function Home(props) {
-  
+export default function Home() {
+ 
   return (
-    <div>
-     home
+    <div  style={{ overflow: 'hidden', padding: '10px', width:'100vw'}}>
+     
+
+      
     </div>
-    
   )
 }
-
-
-
-export default Home

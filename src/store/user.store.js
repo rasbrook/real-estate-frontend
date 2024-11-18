@@ -1,6 +1,7 @@
 import {create} from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { Google_Sign_up } from '../../../../backend/controller/auth.controller'
+import { setLogLevel } from 'firebase/app'
 
 
 
@@ -39,6 +40,7 @@ export const useUserStore = create(
           } else {
             set({ user: data })
             setSuccess(true)
+            setError('You are Signed Up')
             setLoading(false)
             console.log('Form submitted:', data);
           }
@@ -75,7 +77,6 @@ export const useUserStore = create(
           return false
         }
       },
-      logout: () => set({ user: null }),
       Google_Sign_up:async (newUser, setLoading, setError, setSuccess) => {
         try {
           setLoading(true)
@@ -123,6 +124,7 @@ export const useUserStore = create(
           setLoading(false)
           if(data.success === true){
             set({ user: signinuser }) // Update the user in the store
+            
             setSuccess(true)
             console.log('Signed in successfully:', signinuser)
             return true
@@ -135,7 +137,109 @@ export const useUserStore = create(
           setError(error.message)
           return false
         }
+      },
+      UpdateuserInfo:async(update, setError, setLoading, id)=>{
+        try {
+          setLoading(true)
+          const res = await fetch(`/api/user/update/${id}`,
+          {
+            method:"PUT", 
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body:JSON.stringify(update)
+          })
+          
+          const data = await res.json()
+          setLoading(false)
+          console.log(data)
+          
+          if(data.success === false){
+            
+            setError(data.message)
+            console.log(data.message)
+            setLoading(false)
+            return 
+          } else {
+            set({ user: data })
+            setSuccess(true)
+            setLoading(false)
+            console.log('Form submitted:', data);
+          }
+        } catch (error) {
+          setLoading(false)
+          setError(error)
+        }
+
+
+
+      },
+      DeleteUser:async(user,setError, setLoading, id)=>{
+       
+        setLoading(true)
+        try {
+          const res = await fetch(`/api/user/delete/${id}`,
+            {
+              method:"DELETE", 
+              headers:{
+                'Content-Type':'application/json'
+              },
+              body:JSON.stringify(user)
+            })
+            
+            const data = await res.json()
+            setLoading(false)
+            console.log(data)
+            
+            if(data.success === false){
+              
+              setError(data.message)
+              console.log(data.message)
+              setLoading(false)
+              return 
+            } else {
+              set({ user: null })
+              setSuccess(true)
+              setLoading(false)
+              console.log('User Deleted Successfully');
+            }
+          
+        } catch (error) {
+          setLoading(false)
+          setError('There has been an error')
+          
+        }
+      },
+      LogOut: async(setLoading, setError) => {
+        setLoading(true)
+        set({ user: null })
+        
+        try {
+          const res=await fetch('/api/user/sign--out',
+            {
+            method:"GET", 
+            headers:{
+              'Content-Type':'application/json'
+            }})
+          data=await res.json()
+        
+        if(data.success){
+          setLoading(false)
+          set({ user: null })
+          return
+        }
+        setError(data.message)
+        setLoading(false)
+        } catch (error) {
+          setLoading(false)
+          setError(error)
+          
+        }
+
+        
       }
+    
+
     }
   ),
     {

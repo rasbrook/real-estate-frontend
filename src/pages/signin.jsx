@@ -2,26 +2,16 @@ import React, { useState } from 'react';
 
 
 import { Link , useNavigate} from 'react-router-dom';
-import {
-  SignInContainer,
-  SignInForm,
-  InputGroup,
-  Label,
-  Input,
-  SubmitButton,
-  GoogleButton,
-  OrDivider,
-  ErrorMessage,
-  ForgotPassword,
-  SignUpLink
-} from './page style/signinstyle.js';
 import { useUserStore } from '../store/user.store.js';
-import { NavContainer } from '../components/header.style.js';
+//import { NavContainer } from '../components/header.style.js';
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import { app } from '../../firebase.js';
+import { motion } from 'framer-motion';
+import { useModeState } from '../store/mode.store.js';
 
 
 const Signin = () => {
+  
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -31,6 +21,29 @@ const Signin = () => {
   const [success, setSuccess]=useState(null)
   const [loading, setLoading]=useState(false)
   const nav=useNavigate()
+  const hdarkmode=useModeState((state) => state.hdarkmode)
+  const darkmode=useModeState((state) => state.darkmode)
+  const backdarkmode=useModeState((state) => state.backdarkmode)
+  const containdarkmode=useModeState((state) => state.containdarkmode)
+  const buttdarkmode=useModeState((state) => state.buttdarkmode)
+  const divelement={
+    height:50, 
+    borderRadius:10, 
+    alignSelf:'center', 
+    justifySelf:'center', 
+    gap:'5vw', 
+    alignItems:'center', 
+    width:'25vw',
+    minWidth:250,
+    border:'none',
+    margin:'3vh',
+
+    
+    
+  
+    }
+  
+  const inpu={color:darkmode, backgroundColor:backdarkmode,width:'100%', height:30, borderRadius:8, border:'none'}
  
 
 
@@ -110,29 +123,40 @@ const Signin = () => {
   };
 
   return (
-    <SignInContainer>
-      <SignInForm
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        onSubmit={handleSubmit}
+    <div style={{width:'60%',backgroundColor:containdarkmode, justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
+      <motion.form
+      onSubmit={handleSubmit}
       >
         <h2>Sign In</h2>
-        <GoogleButton
-          type="button"
+        <motion.button
+          style={{height:40, 
+            borderRadius:10, 
+            display:'flex', 
+            alignSelf:'center', 
+            justifySelf:'center', 
+            gap:'5vw', 
+            alignItems:'center', 
+            width:'25vw',
+            minWidth:250,
+            border:'none',
+            margin:'3vh',
+            color:darkmode, 
+            backgroundColor:backdarkmode
+          }}
           onClick={handleGoogleSignIn}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.05 , cursor:'pointer'}}
           whileTap={{ scale: 0.95 }}
         >
-          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
-          Continue with Google
-        </GoogleButton>
-        <OrDivider>
+          <img style={{width:25}} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
+          <h4>Continue with Google</h4>
+        </motion.button>
+        
           <span>or</span>
-        </OrDivider>
-        <InputGroup>
-          <Label htmlFor="email">Email</Label>
-          <Input
+        
+        <div style={divelement}>
+        <label htmlFor="phone">Phone</label>
+          <input
+            style={inpu}
             type="email"
             id="email"
             name="email"
@@ -140,33 +164,60 @@ const Signin = () => {
             onChange={handleChange}
             required
           />
-        </InputGroup>
-        <InputGroup>
-          <Label htmlFor="password">Password</Label>
-          <Input
+        </div>
+        <div style={divelement}>
+        <label htmlFor="password">Password</label>
+          <input
+            style={inpu}
             type="password"
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             required
+            
           />
           
-        </InputGroup>
+        </div>
+        
         <p >{error}</p>
-        <ForgotPassword href="/forgot-password">Forgot password?</ForgotPassword>
-        <SubmitButton
+       
+        
+        <div style={{height:50, 
+    borderRadius:10, 
+    alignSelf:'center', 
+    justifySelf:'center', 
+    gap:'5vw', 
+    alignItems:'center', 
+    width:'25vw',
+    minWidth:250,
+    border:'none',
+    margin:'3vh',
+}}>
+        <motion.button
           type="submit"
-          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          disabled={ loading}
+          style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode}}
+          whileHover={{scale:1.05, backgroundColor:'#59caffe3', cursor:'pointer'}}
+          
         >
           {loading? "loading...":"Sign In"}
-        </SubmitButton>
-        <SignUpLink>
-          Don't have an account? <Link to="/sign-up">Sign up</Link>
-        </SignUpLink>
-      </SignInForm>
-    </SignInContainer>
+        </motion.button>
+        <p><a style={{fontSize:14, textDecoration:'none', color:'#7f4343'}} href="/forgot-password">Forgot password?</a></p>
+        </div>
+        
+       
+
+        
+        <motion.div style={{display:'flex', justifySelf:'center', gap:10, alignItems:'center'}}>
+
+         <p>Don't have an account?</p> <motion.div whileHover={{scale:1.05, color:'#59caff'}}> 
+          <Link style={{textDecoration:'none', color:'#59caffe3'}} to="/sign-up">Sign up</Link></motion.div>
+        </motion.div>
+
+      </motion.form>
+    </div>
   );
 };
 

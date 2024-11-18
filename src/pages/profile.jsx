@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useRef} from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useUserStore } from '../store/user.store'
-import {storage} from '../../firebase.js'
-import {getDownloadURL, ref, uploadBytes} from 'firebase/storage'
-import {v4} from 'uuid'
-
-
-
-
+import { storage } from '../../firebase.js'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { useNavigate } from 'react-router-dom'
+import { v4 } from 'uuid'
+import { useModeState } from '../store/mode.store.js'
 
 const Container = styled(motion.div)`
   max-width: 600px;
@@ -115,26 +113,55 @@ const ErrorMessage = styled(motion.div)`
 `
 
 const Profile = () => {
-  const user=useUserStore((state) => state.user)
+  const { UpdateuserInfo } = useUserStore()
+  
+  const user = useUserStore((state) => state.user)
+  const { LogOut } =useUserStore()
+  const darkmode=useModeState((state) => state.darkmode)
+  const backdarkmode=useModeState((state) => state.backdarkmode)
+
+  
+  
   const [isEditing, setIsEditing] = useState(false)
   const [profileData, setProfileData] = useState({
+    username: user?.rest?.username || '',
+    email: user?.rest?.email || '',
+    phone: user?.rest?.phone || null, 
+    bio: user?.rest?.bio || '',
+    avator: user?.rest?.avator || ''
   })
-  console.log(profileData)
-
-  const [image, setImage]=useState(undefined)
-
-
- 
   
+  const [image, setImage] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const fileRef=useRef(null)
 
+  const [sure, setSure]=useState(false)
+  const nav=useNavigate()
+  const {DeleteUser}=useUserStore()
   
+  const fileRef = useRef(null)
 
-  
-
-
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setImage(file)
+      try {
+        setLoading(true)
+        const imageRef = ref(storage, `Profile/${file.name + v4()}`)
+        await uploadBytes(imageRef, file)
+        const url = await getDownloadURL(imageRef)
+        
+        setProfileData(prev => ({
+          ...prev,
+          avator: url
+        }))
+        setLoading(false)
+      } catch (err) {
+        setError('Error uploading profile picture: ' + err.message)
+        setLoading(false)
+      }
+    }
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -142,87 +169,70 @@ const Profile = () => {
       ...prev,
       [name]: value
     }))
- 
   }
 
   const handleSubmit = async (e) => {
-   
     e.preventDefault()
-    ImageUpload()
+    try {
+      setLoading(true)
+      await UpdateuserInfo(profileData, setError, setLoading, user.rest._id)
+      setIsEditing(false)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+    {error? alert(error):alert('Update successfully')}
+  }
+  const handleLogout=async(e)=>{
+    e.preventDefault() 
+   try {
+      setLoading(true)
+      console.log('start')
+    
+    await LogOut(setLoading, setError)
+   } catch (error) {
+    setError(error)
+
+    
+   }
+   finally {
+    setLoading(false)
+  }
    
-  
-  }
-  
-const ImageUpload= async ()=>{
-  if (image === undefined) {
-    return
-}
-
-try {
-    setLoading(true)
-    const imageRef = ref(storage, `Profile/${image.name + v4()}`)
-    
-    // Upload the image
-    await uploadBytes(imageRef, image)
-    
-    // Get the URL immediately after upload
-    const url = await getDownloadURL(imageRef)
-    console.log("Download URL:", url)
-    
-    // Update local state
-    setProfileData(prev => ({
-        ...prev,
-        avator: url
-    }))
-
-    
-    
-    
-    
-    setLoading(false)
-    alert('Profile picture updated successfully')
-    
-} catch (error) {
-    setLoading(false)
-    setError('Error uploading your new Profile: ' + error.message)
-    console.error('Upload error:', error)
-}
-
-
-  
   }
 
 
   
-
-  
-
-  
+  const handleDelete = async() => { 
+    if (window.confirm("Are you sure you want to proceed?")) {
+        await DeleteUser(user,setError, setLoading,  user.rest._id)
+        console.log("Confirmed!"); } 
+    else { console.log("Cancelled!"); } };
 
   if (loading) return <Container>Loading...</Container>
-  if (error) return <ErrorMessage initial={{ opacity: 0 }} animate={{ opacity: 1 }}>{error}</ErrorMessage>
   if (!user) return <Container>Please log in to view your profile</Container>
-
- 
+  
+  
 
   return (
-    <Container
+    <Container style={{color:darkmode||'#00000', backgroundColor:backdarkmode||'#11111'}}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <h1>Profile</h1>
       
-      <ProfileHeader>
+      <ProfileHeader >
         <input 
-        onChange={(e)=>{setImage(e.target.files[0])}}
-        name='file' 
-        id='file'  
-        value={profileData.file}  
-        type='file'  
-        ref={fileRef}  
-        hidden  
-        accept='image/*'/>
+          onChange={handleFileChange}
+          name='file' 
+          id='file'  
+          type='file'  
+          ref={fileRef}  
+          hidden  
+          accept='image/*'
+        />
         <Avatar
           onClick={()=>fileRef.current.click()}
           src={profileData.avator || user.rest.avator} 
@@ -233,7 +243,7 @@ try {
       </ProfileHeader>
 
       <AnimatePresence mode="wait">
-        {isEditing ? (
+        
           <Form
             key="form"
             initial={{ opacity: 0, x: -20 }}
@@ -242,7 +252,6 @@ try {
             onSubmit={handleSubmit}
           >
             <FormGroup>
-            
               <Label>UserName:</Label>
               <Input
                 type="text"
@@ -250,7 +259,6 @@ try {
                 id='username'
                 value={profileData.username}
                 onChange={handleInputChange}
-                
               />
             </FormGroup>
 
@@ -262,7 +270,6 @@ try {
                 id='email'
                 value={profileData.email}
                 onChange={handleInputChange}
-                
               />
             </FormGroup>
 
@@ -288,8 +295,10 @@ try {
               />
             </FormGroup>
 
-            <ButtonGroup>
+            <ButtonGroup style={{justifyContent:'space-between'}}>
+              <div >
               <Button
+          
                 type="submit"
                 disabled={loading}
                 whileHover={{ scale: 1.05 }}
@@ -302,48 +311,32 @@ try {
               <Button
                 type="button"
                 variant="secondary"
-                onClick={() => setIsEditing(false)}
+                onClick={() => nav('/')}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 Cancel
               </Button>
+              </div>
+              <Button onClick={() => nav('/create-listing')}>Create Listing</Button>
+              
             </ButtonGroup>
+            <div style={{display:'flex', alignItems:'centers', justifyContent:'space-between'}}>
+          <p style={{color:'red', cursor:'pointer'}} onClick={handleDelete}>Delete Account</p>
+          <p style={{color:'blue', cursor:'pointer'}}onClick={handleLogout}>Log out</p>
+        </div>
           </Form>
-        ) : (
-          <InfoContainer
-            key="info"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <InfoGroup>
-              <InfoLabel>Name:</InfoLabel>
-              <InfoText>{user.rest.username}</InfoText>
-            </InfoGroup>
 
-            <InfoGroup>
-              <InfoLabel>Email:</InfoLabel>
-              <InfoText>{user.rest.email}</InfoText>
-            </InfoGroup>
-
-            <InfoGroup>
-              <InfoLabel>Bio:</InfoLabel>
-              <InfoText>{user.rest.bio}</InfoText>
-            </InfoGroup>
-            
-
-            <Button
-              onClick={() => setIsEditing(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Edit Profile
-            </Button>
-          </InfoContainer>
-        )}
+          <p 
+          style={{color:'blue', cursor:'pointer'}}
+          onClick={()=>nav('/listing')}
+          >Show listing</p>
+        
+        
+          
       </AnimatePresence>
     </Container>
-)}
+  )
+}
 
 export default Profile
