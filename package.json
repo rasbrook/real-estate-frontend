@@ -19,6 +19,7 @@
     "dotenv": "^16.4.5",
     "firebase": "^11.0.1",
     "framer-motion": "^11.11.9",
+    "http-proxy-middleware": "^3.0.3",
     "leaflet": "^1.9.4",
     "mapbox-gl": "^3.7.0",
     "node-polyfill-webpack-plugin": "^4.0.0",

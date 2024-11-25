@@ -72,7 +72,7 @@ export default function Rent() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`/api/listing/get`, {
+            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
