@@ -11,6 +11,7 @@ export default defineConfig({
       },
     },
   },
+  build: { rollupOptions: { external: ['react', 'react-dom', 'react-spinners'], }, },
   plugins: [
     nodePolyfills({
       // Whether to polyfill specific globals.
