@@ -52,7 +52,7 @@ export const useListingStore=create(
               const add=`${d.display_name}|${d.name}||${d.type}||${d.place_id}||${d.osm_id}||${d.address.suburb}||${d.address.county}||${d.address.state_district}||${d.address.state}||${d.address.country}||${d.address.postcode}||${d.address.country_code}`
              
               
-              const res=await fetch('/api/listing/create',{
+              const res=await fetch('https://estate-backend-1-d4pa.onrender.com/api/listing/create',{
                   method:"POST", 
                   headers:{
                     'Content-Type':'application/json'
