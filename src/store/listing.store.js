@@ -49,7 +49,7 @@ export const useListingStore=create(
             
             if(d){
               console.log(d)
-              const add=`${d.display_name}||${d.name}||${d.type}||${d.place_id}||${d.osm_id}||${d.address.suburb}||${d.address.county}||${d.address.state_district}||${d.address.state}||${d.address.country}||${d.address.postcode}||${d.address.country_code}`
+              const add=`${d.display_name}|${d.name}||${d.type}||${d.place_id}||${d.osm_id}||${d.address.suburb}||${d.address.county}||${d.address.state_district}||${d.address.state}||${d.address.country}||${d.address.postcode}||${d.address.country_code}`
              
               
               const res=await fetch('/api/listing/create',{

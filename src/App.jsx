@@ -16,6 +16,10 @@ import Edit_list from './pages/edit_list'
 import Listpage from './pages/listpage'
 import Searchresult from './pages/searchresult'
 import { useModeState } from './store/mode.store';
+import Sell from './pages/sell'
+import Agents from './pages/Agents.jsx'
+import Rent from './pages/rent'
+
 
 const MainContent = styled.main`
   flex: 1;
@@ -36,11 +40,14 @@ function App() {
   <MainContent>
   <Routes>
     <Route path='/' element={<Home />} />
+    <Route path='/listings/forsell' element={<Sell />} />
+    <Route path='/listings/forrent' element={<Rent />} />
+    <Route path='/find/agent' element={<Agents />} />
+    
     <Route path='/forgot-password' element={<ForgotPassword />} />
    
     <Route path='/sign-in' element={<Signin />} />
     <Route path='/sign-up' element={<SignUp />} />
-    <Route path='/about' element={<About />} />
     <Route path='/log-in' element={<Login/>} />
     <Route element={<PrivateRoute />}>
     <Route path='/profile' element={<Profile />} />

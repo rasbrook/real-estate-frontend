@@ -70,6 +70,9 @@ body{
 
   
 }
+.tooltip{
+  background-color: rgb(95, 255, 87);
+}
 
 
 
@@ -97,7 +100,7 @@ body{
 }
 #slider{
   flex-wrap: wrap;
-  background-color: #7f4343;
+
  
   
 }

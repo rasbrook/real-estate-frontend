@@ -6,6 +6,7 @@ import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import {motion} from 'framer-motion'
 import { app } from '../../firebase';
 import { useModeState } from '../store/mode.store';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -19,7 +20,10 @@ export default function SignUp() {
   
   const [passwordMatch, setPasswordMatch] = useState(false);
   const [passwordError, setPasswordError] = useState('');
-  const [isPhoneValid, setIsPhoneValid] = useState(true)
+  const [showPassword, setShowPassword] = useState(false); 
+    
+    const togglePasswordVisibility = () => { setShowPassword(!showPassword)};
+
   const [error, setError]=useState(null)
   const [success, setSuccess]=useState(false)
   const [loading, setLoading]=useState(false)
@@ -82,7 +86,7 @@ export default function SignUp() {
   const handleSubmit = async(e) => {
     
     e.preventDefault();
-    if (passwordMatch && !passwordError) {
+    if (passwordMatch && passwordError==='') {
      
       await Signup(formData, setLoading, setError, setSuccess)
       console.log(success)
@@ -175,11 +179,11 @@ export default function SignUp() {
              name="phone"
              value={formData.phone}
              onChange={handleChange}
-             required
+             
           />
         </div>
         <div style={divelement}>
-        <label htmlFor="phone">Phone</label>
+        <label htmlFor="email">Email</label>
           <input
             style={inpu}
             type="email"
@@ -192,29 +196,33 @@ export default function SignUp() {
         </div>
         <div style={divelement}>
         <label htmlFor="password">Password</label>
+          <div style={{display:"flex", alignItems:'center'}}>
           <input
             style={inpu}
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             required
-            
           />
-          {passwordError==='' ? <div style={{fontSize:14}}>{passwordError}</div>:''}
+          <span onClick={togglePasswordVisibility}> {showPassword ?  <FaEye />: <FaEyeSlash />} </span>
+          </div>
+          {passwordError!=='' ? <div style={{fontSize:10}}>{passwordError}</div>:''}
         </div>
         <div style={divelement}>
         <label htmlFor="confirmPassword">Confirm Password</label>
-          <input
+          <div style={{display:"flex", alignItems:'center'}}>
+            <input
             style={inpu}
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="confirmPassword"
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
             required
           />
+          <span onClick={togglePasswordVisibility}> {showPassword ? <FaEye />: <FaEyeSlash />} </span></div>
           {passwordMatch !== false && (
             <div match={passwordMatch}>
               {passwordMatch ? 'Passwords match' : 'Passwords do not match'}
@@ -223,8 +231,9 @@ export default function SignUp() {
         </div>
         <motion.button
           type="submit"
+          onClick={()=>handleSubmit()}
           whileTap={{ scale: 0.95 }}
-          disabled={!passwordMatch || !!passwordError|| loading}
+          //disabled={!passwordMatch || !!passwordError|| loading}
           style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode}}
           whileHover={{scale:1.05, backgroundColor:'#59caffe3', cursor:'pointer'}}
           

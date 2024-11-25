@@ -8,6 +8,7 @@ import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import { app } from '../../firebase.js';
 import { motion } from 'framer-motion';
 import { useModeState } from '../store/mode.store.js';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 const Signin = () => {
@@ -20,6 +21,7 @@ const Signin = () => {
   const [error, setError]=useState(null)
   const [success, setSuccess]=useState(null)
   const [loading, setLoading]=useState(false)
+  const [showPassword, setShowPassword] = useState(false); 
   const nav=useNavigate()
   const hdarkmode=useModeState((state) => state.hdarkmode)
   const darkmode=useModeState((state) => state.darkmode)
@@ -53,7 +55,7 @@ const Signin = () => {
 
 
 
-  
+  const togglePasswordVisibility = () => { setShowPassword(!showPassword)};
 
 
   const handleChange = (e) => {
@@ -154,7 +156,7 @@ const Signin = () => {
           <span>or</span>
         
         <div style={divelement}>
-        <label htmlFor="phone">Phone</label>
+        <label htmlFor="phone">Email</label>
           <input
             style={inpu}
             type="email"
@@ -167,9 +169,11 @@ const Signin = () => {
         </div>
         <div style={divelement}>
         <label htmlFor="password">Password</label>
+        <div style={{display:"flex", alignItems:'center'}}>
+        
           <input
             style={inpu}
-            type="password"
+            type={showPassword ? "text" : "password"}
             id="password"
             name="password"
             value={formData.password}
@@ -177,6 +181,8 @@ const Signin = () => {
             required
             
           />
+          <span onClick={togglePasswordVisibility}> {showPassword ?  <FaEye />: <FaEyeSlash />} </span>
+        </div>
           
         </div>
         

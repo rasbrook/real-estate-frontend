@@ -33,20 +33,20 @@ export const useUserStore = create(
           
           if(data.success === false){
             
-            setError(data.message)
+            setError(data.error)
             console.log(data.message)
             setLoading(false)
             return 
           } else {
             set({ user: data })
             setSuccess(true)
-            setError('You are Signed Up')
+           
             setLoading(false)
             console.log('Form submitted:', data);
           }
         } catch (error) {
           setLoading(false)
-          setError(error)
+          setError('Thera has been an error with the server')
         }
       }, 
       Signin: async (signinuser, setLoading, setError, setSuccess) => {

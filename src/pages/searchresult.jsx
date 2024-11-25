@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import Cards from '../components/cards'
+import {motion } from 'framer-motion'
+import Map from '../components/map'
+import Pin from '../components/pin'
+import { PropagateLoader } from 'react-spinners'
 
 
 export default function Searchresult() {
@@ -7,6 +12,16 @@ export default function Searchresult() {
     const [listings, setListing]=useState('')
     const [list, setlist]=useState()
     const [error, setError]=useState()
+    const [screensize, setScreensize]=useState(null)
+    const [w, setW]=useState(null)
+    const [wrapp, setWrapp]=useState(null)
+   const [isbig, setisBig]=useState(true)
+   const [alllat, setLat]=useState(0)
+   const [alllon, setLon]=useState(0)
+   const [center, setCenter]=useState()
+   const [lat, setLatt]=useState(0)
+   const [lon, setLong]=useState(0)
+
     let query=useLocation().search
 
     
@@ -82,11 +97,7 @@ export default function Searchresult() {
         
 
     }, [query])
-    if(listings!==''){listings.map((l)=>{
-        console.log(l)
     
-
-    })}
     console.log(listings)
     console.log(list)
 
@@ -116,6 +127,7 @@ export default function Searchresult() {
 
 
     const handlesubmit=(e)=>{
+      setLoading(true)
       e.preventDefault()
       const urlparam= new URLSearchParams()
       urlparam.set('searchTerm', sidebardata.searchTerm)
@@ -138,15 +150,75 @@ export default function Searchresult() {
    console.log(sidebardata)
 
 
-    if(loading) return <div>Loading...</div>
-    if(error) return <div>{error}</div>
-    const p=query.split('=')
+   
+
+  
+  useEffect(()=>{
+    setLoading(true)
+    
+    setScreensize(window.innerWidth)
+    if(screensize>=1100){
+      setWrapp('wrap')
+      setisBig(true)
+      if(listings.length>0){
+        listings.map((item)=>{setLat(prev=>(parseFloat(prev)+parseFloat(item.Location[0]))),setLon(prev=>(parseFloat(prev)+parseFloat(item.Location[1])))})
+       
+      
+      }
+
+     
+
+     
+      setLoading(false)
+      if(alllat>0){
+        setLatt(alllat/listings.length)
+        setLong(alllon/listings.length)
+        setLoading(false)
+       }
+      
+      return
+        
+    }
+    if(screensize<=1100){
+      setisBig(false)
+      if(listings.length>0){
+        const a =270*listings.length 
+        console.log(a)
+        setW(a)
+        listings.map((item)=>{setLat(prev=>(parseFloat(prev)+parseFloat(item.Location[0]))),setLon(prev=>(parseFloat(prev)+parseFloat(item.Location[1])))})
+
+      }
+
+      
+    }
+   if(alllat>0){
+    setLatt(alllat/listings.length)
+    setLong(alllon/listings.length)
+    setLoading(false)
+   }
+
+  }, [listings, screensize])
+
+
+  console.log(lat, lon)
+
+
+
+
+  
+
+
+
+
+  if(loading) return <PropagateLoader color="#58fcff" size={50} speedMultiplier={0.9} />
+  if(error) return <div>{error}</div>
+  //const p=query.split('=')
 
 
     
   return (
-    <div style={{display:'flex', flexWrap:'wrap'}}>
-      <div>
+    <div style={{display:'flex', overflowX:'hidden', width:'110vw'}}>
+      <div style={{height:'30vh'}}>
         <form onSubmit={handlesubmit}>
           <div>
           <div style={{gap:20}}>
@@ -203,6 +275,8 @@ export default function Searchresult() {
               <option id='sort_order'  value='createdAt_asc'>Oldest</option>
               <option id='sort_order' value='Price_asc' >Price:low to high</option>
               <option id='sort_order' value='Price_desc'>Price:high to low</option>
+              <option id='sort_order' value='Area_asc' >Area:low to high</option>
+              <option id='sort_order' value='Area_desc'>Area:high to low</option>
               
               
 
@@ -219,28 +293,88 @@ export default function Searchresult() {
         </form>
 
       </div>
-      <div>{listings !== '' ? listings.map((l) => (
-        <div key={l._id} onMouseEnter={() => setlist(l._id)} onClick={()=>nav(`/listing/list/${l._id}`)} style={{
-            display: 'flex',
-            height: '10vh', 
-            justifyContent: 'space-between', 
-            width: '50vw',
-            justifySelf: 'center',
-            margin: 20, 
-            padding: 20, 
-            backgroundColor: 'grey', 
-            borderRadius: 10
-        }}>
-          <div style={{display: 'flex'}}>
-            <img style={{width: 50}} src={l.ImageUrls[0]} alt={l.name} />
-            <div>
-              <p>Name: {l.name}</p>
-            </div>
-          </div>
-         
+
+      {isbig ? <div style={{display:'flex', flexWrap:'wrap'}}>
+      <div style={{width:'100%', height:'50vh',  border:'none',marginBottom:50, minWidth:600, borderRadius:20, marginLeft:10}}>
+      {listings.length!==0 && lat!==0 && lon!==0 ? <Map maxZoom={25}  zoom={12} center={[lat, lon]||[9.033468114828745, 38.76315561094813]} pin={listings!=='' ?listings.map((items)=><Pin id={items._id} 
+                                                                                              idset={()=>setlist(items._id)} 
+                                                                                              detail={()=>nav(`/listing/list/${list}`)}
+                                                                                              image={items.ImageUrls[0]} 
+                                                                                              price={items.Price} 
+                                                                                              isSell={items.isSell} 
+                                                                                              position={items.Location}
+                                                                                              Area={items.Area}
+                                                                                              NoofFloor={items.NumberofFloor}
+                                                                                              
+                                                                                              />):''}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff" size={50} speedMultiplier={0.9} />:<h1>No Result</h1>}</div>}
+
         </div>
-      )) : <h1>No result found</h1>}
+      <motion.div 
+      style={{ height:'max-containt',display: 'flex', flexWrap:'wrap', gap: '20px', cursor: 'grab', position:'relative', left:'-11vw'}} 
+      drag="x" dragConstraints={{ left:-w , right: 0 }} >
+        
+        
+       {listings!=='' ? listings.map((l)=>
+        (<Cards idset={()=>setlist(l._id)} 
+        county={l.address.split('||')[0].split(',')[1]} 
+         state={l.address.split('||')[0].split(',')[2]} 
+         country={l.address.split('||')[0].split(',')[4]}
+         cardimage={l.ImageUrls[0]} 
+         Price={l.Price} 
+         bed={l.bedroom} 
+         bath={l.bathroom} 
+         area={l.Area} 
+         isSell={l.isSell} 
+         agentname={l.AgentName}
+         companyname={l.CompanyName}
+         owner={false}
+         detail={()=>nav(`/listing/list/${list}`)}
+         />)
+
+       ):<h1>No home found</h1>}
+      </motion.div>
+        
+     
+      </div>:<div style={{display:'flex', flexWrap:'wrap'}}>
+      <div style={{width:'50%', height:'50vh',  border:'none',borderRadius:10, maxWidth:700, minWidth:400,overflow:'hidden', zIndex:0, marginLeft:10}}>
+      {listings.length!==0 && lat!==0 && lon!==0 ? <Map  zoom={13} center={[lat, lon]||[9.033468114828745, 38.76315561094813]} pin={listings!=='' ?listings.map((items)=><Pin id={items._id} 
+                                                                                              idset={()=>setlist(items._id)} 
+                                                                                              detail={()=>nav(`/listing/list/${list}`)}
+                                                                                              image={items.ImageUrls[0]} 
+                                                                                              price={items.Price} 
+                                                                                              isSell={items.isSell} 
+                                                                                              position={items.Location}/>):[8,36]}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  size={30}  />:<h1>No Result</h1>}</div>}
+
+        </div>
+      <div style={{width: '100vw', padding: '10px' , maxWidth:1500}}>
+      <motion.div 
+     style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', position:"relative", left:-150}} drag="x" dragConstraints={{ left:-w , right: 0 }} >
+        
+        
+       {listings!=='' ? listings.map((l)=>
+        (<Cards idset={()=>setlist(l._id)} 
+        county={l.address.split('||')[0].split(',')[1]} 
+         state={l.address.split('||')[0].split(',')[2]} 
+         country={l.address.split('||')[0].split(',')[4]}
+         cardimage={l.ImageUrls[0]} 
+         Price={l.Price} 
+         bed={l.bedroom} 
+         bath={l.bathroom} 
+         area={l.Area} 
+         isSell={l.isSell} 
+         agentname={l.AgentName}
+         companyname={l.CompanyName}
+         owner={false}
+         detail={()=>nav(`/listing/list/${list}`)}
+         />)
+
+       ):<h1>No home found</h1>}
+      </motion.div>
       </div>
+        
+     
+      </div>}
+      
     </div>
     
        )

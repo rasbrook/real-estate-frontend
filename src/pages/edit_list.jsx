@@ -23,7 +23,7 @@ export default function Edit_list() {
   const [list , setList]=useState()
   const [location, setLocation] = useState({ lat: null, lon: null });
 
- 
+  const [picno, setPicno]=useState(null)
   const hdarkmode=useModeState((state) => state.hdarkmode)
   const darkmode=useModeState((state) => state.darkmode)
   const backdarkmode=useModeState((state) => state.backdarkmode)
@@ -59,8 +59,8 @@ export default function Edit_list() {
       Location:[0,0],
       Area:1,
       NumberofFloor:0,
-      AgentName:'',
-      CompanyName:'',
+      AgentName:'Owner',
+      CompanyName:'Solo',
       useRef:user.rest._id
 
   })
@@ -155,9 +155,10 @@ export default function Edit_list() {
 
     const handleImageUploadtofirebase =(e)=>{
       setUploading(true)
-      //e.preventDefault();
+      setPicno(parseInt(formdata.NumberofFloor)+parseInt(formdata.bathroom)+parseInt(formdata.bedroom)+3)
+      e.preventDefault();
       console.log(file)
-      if(file.length>0 && file.length<7){
+      if(file.length>0 && file.length<picno){
           const promises=[]
           for(let i=0; i<file.length; i++){
               promises.push(storeimages(file[i]))
@@ -169,9 +170,9 @@ export default function Edit_list() {
                 }))
           }).then(()=>setUploading(false))
       } 
-      else if(file.length>7){
+      else if(file.length>picno){
           setUploading(false)
-          setError('You can only upload maximum of 6 images')
+          setError(`You can only upload maximum of ${picno} images`)
       }  
       else{
         setUploading(false)
@@ -225,7 +226,7 @@ export default function Edit_list() {
           style={inputStyle}
           type="text"
           required
-          placeholder="Name"
+          placeholder="Home Name"
           value={formdata.name}
           onChange={(e) => setFormData({...formdata, name: e.target.value})}
         />
@@ -249,8 +250,6 @@ export default function Edit_list() {
           style={inputStyle}
           type="text"
           placeholder="Agent Name"
-          required
-          
           value={formdata.AgentName}
           onChange={(e) => setFormData({...formdata, AgentName: e.target.value})}
         />
@@ -262,8 +261,6 @@ export default function Edit_list() {
           style={inputStyle}
           type="text"
           placeholder="Company Name/ optional"
-          required
-          
           value={formdata.CompanyName}
           onChange={(e) => setFormData({...formdata, CompanyName: e.target.value})}
         />
@@ -358,7 +355,7 @@ export default function Edit_list() {
         
 
         <motion.div >
-          <p>Images: The First image will be the cover (max 6)</p>
+          <p>Images: The First image will be the cover (max {picno})</p>
           <motion.div>
             <motion.input
            

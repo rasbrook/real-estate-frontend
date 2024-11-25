@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react'
-import styled from 'styled-components'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useUserStore } from '../store/user.store'
 import { storage } from '../../firebase.js'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
@@ -8,117 +7,36 @@ import { useNavigate } from 'react-router-dom'
 import { v4 } from 'uuid'
 import { useModeState } from '../store/mode.store.js'
 
-const Container = styled(motion.div)`
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-`
 
-const ProfileHeader = styled.div`
-  text-align: center;
-  margin-bottom: 2rem;
-`
-
-const Avatar = styled(motion.img)`
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #f0f0f0;
-`
-
-const Form = styled(motion.form)`
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-`
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-`
-
-const Label = styled.label`
-  font-weight: 600;
-  color: #333;
-`
-
-const Input = styled.input`
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  
-  &:disabled {
-    background-color: #f5f5f5;
-    cursor: not-allowed;
-  }
-`
-
-const TextArea = styled.textarea`
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  resize: vertical;
-`
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`
-
-const Button = styled(motion.button)`
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-  background-color: ${props => props.variant === 'secondary' ? '#6c757d' : '#007bff'};
-  color: white;
-`
-
-const InfoContainer = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`
-
-const InfoGroup = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 0.25rem;
-`
-
-const InfoLabel = styled.strong`
-  color: #555;
-`
-
-const InfoText = styled.p`
-  margin: 0;
-  color: #333;
-`
-
-const ErrorMessage = styled(motion.div)`
-  color: #dc3545;
-  padding: 1rem;
-  background-color: #f8d7da;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-`
 
 const Profile = () => {
   const { UpdateuserInfo } = useUserStore()
   
   const user = useUserStore((state) => state.user)
   const { LogOut } =useUserStore()
+  const hdarkmode=useModeState((state) => state.hdarkmode)
   const darkmode=useModeState((state) => state.darkmode)
   const backdarkmode=useModeState((state) => state.backdarkmode)
+  const containdarkmode=useModeState((state) => state.containdarkmode)
+  const buttdarkmode=useModeState((state) => state.buttdarkmode)
+  const divelement={
+    height:50, 
+    borderRadius:10, 
+    alignSelf:'center', 
+    justifySelf:'center', 
+    gap:'5vw', 
+    alignItems:'center', 
+    width:'30vw',
+    minWidth:250,
+    border:'none',
+    margin:'3vh',
+
+    
+    
+  
+    }
+  
+  const inpu={color:darkmode, backgroundColor:backdarkmode,width:'100%', height:30, borderRadius:8, border:'none'}
 
   
   
@@ -210,21 +128,13 @@ const Profile = () => {
         console.log("Confirmed!"); } 
     else { console.log("Cancelled!"); } };
 
-  if (loading) return <Container>Loading...</Container>
-  if (!user) return <Container>Please log in to view your profile</Container>
-  
-  
+  if (loading) return <div>Loading...</div>
+  if (!user) return <div>Please log in to view your profile</div>
 
-  return (
-    <Container style={{color:darkmode||'#00000', backgroundColor:backdarkmode||'#11111'}}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <h1>Profile</h1>
-      
-      <ProfileHeader >
-        <input 
+  return (<div style={{width:'60%',backgroundColor:containdarkmode, justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
+    <h1>Profile</h1>
+    <div>
+    <input 
           onChange={handleFileChange}
           name='file' 
           id='file'  
@@ -233,72 +143,65 @@ const Profile = () => {
           hidden  
           accept='image/*'
         />
-        <Avatar
+        <img
+          style={{width:80, height:80, borderRadius:40}}
           onClick={()=>fileRef.current.click()}
           src={profileData.avator || user.rest.avator} 
           alt="Profile"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         />
-      </ProfileHeader>
-
-      <AnimatePresence mode="wait">
+    </div>
+    <motion.form>
+      <motion.div style={divelement}>
+        <label>UserName</label>
+        <motion.input
+        style={inpu}
+         type="text"
+         name="username"
+         id='username'
+         value={profileData.username}
+         onChange={handleInputChange} 
+        />
+      </motion.div>
+      <motion.div style={divelement}>
+        <label>Email</label>
+        <motion.input
+        style={inpu}
+        type="email"
+        name="email"
+        id='email'
+        value={profileData.email}
+        onChange={handleInputChange}
+        />
+      </motion.div>
+      <motion.div style={divelement}>
+        <label>Phone No</label>
+        <motion.input
+        style={inpu}
+        type="tel"
+        name="phone"
+        id='phone'
+        value={profileData.phone}
+        onChange={handleInputChange}
+        />
+      </motion.div>
+      <motion.div style={divelement}>
+        <label>Bio</label>
+        <motion.input
+        style={{color:darkmode, backgroundColor:backdarkmode,width:'100%', height:'5vh', borderRadius:8, border:'none'}}
+        id='bio'
+        name="bio"
+        type='text'
+        aria-rowcount={10}
+        value={profileData.bio}
+        onChange={handleInputChange}
         
-          <Form
-            key="form"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-            onSubmit={handleSubmit}
-          >
-            <FormGroup>
-              <Label>UserName:</Label>
-              <Input
-                type="text"
-                name="username"
-                id='username'
-                value={profileData.username}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Email:</Label>
-              <Input
-                type="email"
-                name="email"
-                id='email'
-                value={profileData.email}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Phone Number:</Label>
-              <Input
-                type="tel"
-                name="phone"
-                id='phone'
-                value={profileData.phone}
-                onChange={handleInputChange}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Label>Bio:</Label>
-              <TextArea
-                id='bio'
-                name="bio"
-                value={profileData.bio}
-                onChange={handleInputChange}
-                rows="4"
-              />
-            </FormGroup>
-
-            <ButtonGroup style={{justifyContent:'space-between'}}>
-              <div >
-              <Button
-          
+        />
+      </motion.div>
+      <div >
+      <motion.button
+                style={{width:'8vw', minWidth:150, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode, marginLeft:15, marginRight:15, margin:10}}
                 type="submit"
                 disabled={loading}
                 whileHover={{ scale: 1.05 }}
@@ -306,9 +209,9 @@ const Profile = () => {
                 onClick={handleSubmit}
               >
                 {loading ? 'Saving...' : 'Save Changes'}
-              </Button>
-              
-              <Button
+              </motion.button>
+      <motion.button
+              style={{width:'8vw', minWidth:150, height:35, backgroundColor:'#ff4848f1', borderRadius:10, border:'none', color:buttdarkmode, marginLeft:15, marginRight:15, margin:10}}
                 type="button"
                 variant="secondary"
                 onClick={() => nav('/')}
@@ -316,27 +219,75 @@ const Profile = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 Cancel
-              </Button>
-              </div>
-              <Button onClick={() => nav('/create-listing')}>Create Listing</Button>
-              
-            </ButtonGroup>
-            <div style={{display:'flex', alignItems:'centers', justifyContent:'space-between'}}>
-          <p style={{color:'red', cursor:'pointer'}} onClick={handleDelete}>Delete Account</p>
-          <p style={{color:'blue', cursor:'pointer'}}onClick={handleLogout}>Log out</p>
-        </div>
-          </Form>
+      </motion.button>
+      </div>
+    </motion.form>
+    <motion.button
+    style={{width:'8vw', 
+            minWidth:150, 
+            height:35, 
+            backgroundColor:'#59caff', 
+            borderRadius:10, 
+            border:'none', 
+            color:buttdarkmode, 
+            marginLeft:15, 
+            marginRight:15, 
+            margin:10}} 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+    onClick={() => nav('/create-listing')}>Create Listing +</motion.button>
 
-          <p 
-          style={{color:'blue', cursor:'pointer'}}
-          onClick={()=>nav('/listing')}
-          >Show listing</p>
-        
-        
+
+<div style={{display:'flex', alignItems:'centers', justifySelf:'center',justifyContent:'space-between'}}>
+          <motion.p
+          whileHover={{width:'8vw', 
+            minWidth:150, 
           
-      </AnimatePresence>
-    </Container>
-  )
-}
+            backgroundColor:'#ff4848f1', 
+            borderRadius:10, 
+            border:'none', 
+            color:buttdarkmode, 
+            scale:1.05,
+            padding:10
 
+            }}
+          style={{width:'8vw',padding:10, 
+            minWidth:150, color:'#ff4848f1', cursor:'pointer', marginLeft:'8vw', marginRight:'8vw'}} 
+          onClick={handleDelete}>Delete Account</motion.p>
+          <motion.p 
+          whileHover={{width:'8vw', 
+            minWidth:150,
+            backgroundColor:'#2796ff', 
+            borderRadius:10, 
+            border:'none', 
+            color:buttdarkmode, 
+            scale:1.05,
+            padding:10
+
+            }}
+          style={{width:'8vw',padding:10, 
+            minWidth:150, color:'#2796ff', cursor:'pointer', marginLeft:'8vw', marginRight:'8vw'}}
+          onClick={handleLogout}>Log out</motion.p>
+        </div>
+        
+
+          <motion.p
+          whileHover={{width:'8vw', 
+            minWidth:150,
+            backgroundColor:'#2796ff', 
+            borderRadius:10, 
+            border:'none', 
+            color:buttdarkmode, 
+            scale:1.05,
+            padding:10
+
+            }}
+          style={{color:'#2796ff', cursor:'pointer',width:'10vw', justifySelf:'center',minWidth:150,}}
+          onClick={()=>nav('/listing')}
+          >Show My Listing</motion.p>
+
+
+  </div>)
+  
+}
 export default Profile

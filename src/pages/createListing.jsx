@@ -18,11 +18,13 @@ export default function CreateListing() {
     const [uploading, setUploading]=useState(false)
     const [error, setError]=useState(false)
     const {Create_Listing} =useListingStore()
+    const [picno, setPicno]=useState(0)
     const hdarkmode=useModeState((state) => state.hdarkmode)
     const darkmode=useModeState((state) => state.darkmode)
     const backdarkmode=useModeState((state) => state.backdarkmode)
     const containdarkmode=useModeState((state) => state.containdarkmode)
     const buttdarkmode=useModeState((state) => state.buttdarkmode)
+    
 
 
 
@@ -33,155 +35,31 @@ export default function CreateListing() {
 
 
 
-    
-    const styles = {
-        container: {
-          maxWidth: '56rem',
-          margin: '0 auto',
-          padding: '1.5rem',
-        },
-        heading: {
-          fontSize: '1.875rem',
-          fontWeight: 'bold',
-          textAlign: 'center',
-          marginBottom: '2rem',
-        },
-        form: {
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1.5rem',
-        },
-        inputGroup: {
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-        },
-        input: {
-          width: '100%',
-          padding: '0.75rem',
-          border: '1px solid #ccc',
-          borderRadius: '0.25rem',
-        },
-        checkboxGroup: {
-          display: 'flex',
-          gap: '1rem',
-          flexWrap: 'wrap',
-        },
-        checkboxLabel: {
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-        },
-        numberInput: {
-          width: '5rem',
-          padding: '0.75rem',
-          border: '1px solid #ccc',
-          borderRadius: '0.25rem',
-        },
-        label: {
-          marginLeft: '0.5rem',
-        },
-        priceInput: {
-          width: '8rem',
-          padding: '0.75rem',
-          border: '1px solid #ccc',
-          borderRadius: '0.25rem',
-        },
-        imageUploadSection: {
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.5rem',
-        },
-        fileInput: {
-          border: '1px solid #ccc',
-          padding: '0.5rem',
-          borderRadius: '0.25rem',
-        },
-        uploadButton: {
-          marginLeft: '0.5rem',
-          padding: '0.5rem 1rem',
-          backgroundColor: '#16a34a',
-          color: 'white',
-          borderRadius: '0.25rem',
-          border: 'none',
-          cursor: 'pointer',
-        },
-        submitButton: {
-          width: '100%',
-          padding: '0.75rem',
-          backgroundColor: '#334155',
-          color: 'white',
-          borderRadius: '0.25rem',
-          border: 'none',
-          cursor: 'pointer',
-        },
-        toggleSwitch: {
-            position: 'relative',
-            display: 'inline-block',
-            width: '60px',
-            height: '34px',
-          },
-          toggleSlider: {
-            position: 'absolute',
-            cursor: 'pointer',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: '#ccc',
-            transition: '0.4s',
-            borderRadius: '34px',
-            '&:before': {
-              position: 'absolute',
-              content: '""',
-              height: '26px',
-              width: '26px',
-              left: '4px',
-              bottom: '4px',
-              backgroundColor: 'white',
-              transition: '0.4s',
-              borderRadius: '50%',
-            }
-          },
-          toggleContainer: {
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1rem',
-          },
-          toggleLabel: {
-            fontSize: '1rem',
-            color: '#666',
-          }
-      };
+  
     const [file, setFile]=useState([])
     const [formdata, setFormData]=useState({
-      name: '',
-      description: '',
+      name: null,
+      description: null,
       address: '',
       isRent: false,
       isSell: true,
       parking: false,
       furnished: false,
       offer: false,
-      bedroom: 1,
-      bathroom: 1,
-      Price: 0,
+      bedroom: null,
+      bathroom: null,
+      Price: null,
       ImageUrls:[],
       Location:[0,0],
-      Area:1,
+      Area:null,
       NumberofFloor:0,
-      AgentName:'',
-      CompanyName:'',
+      AgentName:'Owner',
+      CompanyName:'solo',
       useRef:user.rest._id
 
   })
     
 
-    const fadeIn = {
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-        transition: { duration: 0.5 }
-      };
     
 
      
@@ -281,8 +159,9 @@ export default function CreateListing() {
       const handleImageUploadtofirebase =(e)=>{
         setUploading(true)
         //e.preventDefault();
+        setPicno(parseInt(formdata.NumberofFloor)+parseInt(formdata.bathroom)+parseInt(formdata.bedroom)+3)
         console.log(file)
-        if(file.length>0 && file.length<7){
+        if(file.length>0 && file.length<picno || file.length<7){
             const promises=[]
             for(let i=0; i<file.length; i++){
                 promises.push(storeimages(file[i]))
@@ -294,9 +173,9 @@ export default function CreateListing() {
                   }))
             }).then(()=>setUploading(false))
         } 
-        else if(file.length>7){
+        else if(file.length>picno){
             setUploading(false)
-            setError('You can only upload maximum of 6 images')
+            setError(`You can only upload maximum of ${picno} images`)
         }  
         else{
           setUploading(false)
@@ -350,7 +229,7 @@ export default function CreateListing() {
           style={inputStyle}
           type="text"
           required
-          placeholder="Name"
+          placeholder="Home Name"
           value={formdata.name}
           onChange={(e) => setFormData({...formdata, name: e.target.value})}
         />
@@ -361,6 +240,7 @@ export default function CreateListing() {
         <motion.textarea
           style={{width:'30vw', height:'30vh', borderRadius:10, border:'none', position:'relative',right:'6vw', minWidth:300, maxHeight:350, margin:30, color:darkmode, backgroundColor:backdarkmode}}
           placeholder="Description"
+          required
           value={formdata.description}
           onChange={(e) => setFormData({...formdata, description: e.target.value})}
         />
@@ -373,8 +253,8 @@ export default function CreateListing() {
         <motion.input
           style={inputStyle}
           type="text"
-          placeholder="Agent Name"
-          required
+          placeholder="Agent Name/Optional"
+          
           
           value={formdata.AgentName}
           onChange={(e) => setFormData({...formdata, AgentName: e.target.value})}
@@ -386,8 +266,8 @@ export default function CreateListing() {
         <motion.input
           style={inputStyle}
           type="text"
-          placeholder="Company Name/ optional"
-          required
+          placeholder="Company Name/Optional"
+          
           
           value={formdata.CompanyName}
           onChange={(e) => setFormData({...formdata, CompanyName: e.target.value})}
@@ -483,7 +363,7 @@ export default function CreateListing() {
         
 
         <motion.div >
-          <p>Images: The First image will be the cover (max 6)</p>
+          <p>Images: The First image will be the cover (max {picno})</p>
           <motion.div>
             <motion.input
            
@@ -518,7 +398,7 @@ export default function CreateListing() {
        style={{width:'40vw', height:40, backgroundColor:buttdarkmode, borderRadius:10, border:'none'}}
        whileHover={{scale:1.05, color:buttdarkmode, backgroundColor:backdarkmode}}
         
-       
+       onClick={handleSubmit}
         type="submit"
       >
         {loading?'Creating Listing':'CREATE LISTING'}

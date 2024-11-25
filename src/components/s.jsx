@@ -1,3 +1,331 @@
+{data && !loading? 
+      
+       
+          
+  <Swiper navigation>
+    {
+      data.ImageUrls.map((url)=>
+        (<SwiperSlide key={url}>
+          <div style={{
+           backgroundImage: `url("${url}")`,  
+           backgroundRepeat: 'no-repeat',
+           backgroundSize: "cover",
+           backgroundPosition: 'center',    
+           height: "80vh", 
+           width:"100vw",
+           minHeight:600,
+           display: "block",
+          
+            
+            
+          }}>
+          </div>
+          
+
+          
+        </SwiperSlide>)
+      )
+    }
+    <div style={{width:'100vw'}}>
+    <button style={{width:100, height:40, borderRadius:10, display:'flex', textAlign:'center', padding:10, paddingLeft:25 }}>{data.isRent?"For Rent":"For Sell"}</button>
+<h1 style={{textAlign:'center'}}>{data.name}</h1>
+<h1 style={{maxWidth:200,  textAlign:'justify'}}>Price:{data.isRent? `${data.Price}Birr /month`:`ETB${data.Price}`}</h1>
+<p style={{textAlign:'conster', margin:0}}>description:{data.description}</p>
+<ul style={{display:'flex', flexWrap:'wrap', gap:'2vw'}}>
+  <li style={{display:'flex', justifyItems:'center', textAlign:'center'}}><FaBed style={{fontSize:30,color:'green',marginRight:10}} />{data.bedroom} Beds</li>
+  <li style={{display:'flex', justifyItems:'center'}}><FaBath style={{fontSize:30,color:'green',marginRight:10}} />{data.bedroom} Bathroom</li>
+  
+</ul>
+
+
+{!contact ? '':<Constact listing={data} />}
+{data && user &&  data.useRef!==user.rest._id && !contact ?  <button onClick={()=>{setContact(true)}}>Constact Owner</button>:null}
+
+
+</div>
+
+  </Swiper>
+  
+
+
+
+
+
+:''
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useState, useRef } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useUserStore } from '../store/user.store'
+import { storage } from '../../firebase.js'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { useNavigate } from 'react-router-dom'
+import { v4 } from 'uuid'
+import { useModeState } from '../store/mode.store.js'
+
+
+
+const Profile = () => {
+  const { UpdateuserInfo } = useUserStore()
+  
+  const user = useUserStore((state) => state.user)
+  const { LogOut } =useUserStore()
+  const darkmode=useModeState((state) => state.darkmode)
+  const backdarkmode=useModeState((state) => state.backdarkmode)
+
+  
+  
+  const [isEditing, setIsEditing] = useState(false)
+  const [profileData, setProfileData] = useState({
+    username: user?.rest?.username || '',
+    email: user?.rest?.email || '',
+    phone: user?.rest?.phone || null, 
+    bio: user?.rest?.bio || '',
+    avator: user?.rest?.avator || ''
+  })
+  
+  const [image, setImage] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+
+  const [sure, setSure]=useState(false)
+  const nav=useNavigate()
+  const {DeleteUser}=useUserStore()
+  
+  const fileRef = useRef(null)
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0]
+    if (file) {
+      setImage(file)
+      try {
+        setLoading(true)
+        const imageRef = ref(storage, `Profile/${file.name + v4()}`)
+        await uploadBytes(imageRef, file)
+        const url = await getDownloadURL(imageRef)
+        
+        setProfileData(prev => ({
+          ...prev,
+          avator: url
+        }))
+        setLoading(false)
+      } catch (err) {
+        setError('Error uploading profile picture: ' + err.message)
+        setLoading(false)
+      }
+    }
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setProfileData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try {
+      setLoading(true)
+      await UpdateuserInfo(profileData, setError, setLoading, user.rest._id)
+      setIsEditing(false)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+    {error? alert(error):alert('Update successfully')}
+  }
+  const handleLogout=async(e)=>{
+    e.preventDefault() 
+   try {
+      setLoading(true)
+      console.log('start')
+    
+    await LogOut(setLoading, setError)
+   } catch (error) {
+    setError(error)
+
+    
+   }
+   finally {
+    setLoading(false)
+  }
+   
+  }
+
+
+  
+  const handleDelete = async() => { 
+    if (window.confirm("Are you sure you want to proceed?")) {
+        await DeleteUser(user,setError, setLoading,  user.rest._id)
+        console.log("Confirmed!"); } 
+    else { console.log("Cancelled!"); } };
+
+  if (loading) return <Container>Loading...</Container>
+  if (!user) return <Container>Please log in to view your profile</Container>
+  
+  
+
+  return (
+    <Container style={{color:darkmode||'#00000', backgroundColor:backdarkmode||'#11111'}}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h1>Profile</h1>
+      
+      <ProfileHeader >
+        <input 
+          onChange={handleFileChange}
+          name='file' 
+          id='file'  
+          type='file'  
+          ref={fileRef}  
+          hidden  
+          accept='image/*'
+        />
+        <Avatar
+          onClick={()=>fileRef.current.click()}
+          src={profileData.avator || user.rest.avator} 
+          alt="Profile"
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: 0.2 }}
+        />
+      </ProfileHeader>
+
+      <AnimatePresence mode="wait">
+        
+          <Form
+            key="form"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+            onSubmit={handleSubmit}
+          >
+            <FormGroup>
+              <Label>UserName:</Label>
+              <Input
+                type="text"
+                name="username"
+                id='username'
+                value={profileData.username}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label>Email:</Label>
+              <Input
+                type="email"
+                name="email"
+                id='email'
+                value={profileData.email}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label>Phone Number:</Label>
+              <Input
+                type="tel"
+                name="phone"
+                id='phone'
+                value={profileData.phone}
+                onChange={handleInputChange}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <Label>Bio:</Label>
+              <TextArea
+                id='bio'
+                name="bio"
+                value={profileData.bio}
+                onChange={handleInputChange}
+                rows="4"
+              />
+            </FormGroup>
+
+            <ButtonGroup style={{justifyContent:'space-between'}}>
+              <div >
+              <Button
+          
+                type="submit"
+                disabled={loading}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleSubmit}
+              >
+                {loading ? 'Saving...' : 'Save Changes'}
+              </Button>
+              
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => nav('/')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Cancel
+              </Button>
+              </div>
+              <Button onClick={() => nav('/create-listing')}>Create Listing</Button>
+              
+            </ButtonGroup>
+            <div style={{display:'flex', alignItems:'centers', justifyContent:'space-between'}}>
+          <p style={{color:'red', cursor:'pointer'}} onClick={handleDelete}>Delete Account</p>
+          <p style={{color:'blue', cursor:'pointer'}}onClick={handleLogout}>Log out</p>
+        </div>
+          </Form>
+
+          <p 
+          style={{color:'blue', cursor:'pointer'}}
+          onClick={()=>nav('/listing')}
+          >Show listing</p>
+        
+        
+          
+      </AnimatePresence>
+    </Container>
+  )
+}
+
+export default Profile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
