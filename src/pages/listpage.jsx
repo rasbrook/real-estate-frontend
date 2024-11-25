@@ -7,7 +7,6 @@ import Constact from '../components/constact'
 import {motion} from 'framer-motion'
 import Map from '../components/map'
 import Pin from '../components/pin'
-import ClipLoader from "react-spinners/ClipLoader";
 import { PropagateLoader } from 'react-spinners'
 
 
