@@ -3,7 +3,11 @@ import { Marker, Popup, Tooltip } from 'react-leaflet'
 import {color, motion } from 'framer-motion'
 import{ FaBath, FaBed, FaBuilding} from 'react-icons/fa'
 import { AiOutlineAreaChart } from 'react-icons/ai'
-
+import L from 'leaflet'; 
+import 'leaflet/dist/leaflet.css';
+import loca from '../assets/location.png'
+const customMarker = L.icon({ iconUrl: loca, 
+  iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41],})
 
 export default function Pin(props) {
   
@@ -18,7 +22,7 @@ export default function Pin(props) {
         { if (number >= scales[i].value) 
           { return (number / scales[i].value).toFixed(1) + '' + scales[i].suffix; } } return number.toString(); }
   return (
-    <Marker key={props.id} position={props.position}>
+    <Marker key={props.id} position={props.position} >
       <Tooltip className='tooltip' onClick={props.detail}  whileHover={{cursor:'pointer'}}   direction="top" offset={[0, 0]} opacity={1} permanent> 
         <span >{numberToStringName(props.price)}</span> 
         </Tooltip>
