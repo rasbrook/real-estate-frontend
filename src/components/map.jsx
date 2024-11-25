@@ -11,7 +11,7 @@ export default function Map(props) {
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
    {props.pin}
-    
+    <Marker/>
   </MapContainer>
   )
 }
