@@ -90,7 +90,7 @@ export default function Sell() {
     }
     
   }
-  console.log(lat, lon)
+  //console.log(lat, lon)
 
 
 

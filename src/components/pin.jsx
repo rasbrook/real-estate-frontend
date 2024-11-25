@@ -4,7 +4,9 @@ import {color, motion } from 'framer-motion'
 import{ FaBath, FaBed, FaBuilding} from 'react-icons/fa'
 import { AiOutlineAreaChart } from 'react-icons/ai'
 
+
 export default function Pin(props) {
+  
   const iconsstyle={fontSize:10,color:"#009fbe"}
   function numberToStringName(number) { 
     const scales = [ 
