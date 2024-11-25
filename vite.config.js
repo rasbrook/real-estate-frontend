@@ -1,30 +1,33 @@
-
-import { defineConfig } from 'vite'
-import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 export default defineConfig({
-  server:{
-    proxy:{
-      '/api':{
-        target:"'https://estate-backend-1-d4pa.onrender.com'",
-        secure:false
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://estate-backend-1-d4pa.onrender.com',
+        changeOrigin: true,
+        secure: false, // Set to true if your backend is using HTTPS
+        rewrite: (path) => path.replace(/^\/api/, ''), // Optional: if you need to rewrite the path
       },
     },
   },
   plugins: [
+    react(),
     nodePolyfills({
-      // Whether to polyfill specific globals.
       globals: {
         Buffer: true,
         global: true,
         process: true,
       },
-      // Whether to polyfill `node:` protocol imports.
       protocolImports: true,
     }),
   ],
-})
-
-
-// https://vitejs.dev/config/
-
+  build: {
+    rollupOptions: {
+      // Externalize dependencies to improve build performance
+      external: ['react', 'react-dom'],
+    },
+  },
+});
