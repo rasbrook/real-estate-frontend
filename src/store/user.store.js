@@ -10,11 +10,15 @@ import { setLogLevel } from 'firebase/app'
 
 export const useUserStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       _hasHydrated: false,
       user: null,
+      token:null,
       setUser: (user) => set({user}),
+      setToken: (token) => set({token}),
       Signup: async (newUser, setLoading, setError, setSuccess) => {
+        const {user, token}=get()
+
         try {
           setLoading(true)
           const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/sign-up',
@@ -52,6 +56,16 @@ export const useUserStore = create(
       Signin: async (signinuser, setLoading, setError, setSuccess) => {
         setLoading(true)
         console.log(document.cookie)
+        const {user, token}=get()
+        const cookieName = 'access_token'; 
+        const cookies = document.cookie.split('; '); 
+        let jwtToken = ''; 
+        for (let i = 0; i < cookies.length; i++) 
+          { const cookie = cookies[i].split('='); 
+            if (cookie[0] === cookieName) 
+              { jwtToken = cookie[1]; break; } }
+
+        console.log(jwtToken)
 
         try {
           const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/sign-in', {
@@ -69,6 +83,7 @@ export const useUserStore = create(
           setLoading(false)
           if(data.success === true){
             set({ user: data }) // Update the user in the store
+           
             setSuccess(true)
             console.log('Signed in successfully:', signinuser)
             return true
@@ -148,6 +163,15 @@ export const useUserStore = create(
         }
       },
       UpdateuserInfo:async(update, setError, setLoading, id)=>{
+        const cookieName = 'access_token'; 
+        const cookies = document.cookie.split('; '); 
+        let jwtToken = ''; 
+        for (let i = 0; i < cookies.length; i++) 
+          { const cookie = cookies[i].split('='); 
+            if (cookie[0] === cookieName) 
+              { jwtToken = cookie[1]; break; } }
+
+        console.log(jwtToken)
         try {
           setLoading(true)
           const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/update/${id}`,

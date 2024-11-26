@@ -66,7 +66,8 @@ export default function Listing() {
       const getuser=async()=>{
         try {
           setLoading(true)
-        const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/userlisting/${user.rest._id}`)
+        const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/userlisting/${user.rest._id}`, {
+           credentials: 'include'})
         const d=await res.json()
         setData(d)
         if (d.success===false){

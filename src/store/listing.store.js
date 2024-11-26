@@ -7,18 +7,33 @@ import { useState } from 'react';
 
 export const useListingStore=create(
     persist(
-        (set)=>({
+        (set, get)=>({
             _hasHydrated: true,
             listing: null,
             List:null,
+            token:null,
+            setToken: (token) => set({token}),
             setList:(List)=>set(List),
             setListing:(listing)=>set(listing),
         
 
         Create_Listing: async(list, setLoading, setError)=>{
+          const {user, token}=get()
             console.log('listing')
             console.log(list.Location)
             setLoading(true)
+            const cookieName = 'access_token'; 
+            const cookies = document.cookie.split('; '); 
+            let jwtToken = ''; 
+            for (let i = 0; i < cookies.length; i++) 
+              { const cookie = cookies[i].split('='); 
+                if (cookie[0] === cookieName) 
+                  { jwtToken = cookie[1]; break; } }
+
+            if(jwtToken!==''){
+              set({token:jwtToken})
+              
+            }
             
            
             
@@ -32,7 +47,7 @@ export const useListingStore=create(
                             headers:{
                                 'Content-Type':'application/json',
                                 
-                              }, credentials: 'include'}); 
+                              }}); 
                               
                             const da = await response.json();
                           
@@ -58,8 +73,9 @@ export const useListingStore=create(
                   headers:{
                     'Content-Type':'application/json',
                     
+                    
                   }, credentials: 'include',
-                  body:JSON.stringify({...list, address:add||list.address})
+                  body:JSON.stringify({...list, address:add||list.address}, {'access_token':token})
                 } )
                 const data=await res.json()
                 if(data.success){
