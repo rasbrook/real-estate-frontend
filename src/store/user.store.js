@@ -1,6 +1,5 @@
 import {create} from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import { Google_Sign_up } from '../../../../backend/controller/auth.controller'
 import { setLogLevel } from 'firebase/app'
 
 
