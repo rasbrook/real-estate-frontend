@@ -51,11 +51,14 @@ export const useUserStore = create(
       }, 
       Signin: async (signinuser, setLoading, setError, setSuccess) => {
         setLoading(true)
+        console.log(document.cookie)
+
         try {
           const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/sign-in', {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
+              
             
             },
              credentials: 'include',
