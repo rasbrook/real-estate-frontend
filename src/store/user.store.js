@@ -17,7 +17,7 @@ export const useUserStore = create(
       Signup: async (newUser, setLoading, setError, setSuccess) => {
         try {
           setLoading(true)
-          const res = await fetch('/api/auth/sign-up',
+          const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/sign-up',
           {
             method:"POST", 
             headers:{
@@ -51,7 +51,7 @@ export const useUserStore = create(
       Signin: async (signinuser, setLoading, setError, setSuccess) => {
         setLoading(true)
         try {
-          const res = await fetch('/api/auth/sign-in', {
+          const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/sign-in', {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -79,7 +79,7 @@ export const useUserStore = create(
       Google_Sign_up:async (newUser, setLoading, setError, setSuccess) => {
         try {
           setLoading(true)
-          const res = await fetch('/api/auth/google-signup',
+          const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/google-signup',
           {
             method:"POST", 
             headers:{
@@ -111,7 +111,7 @@ export const useUserStore = create(
       Google_Sign_in: async (signinuser, setLoading, setError, setSuccess) => {
         setLoading(true)
         try {
-          const res = await fetch('/api/auth/google-signin', {
+          const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/google-signin', {
             method: "POST",
             headers: {
               'Content-Type': 'application/json'
@@ -140,7 +140,7 @@ export const useUserStore = create(
       UpdateuserInfo:async(update, setError, setLoading, id)=>{
         try {
           setLoading(true)
-          const res = await fetch(`/api/user/update/${id}`,
+          const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/update/${id}`,
           {
             method:"PUT", 
             headers:{
@@ -177,7 +177,7 @@ export const useUserStore = create(
        
         setLoading(true)
         try {
-          const res = await fetch(`/api/user/delete/${id}`,
+          const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/delete/${id}`,
             {
               method:"DELETE", 
               headers:{
@@ -214,7 +214,7 @@ export const useUserStore = create(
         set({ user: null })
         
         try {
-          const res=await fetch('/api/user/sign--out',
+          const res=await fetch('https://estate-backend-1-d4pa.onrender.com/api/user/sign--out',
             {
             method:"GET", 
             headers:{

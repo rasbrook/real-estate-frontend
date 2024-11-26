@@ -70,7 +70,7 @@ export default function Searchresult() {
         const getListings=async()=>{
             setLoading(true)
             try {
-                const res= await fetch(`/api/listing/get${query}`, {
+                const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get${query}`, {
                     method:"GET", 
                     headers:{
                         'Content-Type':'application/json'
