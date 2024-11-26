@@ -9,6 +9,7 @@ import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
 
+delete L.Icon.Default.prototype._getIconUrl
 
 const pinmap=L.Icon.Default.mergeOptions({
   iconRetinaUrl: markerIcon2x,
