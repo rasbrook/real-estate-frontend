@@ -41,9 +41,9 @@ const Header = () => {
   const [searchTerm, setSearchform]=useState('')
   const nav=useNavigate()
 
-  const hovereffect={scale:1.1, color:hdarkmode||'white'}
-  const linkstyle={textDecoration:'none', color:hdarkmode||'white', display:'flex', alignItems:'center', fontWeight:100, fontSize:14}
-  const hiddlenlink={textDecoration:'none', color:darkmode||'#112D4E', alignSelf:'center', position:'relative', top:'10vh', alignContent:'center'}
+  const hovereffect={scale:1.1, color:hdarkmode || '#ffffff'||'white'}
+  const linkstyle={textDecoration:'none', color:hdarkmode || '#ffffff'||'white', display:'flex', alignItems:'center', fontWeight:100, fontSize:14}
+  const hiddlenlink={textDecoration:'none', color:darkmode || '#ffffff'||'#112D4E', alignSelf:'center', position:'relative', top:'10vh', alignContent:'center'}
 
 
 
@@ -74,7 +74,7 @@ const Header = () => {
     
   };
   return(
-    <div className='head' style={{backgroundColor:hbackdarkmode||'#222831',color:hdarkmode||'white', height:'10vh',minHeight:60,width:'120vw', marginLeft:'-8.4vw', marginTop:-35, display:'flex', alignItems:'center', overflowX:'hidden'}}>
+    <div className='head' style={{backgroundColor:hbackdarkmode||'#222831',color:hdarkmode || '#ffffff'||'white', height:'10vh',minHeight:60,width:'120vw', marginLeft:'-8.4vw', marginTop:-35, display:'flex', alignItems:'center', overflowX:'hidden'}}>
 
        <div style={{display:'flex',alignItems:'center'}}>
        <div id='bars' onClick={toggleMenu} style={{ cursor: 'pointer', fontSize: '2em' ,margin:'1.5em', alignSelf:'center', position:'absolute', left:10}}> {darkmode==='#ffffff' || darkmode===undefined  ? <FaSun style={{ color: '#fff000' }} /> : <FaMoon style={{ color: '#00000f' }} />}</div>
@@ -101,7 +101,7 @@ const Header = () => {
         <form onSubmit={handlesubmit}>
           <motion.div id='search' whileHover={{scale:1.05, minWidth:150, padding:5}} style={{display:'flex', alignItems:'center'}}>
           <motion.input
-            style={{backgroundColor:hdarkmode||"black",color:darkmode||'white',width:'50vw', height:'4vh', minWidth:150,maxWidth:400, minHeight:30,borderRadius:'1.5vh', border:'none', padding:5, fontSize:'0.9em'}}
+            style={{backgroundcolor:hdarkmode || '#ffffff'||"black",color:darkmode || '#ffffff'||'white',width:'50vw', height:'4vh', minWidth:150,maxWidth:400, minHeight:30,borderRadius:'1.5vh', border:'none', padding:5, fontSize:'0.9em'}}
             
             type="text"
             placeholder="Search for home..."
@@ -148,7 +148,7 @@ const Header = () => {
       <FaBars onClick={Show} 
       transition={{duration:2}}
       
-      id='bar' initial='init' style={{fontSize:30, color:hdarkmode||'white'}}/>
+      id='bar' initial='init' style={{fontSize:30, color:hdarkmode || '#ffffff'||'white'}}/>
       </motion.div>
       
       </motion.div>
@@ -190,7 +190,7 @@ const Header = () => {
           {<motion.div style={{position:'relative', top:20}} >{user? <Link  style={{textDecoration:'none'}} onClick={Hide}
           as={Link} to="/profile"><img  style={{width:80,maxHeight:80, borderRadius:40}} 
           src={user.rest.avator}/><p >{user.rest.username}</p></Link>:
-          <Link onClick={Hide}  style={{position:'relative', top:20, textDecoration:'none', color:darkmode}} as={Link} to="/sign-in">Sign in</Link>}</motion.div>} 
+          <Link onClick={Hide}  style={{position:'relative', top:20, textDecoration:'none', color:darkmode || '#ffffff'}} as={Link} to="/sign-in">Sign in</Link>}</motion.div>} 
           </motion.div>
           <motion.div style={{margin:20}} whileTap={{ scale: 0.95 }}>
             <Link onClick={Hide} style={hiddlenlink}as={Link} to="/">Home</Link>

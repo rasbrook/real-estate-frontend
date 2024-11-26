@@ -49,7 +49,7 @@ export default function SignUp() {
   
     }
   
-  const inpu={color:darkmode, backgroundColor:backdarkmode,width:'100%', height:30, borderRadius:8, border:'none'}
+  const inpu={color:darkmode || '#ffffff',  bbackgroundColor:backdarkmode || '#222831',width:'100%', height:30, borderRadius:8, border:'none'}
   const {Signup}=useUserStore()
   const {Google_Sign_up}=useUserStore()
   
@@ -128,7 +128,7 @@ export default function SignUp() {
     }
   }
   return (
-    <div style={{width:'60%',backgroundColor:containdarkmode, justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
+    <div style={{width:'60%',backgroundColor:containdarkmode ||  '#000', justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
       <motion.form
       onSubmit={handleSubmit}
       >
@@ -145,8 +145,8 @@ export default function SignUp() {
             minWidth:250,
             border:'none',
             margin:'3vh',
-            color:darkmode, 
-            backgroundColor:backdarkmode
+            color:darkmode || '#ffffff', 
+             bbackgroundColor:backdarkmode || '#222831'
           }}
           onClick={handleGoogleSignUp}
           whileHover={{ scale: 1.05 , cursor:'pointer'}}
@@ -234,7 +234,7 @@ export default function SignUp() {
           onClick={()=>handleSubmit()}
           whileTap={{ scale: 0.95 }}
           //disabled={!passwordMatch || !!passwordError|| loading}
-          style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode}}
+          style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode || '#F1F1F1'}}
           whileHover={{scale:1.05, backgroundColor:'#59caffe3', cursor:'pointer'}}
           
         >

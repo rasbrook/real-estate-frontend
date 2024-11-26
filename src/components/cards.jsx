@@ -21,7 +21,7 @@ const cardstyle={Height:'25vh',
                 minHeight:250,
                 minWidth:320,
                 maxHeight:400,
-                border:'none', borderRadius:15, backgroundColor:containdarkmode, color:darkmode, alignSelf:'center', FontWeight:600, overflow:'hidden' } 
+                border:'none', borderRadius:15, backgroundColor:containdarkmode ||  '#000', color:darkmode || '#ffffff', alignSelf:'center', FontWeight:600, overflow:'hidden' } 
     return(
     <motion.div  key={props.id} whileTap={props.idset} whileInView={props.idset}  onMouseEnter={props.idset} onClick={props.detail} className="cards" style={cardstyle} whileHover={{cursor:'pointer'}} > 
         <a hred='./process.jpx'>
