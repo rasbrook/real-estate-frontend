@@ -12,6 +12,7 @@
   "dependencies": {
     "@cloudinary/react": "^1.13.1",
     "@cloudinary/url-gen": "^1.21.0",
+    "@maptiler/leaflet-maptilersdk": "^2.0.0",
     "@reduxjs/toolkit": "^2.3.0",
     "@tomtom-international/web-sdk-maps": "^6.25.0",
     "axios": "^1.7.7",
