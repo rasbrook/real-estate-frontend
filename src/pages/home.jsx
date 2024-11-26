@@ -52,7 +52,7 @@ export default function Home() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`http://localhost:5000/api/listing/get`, {
+            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'

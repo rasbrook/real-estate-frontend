@@ -48,7 +48,7 @@ export default function Listpage() {
             try {
               setLoading(true)
               console.log(listingid)
-            const res=await fetch(`http://localhost:5000/api/listing/list/${listingid}`, {
+            const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, {
               method:"GET", 
               headers:{
                 'Content-Type':'application/json'
@@ -87,7 +87,7 @@ export default function Listpage() {
          
           const getuser=async()=>{
               try {
-                  const res=await fetch(`http://localhost:5000/api/user/${data.useRef}`, {
+                  const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`, {
                       method:"GET", 
                       header:{
                           'Content-Type': 'application/json'

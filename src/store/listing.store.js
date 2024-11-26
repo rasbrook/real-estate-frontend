@@ -68,7 +68,7 @@ export const useListingStore=create(
               const add=`${d.display_name}|${d.name}||${d.type}||${d.place_id}||${d.osm_id}||${d.address.suburb}||${d.address.county}||${d.address.state_district}||${d.address.state}||${d.address.country}||${d.address.postcode}||${d.address.country_code}`
              
               
-              const res=await fetch('http://localhost:5000/api/listing/create',{
+              const res=await fetch('https://estate-backend-1-d4pa.onrender.com/api/listing/create',{
                   method:"POST", 
                   headers:{
                     'Content-Type':'application/json',
@@ -108,7 +108,7 @@ export const useListingStore=create(
         console.log('deleting list')
         try {
            
-            const res=await fetch(`http://localhost:5000/api/listing/delete/${id}`,{
+            const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/delete/${id}`,{
                 method:"DELETE", 
                 headers:{
                   'Content-Type':'application/json',
@@ -141,7 +141,7 @@ export const useListingStore=create(
       setLoading(true)
       console.log(id)
       try {
-        const res=await fetch(`http://localhost:5000/api/listing/update/${id}`, {
+        const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/update/${id}`, {
           method:"PUT",
           headers:{
             'Content-Type':'application/json',
@@ -172,7 +172,7 @@ export const useListingStore=create(
     Get_all_listings:async(setLoading, setError, setListings)=>{
       setLoading(true)
       try {
-        const res=await fetch('http://localhost:5000/api/listing/listings/all', {
+        const res=await fetch('https://estate-backend-1-d4pa.onrender.com/api/listing/listings/all', {
           method:"GET",
           headers:{
             'Content-Type':'application/json',
