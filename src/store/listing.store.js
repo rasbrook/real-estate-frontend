@@ -30,8 +30,9 @@ export const useListingStore=create(
                         try { const response = await fetch(url,{
                             method:"GET", 
                             headers:{
-                                'Content-Type':'application/json'
-                              }}); 
+                                'Content-Type':'application/json',
+                                
+                              }, credentials: 'include'}); 
                               
                             const da = await response.json();
                           
@@ -55,8 +56,9 @@ export const useListingStore=create(
               const res=await fetch('https://estate-backend-1-d4pa.onrender.com/api/listing/create',{
                   method:"POST", 
                   headers:{
-                    'Content-Type':'application/json'
-                  },
+                    'Content-Type':'application/json',
+                    
+                  }, credentials: 'include',
                   body:JSON.stringify({...list, address:add||list.address})
                 } )
                 const data=await res.json()
@@ -93,8 +95,9 @@ export const useListingStore=create(
             const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/delete/${id}`,{
                 method:"DELETE", 
                 headers:{
-                  'Content-Type':'application/json'
-                }
+                  'Content-Type':'application/json',
+                  
+                }, credentials: 'include'
               } )
 
               const data=res.json()
@@ -125,8 +128,9 @@ export const useListingStore=create(
         const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/update/${id}`, {
           method:"PUT",
           headers:{
-            'Content-Type':'application/json'
-          },
+            'Content-Type':'application/json',
+           
+          }, credentials: 'include',
           body:JSON.stringify(updatedlist)
         })
         const data=res.json()
@@ -155,8 +159,9 @@ export const useListingStore=create(
         const res=await fetch('https://estate-backend-1-d4pa.onrender.com/api/listing/listings/all', {
           method:"GET",
           headers:{
-            'Content-Type':'application/json'
-          }
+            'Content-Type':'application/json',
+           
+          }, credentials: 'include'
 
         })
         const listings=await res.json()

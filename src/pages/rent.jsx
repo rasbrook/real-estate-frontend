@@ -76,8 +76,8 @@ export default function Rent() {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
-
-                }
+                },
+                credentials: 'include'
             })
             const lists=await res.json()
             if(lists){

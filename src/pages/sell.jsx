@@ -103,9 +103,10 @@ export default function Sell() {
             const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
                 method:"GET", 
                 headers:{
-                    'Content-Type':'application/json'
+                    'Content-Type':'application/json',
 
-                }
+                },
+                credentials: 'include'
             })
             const lists=await res.json()
             if(lists){

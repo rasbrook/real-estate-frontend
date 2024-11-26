@@ -21,8 +21,9 @@ export const useUserStore = create(
           {
             method:"POST", 
             headers:{
-              'Content-Type':'application/json'
-            },
+              'Content-Type':'application/json',
+             
+            }, credentials: 'include',
             body:JSON.stringify(newUser)
           })
           
@@ -54,8 +55,10 @@ export const useUserStore = create(
           const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/sign-in', {
             method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+            
             },
+             credentials: 'include',
             body: JSON.stringify(signinuser)
           })
           const data = await res.json()
@@ -83,8 +86,10 @@ export const useUserStore = create(
           {
             method:"POST", 
             headers:{
-              'Content-Type':'application/json'
+              'Content-Type':'application/json',
+            
             },
+             credentials: 'include',
             body:JSON.stringify(newUser)
           })
           
@@ -114,8 +119,10 @@ export const useUserStore = create(
           const res = await fetch('https://estate-backend-1-d4pa.onrender.com/api/auth/google-signin', {
             method: "POST",
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              
             },
+             credentials: 'include',
             body: JSON.stringify(signinuser)
           })
           const data = await res.json()
@@ -144,8 +151,10 @@ export const useUserStore = create(
           {
             method:"PUT", 
             headers:{
-              'Content-Type':'application/json'
+              'Content-Type':'application/json',
+              
             },
+             credentials: 'include',
             body:JSON.stringify(update)
           })
           
@@ -181,8 +190,10 @@ export const useUserStore = create(
             {
               method:"DELETE", 
               headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                
               },
+               credentials: 'include',
               body:JSON.stringify(user)
             })
             
@@ -218,8 +229,11 @@ export const useUserStore = create(
             {
             method:"GET", 
             headers:{
-              'Content-Type':'application/json'
-            }})
+              'Content-Type':'application/json',
+             
+            },
+             credentials: 'include'
+          })
           data=await res.json()
         
         if(data.success){
