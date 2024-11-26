@@ -1,3 +1,4 @@
+
 import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
@@ -5,8 +6,8 @@ export default defineConfig({
   server:{
     proxy:{
       '/api':{
-        target:"https://estate-backend-1-d4pa.onrender.com",
-        
+        target:"http://localhost:5000",
+        secure:false
       },
     },
   },

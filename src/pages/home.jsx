@@ -6,10 +6,8 @@ import { useModeState } from '../store/mode.store'
 import { list } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
 import home from '../assets/homeimage.jpg'
-import dotenv from 'dotenv'
 
 export default function Home() {
-  dotenv.config()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [l, setL]=useState('Show Listing')
@@ -54,7 +52,7 @@ export default function Home() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
+            const res= await fetch(`/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
@@ -86,11 +84,8 @@ export default function Home() {
 
 if(listin!==''){
   listin.map((l)=>{console.log(l)})
-
   
 }
-
-
 
 
 

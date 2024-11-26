@@ -7,6 +7,7 @@ import Constact from '../components/constact'
 import {motion} from 'framer-motion'
 import Map from '../components/map'
 import Pin from '../components/pin'
+import ClipLoader from "react-spinners/ClipLoader";
 import { PropagateLoader } from 'react-spinners'
 
 
@@ -47,7 +48,7 @@ export default function Listpage() {
             try {
               setLoading(true)
               console.log(listingid)
-            const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, {
+            const res=await fetch(`/api/listing/list/${listingid}`, {
               method:"GET", 
               headers:{
                 'Content-Type':'application/json'
@@ -86,7 +87,7 @@ export default function Listpage() {
          
           const getuser=async()=>{
               try {
-                  const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`, {
+                  const res=await fetch(`/api/user/${data.useRef}`, {
                       method:"GET", 
                       header:{
                           'Content-Type': 'application/json'
