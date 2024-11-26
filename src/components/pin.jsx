@@ -16,9 +16,13 @@ const pinmap=L.icon({
   iconRetinaUrl: markerIcon2x,
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
-  iconSize: [38, 38],
-  iconAnchor: [22, 94],  
-  popupAnchor: [-3, -76]
+  iconSize: [25, 41], 
+  iconAnchor: [12, 41], 
+  popupAnchor: [1, -34], 
+  shadowSize: [41, 41], 
+  shadowAnchor: [12, 41]
+   
+ 
 });
 
 
@@ -36,7 +40,7 @@ export default function Pin(props) {
           { return (number / scales[i].value).toFixed(1) + '' + scales[i].suffix; } } return number.toString(); }
   return (
     <Marker key={props.id} position={props.position} icon={pinmap}>
-      <Tooltip className='tooltip' onClick={props.detail}  whileHover={{cursor:'pointer'}}   direction="top" offset={[0, 0]} opacity={1} permanent> 
+      <Tooltip className='tooltip' onClick={props.detail}  whileHover={{cursor:'pointer'}}   direction="top" offset={[0, -30]} opacity={1} permanent> 
         <span >{numberToStringName(props.price)}</span> 
         </Tooltip>
       <Popup>
