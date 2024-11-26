@@ -75,7 +75,7 @@ export const useListingStore=create(
                     
                     
                   }, credentials: 'include',
-                  body:JSON.stringify({...list, address:add||list.address}, {'access_token':token})
+                  body:JSON.stringify({...list, address:add||list.address})
                 } )
                 const data=await res.json()
                 if(data.success){
