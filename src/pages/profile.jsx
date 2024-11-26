@@ -36,7 +36,7 @@ const Profile = () => {
   
     }
   
-  const inpu={color:darkmode || '#ffffff',  bbackgroundColor:backdarkmode || '#222831',width:'100%', height:30, borderRadius:8, border:'none'}
+  const inpu={color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE',width:'100%', height:30, borderRadius:8, border:'none'}
 
   
   
@@ -131,7 +131,7 @@ const Profile = () => {
   if (loading) return <div>Loading...</div>
   if (!user) return <div>Please log in to view your profile</div>
 
-  return (<div style={{width:'60%',backgroundColor:containdarkmode ||  '#000', justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
+  return (<div style={{width:'60%',backgroundColor:containdarkmode ||  '#EEE', justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
     <h1>Profile</h1>
     <div>
     <input 
@@ -189,7 +189,7 @@ const Profile = () => {
       <motion.div style={divelement}>
         <label>Bio</label>
         <motion.input
-        style={{color:darkmode || '#ffffff',  bbackgroundColor:backdarkmode || '#222831',width:'100%', height:'5vh', borderRadius:8, border:'none'}}
+        style={{color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE',width:'100%', height:'5vh', borderRadius:8, border:'none'}}
         id='bio'
         name="bio"
         type='text'
@@ -201,7 +201,7 @@ const Profile = () => {
       </motion.div>
       <div >
       <motion.button
-                style={{width:'8vw', minWidth:150, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode || '#F1F1F1', marginLeft:15, marginRight:15, margin:10}}
+                style={{width:'8vw', minWidth:150, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode || '#4A628A', marginLeft:15, marginRight:15, margin:10}}
                 type="submit"
                 disabled={loading}
                 whileHover={{ scale: 1.05 }}
@@ -211,7 +211,7 @@ const Profile = () => {
                 {loading ? 'Saving...' : 'Save Changes'}
               </motion.button>
       <motion.button
-              style={{width:'8vw', minWidth:150, height:35, backgroundColor:'#ff4848f1', borderRadius:10, border:'none', color:buttdarkmode || '#F1F1F1', marginLeft:15, marginRight:15, margin:10}}
+              style={{width:'8vw', minWidth:150, height:35, backgroundColor:'#ff4848f1', borderRadius:10, border:'none', color:buttdarkmode || '#4A628A', marginLeft:15, marginRight:15, margin:10}}
                 type="button"
                 variant="secondary"
                 onClick={() => nav('/')}
@@ -229,7 +229,7 @@ const Profile = () => {
             backgroundColor:'#59caff', 
             borderRadius:10, 
             border:'none', 
-            color:buttdarkmode || '#F1F1F1', 
+            color:buttdarkmode || '#4A628A', 
             marginLeft:15, 
             marginRight:15, 
             margin:10}} 
@@ -246,7 +246,7 @@ const Profile = () => {
             backgroundColor:'#ff4848f1', 
             borderRadius:10, 
             border:'none', 
-            color:buttdarkmode || '#F1F1F1', 
+            color:buttdarkmode || '#4A628A', 
             scale:1.05,
             padding:10
 
@@ -260,7 +260,7 @@ const Profile = () => {
             backgroundColor:'#2796ff', 
             borderRadius:10, 
             border:'none', 
-            color:buttdarkmode || '#F1F1F1', 
+            color:buttdarkmode || '#4A628A', 
             scale:1.05,
             padding:10
 
@@ -277,7 +277,7 @@ const Profile = () => {
             backgroundColor:'#2796ff', 
             borderRadius:10, 
             border:'none', 
-            color:buttdarkmode || '#F1F1F1', 
+            color:buttdarkmode || '#4A628A', 
             scale:1.05,
             padding:10
 

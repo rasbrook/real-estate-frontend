@@ -28,9 +28,9 @@ export default function CreateListing() {
 
 
 
-    const inputStyle={width:'30vw', height:'5vh', borderRadius:10, border:'none', position:'relative',right:'4em', minWidth:180, minHeight:35, color:darkmode || '#ffffff',  bbackgroundColor:backdarkmode || '#222831', margin:5}
-    const inpnum={height:'5vh', maxHeight:30, border:'none', borderRadius:5,width:50, color:darkmode || '#ffffff',  bbackgroundColor:backdarkmode || '#222831'}
-    const Deletebutton={width:'20vw',minWidth:150, height:40, color:buttdarkmode || '#F1F1F1', backgroundColor:'#E84545', borderRadius:10, border:'none', margin:20, textDecoration:'none'}
+    const inputStyle={width:'30vw', height:'5vh', borderRadius:10, border:'none', position:'relative',right:'4em', minWidth:180, minHeight:35, color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE', margin:5}
+    const inpnum={height:'5vh', maxHeight:30, border:'none', borderRadius:5,width:50, color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE'}
+    const Deletebutton={width:'20vw',minWidth:150, height:40, color:buttdarkmode || '#4A628A', backgroundColor:'#E84545', borderRadius:10, border:'none', margin:20, textDecoration:'none'}
     const Deletehover={scale:1.05, color:hdarkmode || '#ffffff', backgroundColor:'#A84545'}
 
 
@@ -215,7 +215,7 @@ export default function CreateListing() {
       if (!user) return <div>Please log in to view your profile</div>
   return (
    <motion.div
-      style={{backgroundColor:containdarkmode ||  '#000', borderRadius:25, width:'90vw',justifyContent:'center', minWidth:450, maxWidth:1000, fontWeight:50}}
+      style={{backgroundColor:containdarkmode ||  '#EEE', borderRadius:25, width:'90vw',justifyContent:'center', minWidth:450, maxWidth:1000, fontWeight:50}}
        
     
   >
@@ -238,7 +238,7 @@ export default function CreateListing() {
         
         <div>
         <motion.textarea
-          style={{width:'30vw', height:'30vh', borderRadius:10, border:'none', position:'relative',right:'6vw', minWidth:300, maxHeight:350, margin:30, color:darkmode || '#ffffff',  bbackgroundColor:backdarkmode || '#222831'}}
+          style={{width:'30vw', height:'30vh', borderRadius:10, border:'none', position:'relative',right:'6vw', minWidth:300, maxHeight:350, margin:30, color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE'}}
           placeholder="Description"
           required
           value={formdata.description}
@@ -350,7 +350,7 @@ export default function CreateListing() {
             type="number"
             placeholder="Regular price"
             required
-            style={{height:35, margin:20, border:'none', borderRadius:5, color:darkmode || '#ffffff',  bbackgroundColor:backdarkmode || '#222831'}}
+            style={{height:35, margin:20, border:'none', borderRadius:5, color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE'}}
             
             value={formdata.Price}
             onChange={(e) => setFormData({...formdata, Price: e.target.value})}
@@ -378,8 +378,8 @@ export default function CreateListing() {
           </motion.div>
         </motion.div>
         <motion.button  
-        style={{width:'40vw', height:40, backgroundcolor:buttdarkmode || '#F1F1F1', borderRadius:10, border:'none', margin:20}}
-        whileHover={{scale:1.05, color:buttdarkmode || '#F1F1F1',  bbackgroundColor:backdarkmode || '#222831'}} 
+        style={{width:'40vw', height:40, backgroundcolor:buttdarkmode || '#4A628A', borderRadius:10, border:'none', margin:20}}
+        whileHover={{scale:1.05, color:buttdarkmode || '#4A628A',  backgroundColor:backdarkmode || '#FEFEFE'}} 
         whileTap={{ scale: 0.98 }}
         disabled={uploading} type="button"  onClick={()=>{handleImageUploadtofirebase()}}>
               {uploading ? 'Uploading...':"UPLOAD"}
@@ -395,8 +395,8 @@ export default function CreateListing() {
       </motion.div>
 
       <motion.button
-       style={{width:'40vw', height:40, backgroundcolor:buttdarkmode || '#F1F1F1', borderRadius:10, border:'none'}}
-       whileHover={{scale:1.05, color:buttdarkmode || '#F1F1F1',  bbackgroundColor:backdarkmode || '#222831'}}
+       style={{width:'40vw', height:40, backgroundcolor:buttdarkmode || '#4A628A', borderRadius:10, border:'none'}}
+       whileHover={{scale:1.05, color:buttdarkmode || '#4A628A',  backgroundColor:backdarkmode || '#FEFEFE'}}
         
        onClick={handleSubmit}
         type="submit"
