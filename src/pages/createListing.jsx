@@ -8,6 +8,7 @@ import { useListingStore } from '../store/listing.store.js';
 import { useModeState } from '../store/mode.store.js';
 import FormContain from '../components/formContain.jsx';
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -26,7 +27,7 @@ export default function CreateListing() {
     const buttdarkmode=useModeState((state) => state.buttdarkmode)
     
 
-
+    const nav=useNavigate()
 
     const inputStyle={width:'30vw', height:'5vh', borderRadius:10, border:'none', position:'relative',right:'4em', minWidth:180, minHeight:35, color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE', margin:5}
     const inpnum={height:'5vh', maxHeight:30, border:'none', borderRadius:5,width:50, color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE'}
@@ -142,6 +143,10 @@ export default function CreateListing() {
       useEffect(()=>{
        if(formdata.Location[0]!==0){
         Create_Listing(formdata, setLoading, setError)
+        if(!loading){
+          nav('/listing')
+          
+        }
        }
 
 

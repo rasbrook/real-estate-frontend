@@ -79,7 +79,7 @@ body{
 
 
 
-@media (min-width:1000px) {
+@media (min-width:1500px) {
   #profile{
     display:flex;
     margin-left: 47vw;
@@ -108,7 +108,7 @@ body{
    
     
 }
-@media (max-width:1000px) {
+@media (max-width:1500px) {
   #search{
     position:absolute;
     left:35vw;

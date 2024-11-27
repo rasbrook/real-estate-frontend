@@ -6,6 +6,7 @@ import { useUserStore } from '../store/user.store';
 import { useNavigate } from 'react-router-dom';
 import { useModeState } from '../store/mode.store';
 import './header.css'
+import { left } from '@cloudinary/url-gen/qualifiers/textAlignment';
 
 
 
@@ -74,9 +75,9 @@ const Header = () => {
     
   };
   return(
-    <div className='head' style={{backgroundColor:hbackdarkmode||'#222831',color:hdarkmode || '#ffffff'||'white', height:'10vh',minHeight:60,width:'120vw', marginLeft:'-8.4vw', marginTop:-35, display:'flex', alignItems:'center', overflowX:'hidden'}}>
+    <div className='head' style={{backgroundColor:hbackdarkmode||'#222831',color:hdarkmode || '#ffffff'||'white', height:'10vh',minHeight:60,width:'120vw', marginLeft:'-8.6vw', marginTop:-35, display:'flex', alignItems:'center', overflowX:'hidden'}}>
 
-       <div style={{display:'flex',alignItems:'center'}}>
+       <div style={{display:'flex',alignItems:'center', position:"relative", left:-30}}>
        <div id='bars' onClick={toggleMenu} style={{ cursor: 'pointer', fontSize: '2em' ,margin:'1.5em', alignSelf:'center', position:'absolute', left:10}}> {darkmode==='#ffffff' || darkmode===undefined  ? <FaSun style={{ color: '#fff000' }} /> : <FaMoon style={{ color: '#00000f' }} />}</div>
       
     
@@ -99,9 +100,9 @@ const Header = () => {
         
         <motion.div>
         <form onSubmit={handlesubmit}>
-          <motion.div id='search' whileHover={{scale:1.05, minWidth:150, padding:5}} style={{display:'flex', alignItems:'center'}}>
+          <motion.div id='search' whileHover={{scale:1.01, minWidth:150, padding:5}} style={{display:'flex', alignItems:'center'}}>
           <motion.input
-            style={{backgroundcolor:hdarkmode || '#ffffff'||"black",color:darkmode || '#000000'||'white',width:'50vw', height:'4vh', minWidth:150,maxWidth:400, minHeight:30,borderRadius:'1.5vh', border:'none', padding:5, fontSize:'0.9em'}}
+            style={{backgroundcolor:hdarkmode || '#ffffff'||"black",color:darkmode || '#000000'||'white',width:'40vw', height:'4vh', minWidth:150,maxWidth:400, minHeight:30,borderRadius:'1.5vh', border:'none', padding:5, fontSize:'0.9em', position:'relative', left:'-4vw'}}
             
             type="text"
             placeholder="Search for home..."
@@ -111,7 +112,7 @@ const Header = () => {
             onChange={(e)=>setSearchform(e.target.value)}
           />
           
-          <FaSearch style={{fontSize:'1.8em',position:'relative', left:10}}  onClick={handlesubmit} />
+          <FaSearch style={{fontSize:'1.8em',position:'relative', left:'-3vw'}}  onClick={handlesubmit} />
           </motion.div>  
           
           </form>

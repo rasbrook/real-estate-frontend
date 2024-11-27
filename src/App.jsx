@@ -19,6 +19,9 @@ import { useModeState } from './store/mode.store';
 import Sell from './pages/sell'
 import Agents from './pages/Agents.jsx'
 import Rent from './pages/rent'
+import Agentcard from './components/agentcard.jsx'
+import Agentpage from './pages/agentpage.jsx'
+import AgentListing from './pages/agentlist.jsx'
 
 
 const MainContent = styled.main`
@@ -43,9 +46,7 @@ function App() {
     <Route path='/listings/forsell' element={<Sell />} />
     <Route path='/listings/forrent' element={<Rent />} />
     <Route path='/find/agent' element={<Agents />} />
-    
     <Route path='/forgot-password' element={<ForgotPassword />} />
-   
     <Route path='/sign-in' element={<Signin />} />
     <Route path='/sign-up' element={<SignUp />} />
     <Route path='/log-in' element={<Login/>} />
@@ -60,7 +61,9 @@ function App() {
     </Route>
     
     <Route path='/listing/list/:id' element={<Listpage/>} />
+    <Route path='/agent/agentpage/:id' element={<Agentpage />}/>
     <Route path='/search' element={<Searchresult />} />
+    <Route path='/agent/listings/:id' element={<AgentListing />} />
     
     
   </Routes>

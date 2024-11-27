@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import{ FaBath, FaBed, FaBuilding, FaMapMarkerAlt, FaPhone} from 'react-icons/fa'
 import { AiOutlineAreaChart } from 'react-icons/ai'
 import { useUserStore } from '../store/user.store'
@@ -16,6 +16,7 @@ import { PropagateLoader } from 'react-spinners'
 export default function Listpage() {
 
   const user = useUserStore((state) => state.user)
+  const nav=useNavigate()
 
   
 
@@ -35,6 +36,7 @@ export default function Listpage() {
     const [bigimage, setBigimage]=useState(null)
     const [List, SetListing]=useState('')
     const [u, setUser]=useState('')
+    const [userid, serUserId]=useState('')
   
 
     const params=useParams()
@@ -99,6 +101,7 @@ export default function Listpage() {
               const user=await res.json()
               if(user){
                   setUser(user)
+                  console.log(user)
                   
               }
                   
@@ -126,6 +129,7 @@ export default function Listpage() {
 
 console.log(u)
 console.log(data)
+console.log(userid)
 
       
    
@@ -197,15 +201,15 @@ if(loading) return <PropagateLoader color="#58fcff"/>
 
 
         </motion.div>
-        <div style={{backgroundColor:'#00000055'}}>
+        <div>
         <h2 style={{position:'relative', justifySelf:'self-start'}}>{data.name}</h2>
           <h3 style={{position:'relative', justifySelf:'self-start'}}>Home Description</h3>
           <p style={{position:'relative', justifySelf:'self-start',fontWeight:100}}>{data.description}</p>
         </div>
-        {data && u && (!user ||u._id!==user.rest._id) ? <h2 style={{position:'relative', 
+        {data && u && (!user ||u.rest._id!==user.rest._id) ? <h2 style={{position:'relative', 
                         justifySelf:'self-start'}}>Agent Account</h2>:null }
-            {data && u  && (!user ||u._id!==user.rest._id)  ?  
-            <div style={{position:'relative', 
+            {data && u  && (!user ||u.rest._id!==user.rest._id)  ?  
+            <div onMouseEnter={()=>{serUserId(u.rest._id)}} onTouchStart={()=>{serUserId(u.rest._id)}} style={{position:'relative', 
                         justifySelf:'self-start', 
                         width:'20vw', 
                         minWidth:300, 
@@ -222,10 +226,10 @@ if(loading) return <PropagateLoader color="#58fcff"/>
                             width:60, 
                             height:60,
                             borderRadius:10, 
-                            margin:5 }} src={u.avator} />
+                            margin:5 }} src={u.rest.avator} />
                     <div>
-                      <motion.p onClick={()=>console.log('go to agent page')} whileHover={{cursor:'pointer'}}>{u.username}</motion.p>
-                      <a href={`tel:+2519${u.phone.toString().slice(-8)}`} >
+                      <motion.p  onClick={()=>nav(`/agent/agentpage/${userid}`)} whileHover={{cursor:'pointer'}}>{u.rest.username}</motion.p>
+                      <a href={`tel:+2519${u.rest.phone.toString().slice(-8)}`} >
                         <motion.div 
                         style={{width:80, display:'flex', flexWrap:'wrap',color:"#58fcff"}} 
                         whileHover={{scale:1.02,color:"#55505f"}}>

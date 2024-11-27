@@ -5,7 +5,7 @@ import { storage } from '../../firebase.js'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { v4 } from 'uuid';
 import { useListingStore } from '../store/listing.store.js';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FormContain from '../components/formContain.jsx';
 import { useModeState } from '../store/mode.store';
 import { FaToggleOff, FaToggleOn } from 'react-icons/fa';
@@ -40,6 +40,7 @@ export default function Edit_list() {
   
   console.log(list)
   console.log(prams.id)
+  const nav=useNavigate()
 
   
   const [file, setFile]=useState([])
@@ -124,13 +125,14 @@ export default function Edit_list() {
             }
             const { name, value } = e.target; setFormData({ ...formdata, [name]: value})
             await Updata_listing(formdata,setLoading, setError,prams.id)
+            
             if(!setError){
             console.log("Form submitted:", formdata);
             console.error('Error getting location:', error);
           
-
-            
-  
+        }
+        if(!loading){
+          nav('/listing')
           
         }
 

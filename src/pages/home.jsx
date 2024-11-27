@@ -5,7 +5,10 @@ import { motion } from 'framer-motion'
 import { useModeState } from '../store/mode.store'
 import { list } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
-import home from '../assets/homeimage.jpg'
+import home1 from '../assets/home1.png'
+import home2 from '../assets/home2.png'
+import home3 from '../assets/home3.png'
+
 
 export default function Home() {
   const [loading, setLoading] = useState(false)
@@ -92,10 +95,10 @@ if(listin!==''){
 
   if(loading) return <div>Loading...</div>
   return (<div>
-<div style={{height:'70vh', display:'flex', flexWrap:'wrap',width: '100vw', marginBottom:'10vh', overflow:'hidden'}}>
+<div style={{height:'90vh', display:'flex', flexWrap:'wrap',width: '100vw', marginBottom:'10vh', overflow:'hidden',minHeight:400}}>
   <h1 style={{position:'relative', left:0,textAlign:'justify', fontSize:'2.5em', maxWidth:400}}>Find Your Dream Home With Unoode</h1>
   <div style={{position:'relative', right:0, zIndex:0, top:0}}>
-    <img style={{zIndex:0, height:'100%'}} src={home}/>
+    <img style={{zIndex:0,  width:'100%'}} src={home1}/>
   </div>
 </div>
 

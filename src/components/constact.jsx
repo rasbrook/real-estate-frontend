@@ -8,10 +8,14 @@ export default function Constact({listing}) {
     
     const [u, setUser]=useState()
     const [message, setMessage]=useState()
+    const [loading, setLoading]=useState(false)
     console.log(listing)
     
 
     useEffect(()=>{
+        setLoading(true)
+        setLoading(false)
+        
 
    
         if(listing){
@@ -28,14 +32,17 @@ export default function Constact({listing}) {
                     
                 
                 const user=await res.json()
-                if(user){
+                if(user.success===true){
                     setUser(user)
+                    console.log(user)
+                    setLoading(false)
                     
                 }
                     
                     
                 } catch (error) {
                     console.log(error)
+                    setLoading(false)
                     
                 }
             
@@ -57,10 +64,8 @@ export default function Constact({listing}) {
 
    
 
-        console.log(u)
-        console.log(message)
     
-    
+        if (loading) return <div>loading</div>
 
   return (
     <div>
@@ -74,7 +79,7 @@ export default function Constact({listing}) {
             placeholder='Message' 
             value={message} 
             onChange={(e)=>setMessage(e.target.value)}></textarea>
-            <Link to={`mailto:${u.email}?subject=Regarding ${listing.name}&body=${message}`}>Send Message</Link>
+            <Link to={`mailto:${u.rest.email}?subject=Regarding ${listing.name}&body=${message}`}>Send Message</Link>
         </form>
         
             )
