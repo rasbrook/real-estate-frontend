@@ -25,6 +25,7 @@ export default function AgentListing() {
     const [wrapp, setWrapp]=useState(null)
     const [w, setW]=useState(null)
     const [s, setS]=useState(0)
+
     const containdarkmode=useModeState((state) => state.containdarkmode)
     
    
@@ -38,7 +39,8 @@ export default function AgentListing() {
           
       }
       if(screensize<=1100){
-        if(data){
+        if(data && data.listings && data!==''){
+
           const a =270*data.listings.length 
         setW(a)
         }
@@ -126,7 +128,7 @@ console.log(List)
 
 
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab'}} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data.listings.length>0? data.listings.map((list)=>list.isSell?
+    {data.listings.length !==0 ? data.listings.map((list)=>list.isSell?
 
 
 
@@ -159,7 +161,7 @@ console.log(List)
     </motion.div>
     <h1 style={{justifySelf:'start'}}>For Rent</h1>
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data.listings.length>0 ? data.listings.map((list)=>!list.isSell ?
+    {data.listings.length !==0 ? data.listings.map((list)=>!list.isSell ?
 
 
 
