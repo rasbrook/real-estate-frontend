@@ -27,7 +27,7 @@ export default function AgentListing() {
     const [s, setS]=useState(0)
     const containdarkmode=useModeState((state) => state.containdarkmode)
     
-    console.log(user.rest._id)
+   
    
 
     useEffect(()=>{
@@ -96,21 +96,7 @@ export default function AgentListing() {
     getuser()
     }, [])
 
-    const Deletelist=async()=>{
-
-      if (window.confirm("Are you sure You Want to delete This listing?")) {
-        try {
-          await DeleteListing(setError, List)
-          //nav('/profile')
-          if(!setError){
-            console.log('Deleted sucessfully')
-          }
-          
-        } catch (error) {
-          
-        }}
-
-        else { console.log("Cancelled!"); } };
+    
       
 
         
