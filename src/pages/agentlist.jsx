@@ -140,7 +140,7 @@ console.log(List)
 
 
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab'}} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!==''? data.listings.map((list)=>list.isSell?
+    {data.listings.length>0? data.listings.map((list)=>list.isSell?
 
 
 
@@ -173,7 +173,7 @@ console.log(List)
     </motion.div>
     <h1 style={{justifySelf:'start'}}>For Rent</h1>
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!==''? data.listings.map((list)=>!list.isSell ?
+    {data.listings.length>0 ? data.listings.map((list)=>!list.isSell ?
 
 
 
