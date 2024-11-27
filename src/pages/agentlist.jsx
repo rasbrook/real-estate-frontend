@@ -25,7 +25,6 @@ export default function AgentListing() {
     const [wrapp, setWrapp]=useState(null)
     const [w, setW]=useState(null)
     const [s, setS]=useState(0)
-
     const containdarkmode=useModeState((state) => state.containdarkmode)
     
    
@@ -39,8 +38,7 @@ export default function AgentListing() {
           
       }
       if(screensize<=1100){
-        if(data && data.listings && data!==''){
-
+        if(data && data.listings){
           const a =270*data.listings.length 
         setW(a)
         }
@@ -98,7 +96,21 @@ export default function AgentListing() {
     getuser()
     }, [])
 
-    
+    const Deletelist=async()=>{
+
+      if (window.confirm("Are you sure You Want to delete This listing?")) {
+        try {
+          await DeleteListing(setError, List)
+          //nav('/profile')
+          if(!setError){
+            console.log('Deleted sucessfully')
+          }
+          
+        } catch (error) {
+          
+        }}
+
+        else { console.log("Cancelled!"); } };
       
 
         
@@ -128,7 +140,7 @@ console.log(List)
 
 
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab'}} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data.listings.length !==0 ? data.listings.map((list)=>list.isSell?
+    {data.listings ? data.listings.map((list)=>list.isSell?
 
 
 
@@ -161,7 +173,7 @@ console.log(List)
     </motion.div>
     <h1 style={{justifySelf:'start'}}>For Rent</h1>
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data.listings.length !==0 ? data.listings.map((list)=>!list.isSell ?
+    {data.listings ? data.listings.map((list)=>!list.isSell ?
 
 
 
