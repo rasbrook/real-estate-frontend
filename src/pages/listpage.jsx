@@ -248,7 +248,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
 
 
         {!contact ? '':<Constact listing={data} />}
-        {data && user &&  u._id!==user.rest._id && !contact ?  <button onClick={()=>{setContact(true)}}>Constact Owner</button>:null}
+        {data && user &&  u._id!==user.rest._id && !contact ?  <button onClick={()=>{setContact(true)}}>Contact Owner</button>:null}
     </div>:
     
     
