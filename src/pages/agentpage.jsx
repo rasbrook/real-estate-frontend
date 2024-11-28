@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import Constact from '../components/constact'
 import { useModeState } from '../store/mode.store'
 import { motion } from 'framer-motion'
+import { PropagateLoader } from 'react-spinners'
 
 
 export default function Agentpage() {
@@ -48,6 +49,7 @@ export default function Agentpage() {
 console.log(agent)
 
 
+if(loading) return <PropagateLoader color="#58fcff"/>
   return (
     <div>
         {agent.success===true && !loading ? 

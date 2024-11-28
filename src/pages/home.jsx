@@ -24,6 +24,11 @@ export default function Home() {
   const [s, setS]=useState(0)
   const nav=useNavigate()
 
+  const homearray=[home1,home2,home3]
+
+  const randomIndex = Math.floor(Math.random() * homearray.length); // Select the element at the random index 
+  const randomHome = array[randomIndex];
+
   
 
     
@@ -99,7 +104,7 @@ if(listin!==''){
 <div style={{height:'90vh', display:'flex', flexWrap:'wrap',width: '100vw', marginBottom:'10vh', overflow:'hidden',minHeight:400}}>
   <h1 style={{position:'relative', left:0,textAlign:'justify', fontSize:'2.5em', maxWidth:400}}>Find Your Dream Home With Unoode</h1>
   <div style={{position:'relative', right:0, zIndex:0, top:0}}>
-    <img style={{zIndex:0,  width:'100%'}} src={home1}/>
+    <img style={{zIndex:0,  width:'100%'}} src={randomHome}/>
   </div>
 </div>
 

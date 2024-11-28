@@ -132,7 +132,7 @@ console.log(List)
   
 
 
-
+if(loading) return <PropagateLoader color="#58fcff"  />
 
   return (
     <div style={{ overflow: 'hidden', width: '100vw', padding: '10px' , maxWidth:1500}}>
