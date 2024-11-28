@@ -150,7 +150,7 @@ const Signin = () => {
           whileHover={{ scale: 1.05 , cursor:'pointer'}}
           whileTap={{ scale: 0.95 }}
         >
-          <img style={{width:25}} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
+          <img loading='lazy' style={{width:25}} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
           <h4>Continue with Google</h4>
         </motion.button>
         

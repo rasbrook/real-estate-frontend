@@ -29,7 +29,7 @@ export default function Agentcard(props) {
   return (
     <motion.div onMouseEnter={props.setId} onHoverStart={props.setId} onClick={props.detail} style={cardstyle}>
         <motion.div style={{width:'30%', backgroundColor:`${darkmode}88`}}>
-            <img  src={props.agentProfile} style={{width:50, height:50, borderColor:containdarkmode, borderRadius:40, position:'relative', left:0, top:20, borderWidth:2}}/>
+            <img loading='lazy'  src={props.agentProfile} style={{width:50, height:50, borderColor:containdarkmode, borderRadius:40, position:'relative', left:0, top:20, borderWidth:2}}/>
         </motion.div>
 
 

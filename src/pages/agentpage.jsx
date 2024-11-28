@@ -55,7 +55,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
         {agent.success===true && !loading ? 
         <div style={{justifyItems:'center', height:1200}}>
             
-            <img style={{width:150, height:150, border:'none', borderRadius:75}} src={agent.rest.avator} />
+            <img loading='lazy' style={{width:150, height:150, border:'none', borderRadius:75}} src={agent.rest.avator} />
             <h1>{agent.rest.username}</h1>
             <p>{agent.rest.bio}</p>
             

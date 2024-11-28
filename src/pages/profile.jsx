@@ -144,6 +144,7 @@ const Profile = () => {
           accept='image/*'
         />
         <img
+          loading='lazy'
           style={{width:80, height:80, borderRadius:40}}
           onClick={()=>fileRef.current.click()}
           src={profileData.avator || user.rest.avator} 

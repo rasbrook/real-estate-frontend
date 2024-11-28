@@ -151,11 +151,11 @@ if(loading) return <PropagateLoader color="#58fcff"/>
 
       
       <motion.div style={{display:'flex', flexWrap:'wrap', gap:10, alignContent:'center'}}>
-        <motion.img style={{width:'80%', minWidth:450,maxWidth:800,border:'none', borderRadius:20}} src={bigimage||data.ImageUrls[0]}/>
+        <motion.img loading='lazy' style={{width:'80%', minWidth:380,maxWidth:800,border:'none', borderRadius:20}} src={bigimage||data.ImageUrls[0]}/>
         <motion.div style={{display:'flex', flexWrap:'wrap',width:'35%',justifyContent:'center',minWidth:400, gap:10}}>
           <motion.div style={{display:'flex', flexWrap:'wrap',justifyContent:'center',minWidth:310, gap:10}} >
           {data.ImageUrls.map((i)=>
-            (<motion.img style={{width:180, height:180, borderRadius:10, position:'relative', top:0, justifySelf:'self-start'}} key={i} onClick={()=>setBigimage(i)}  src={i}/>)
+            (<motion.img loading='lazy' style={{width:180, height:180, borderRadius:10, position:'relative', top:0, justifySelf:'self-start'}} key={i} onClick={()=>setBigimage(i)}  src={i}/>)
 
           )}
           </motion.div>
@@ -220,6 +220,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
                         display:'flex',
                         flexWrap:'wrap' }}>
                     <motion.img 
+                    loading='lazy'
                     style={{position:'relative', 
                             justifySelf:'self-start', 
       

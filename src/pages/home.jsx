@@ -108,12 +108,12 @@ if(listin!==''){
 <div style={{height:'90vh', display:'flex', flexWrap:'wrap',width: '100vw', marginBottom:'10vh', overflow:'hidden',minHeight:400}}>
   <h1 style={{position:'relative', left:0,textAlign:'justify', fontSize:'2.5em', maxWidth:400}}>Find Your Dream Home With Unoode</h1>
   <div style={{position:'relative', right:0, zIndex:0, top:0}}>
-    <img style={{zIndex:0,  width:'100%'}} src={randomHome}/>
+    <img loading='lazy' style={{zIndex:0,  width:'100%'}} src={randomHome}/>
   </div>
 </div>
 
 <div style={{ overflow: 'hidden', width: '100vw', padding: '10px' , maxWidth:1500, zIndex:10}}>
- <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
+ <motion.div  style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
  {listin!==''? listin.map((list)=>
     (
       <Cards idset={()=>SetListing(list._id)} 

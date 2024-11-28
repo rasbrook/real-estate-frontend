@@ -25,7 +25,7 @@ const cardstyle={Height:'25vh',
     return(
     <motion.div  key={props.id} whileTap={props.idset} whileInView={props.idset}  onMouseEnter={props.idset} onClick={props.detail} className="cards" style={cardstyle} whileHover={{cursor:'pointer'}} > 
         <a hred='./process.jpx'>
-            <img className='cardimage' style={{width:'100%', border:'none', alignSelf:'center', borderRadius:10, Height:'50%', maxHeight:170}} src={props.cardimage} />
+            <img loading='lazy' className='cardimage' style={{width:'100%', border:'none', alignSelf:'center', borderRadius:10, Height:'50%', maxHeight:170}} src={props.cardimage} />
             <motion.div style={{height: 'max-content'}} >
             <h2 style={{display:'flex', left:20, gap:10}}><span>{props.Price.toLocaleString()}</span>{props.isSell?'ETB':"ETB/Month"}</h2>
             <motion.p style={{position:'relative', left:10, zIndex:1, display:'flex', gap:10, marginTop:10, marginBottom:10, fontSize:12, overflow:'hidden'}}><span>{<span>{props.bed}</span>} bed</span> |

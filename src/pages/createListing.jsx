@@ -393,7 +393,7 @@ export default function CreateListing() {
         {formdata.ImageUrls.length >0 && formdata.ImageUrls.map(
             (i, index)=> 
                 <motion.div style={{border:20}} key={i}>
-                    <motion.img style={{width:'50vw', borderRadius:10, border:'none'}} src={i} alt='listing image'/>
+                    <motion.img loading='lazy' style={{width:'50vw', borderRadius:10, border:'none'}} src={i} alt='listing image'/>
                     <motion.button style={Deletebutton} whileHover={Deletehover} whileTap={Deletehover} onClick={()=>handleRemoveImage(index)}>Delete</motion.button>
                 </motion.div>
             )}
