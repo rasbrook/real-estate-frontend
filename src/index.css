@@ -124,10 +124,11 @@ body{
   #bar{
     display: flex;
     position: absolute;
-    left: 110vw;
-    top:0vh;
+    left: 90vw;
+    top:3vh;
     height: 100;
     color: rgb(44, 44, 44);
+    
 
 }
 #bars{
@@ -140,7 +141,7 @@ body{
 @media (max-width:600px) {
   #search{
     position:absolute;
-    left:40vw;
+    left:95vw;
     align-self: center;
     top: 2vh;
     width: 55vw;
@@ -154,7 +155,7 @@ body{
   #bar{
     display: flex;
     position: absolute;
-    left: 105vw;
+    right: 100vw;
     top:3vh;
     color: rgb(44, 44, 44);
 
