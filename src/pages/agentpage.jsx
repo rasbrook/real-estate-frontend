@@ -42,7 +42,7 @@ export default function Agentpage() {
         }
 
         getuserbyid()
-        setLoading(false)
+       
 
     }, [])
 

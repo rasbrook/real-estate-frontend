@@ -54,7 +54,7 @@ export default function Agents() {
                                       phone={user.Phone} 
                                       companyname={null}
                                       setId={()=>{setUser(user._id)}}
-                                      detail={()=>{nav('/')}} />)):<div></div>
+                                      detail={()=>{nav('/agent/agentpage/')}} />)):<div></div>
     }
     </div>
 
