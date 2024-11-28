@@ -7,6 +7,7 @@ import { list } from 'firebase/storage'
 import { useNavigate } from 'react-router-dom'
 import Pin from '../components/pin'
 import Map from '../components/map'
+import { PropagateLoader } from 'react-spinners'
 
 export default function Sell() {
   const [loading, setLoading] = useState(false)
@@ -139,7 +140,7 @@ if(listin!==''){
 
 
 
-  if(loading) return <div>Loading...</div>
+if(loading) return <PropagateLoader color="#58fcff"  />
   return (<div>
     <div style={{width:'100%', height:'50vh',  border:'none',marginBottom:50, minWidth:320}}>
     {listin.length!==0 && lat!==0 && lon!==0 ? <Map zoom={12} center={{lat, lon}} pin={listin!=='' ?listin.map((items)=>items.isSell? ((<Pin id={items._id} 

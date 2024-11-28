@@ -102,7 +102,7 @@ const Header = () => {
         <form onSubmit={handlesubmit}>
           <motion.div id='search' whileHover={{scale:1.01, minWidth:150, padding:5}} style={{display:'flex', alignItems:'center'}}>
           <motion.input
-            style={{backgroundcolor:hdarkmode || '#ffffff'||"black",color:darkmode || '#000000'||'white',width:'40vw', height:'4vh', minWidth:150,maxWidth:400, minHeight:30,borderRadius:'1.5vh', border:'none', padding:5, fontSize:'0.9em', position:'relative', left:'-4vw'}}
+            style={{backgroundcolor:hdarkmode || '#ffffff'||"black",color:'black',width:'40vw', height:'4vh', minWidth:150,maxWidth:400, minHeight:30,borderRadius:'1.5vh', border:'none', padding:5, fontSize:'0.9em', position:'relative', left:'-4vw'}}
             
             type="text"
             placeholder="Search for home..."

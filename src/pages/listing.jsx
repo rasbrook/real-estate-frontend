@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import Cards from '../components/cards.jsx'
 import { motion } from 'framer-motion'
 import { useModeState } from '../store/mode.store.js'
+import { PropagateLoader } from 'react-spinners'
 
 
 export default function Listing() {
@@ -128,6 +129,7 @@ console.log(List)
   
 
 
+if(loading) return <PropagateLoader color="#58fcff"  />
 
 
   return (
