@@ -27,7 +27,7 @@ export default function Home() {
   const homearray=[home1,home2,home3]
 
   const randomIndex = Math.floor(Math.random() * homearray.length); // Select the element at the random index 
-  const randomHome = array[randomIndex];
+  const randomHome = homearray[randomIndex];
 
   
 
