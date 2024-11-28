@@ -88,7 +88,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
 
             }} style={{color:'#2796ff', cursor:'pointer',width:'10vw', justifySelf:'center',minWidth:150,position:'relative', top:100, height:30, border:'none', borderRadius:5}} onClick={()=>nav(`/agent/listings/${agent.rest._id}`)} >Show {agent.rest.username}'s Listings</motion.button>
 
-        </div>:<h1>Error Finding Agent</h1>}
+        </div>:''}
 
     </div>
   )
