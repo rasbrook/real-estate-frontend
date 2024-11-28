@@ -22,12 +22,14 @@ export default function Home() {
   const [wrapp, setWrapp]=useState(null)
   const [w, setW]=useState(null)
   const [s, setS]=useState(0)
+  const [randomHome, setRandomhome]=useState()
   const nav=useNavigate()
 
   const homearray=[home1,home2,home3]
 
-  const randomIndex = Math.floor(Math.random() * homearray.length); // Select the element at the random index 
-  const randomHome = homearray[randomIndex];
+  
+
+  
 
   
 
@@ -87,6 +89,8 @@ export default function Home() {
     }
 
     getListings()
+    const randomIndex = Math.floor(Math.random() * homearray.length); // Select the element at the random index 
+    setRandomhome(homearray[randomIndex])
     
 
 }, [])
