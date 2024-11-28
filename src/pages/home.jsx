@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import home1 from '../assets/home1.png'
 import home2 from '../assets/home2.png'
 import home3 from '../assets/home3.png'
+import { PropagateLoader } from 'react-spinners'
 
 
 export default function Home() {
@@ -93,7 +94,7 @@ if(listin!==''){
 
 
 
-  if(loading) return <div>Loading...</div>
+  if(loading) return <PropagateLoader color="#58fcff"  />
   return (<div>
 <div style={{height:'90vh', display:'flex', flexWrap:'wrap',width: '100vw', marginBottom:'10vh', overflow:'hidden',minHeight:400}}>
   <h1 style={{position:'relative', left:0,textAlign:'justify', fontSize:'2.5em', maxWidth:400}}>Find Your Dream Home With Unoode</h1>
