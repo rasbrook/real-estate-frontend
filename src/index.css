@@ -141,7 +141,7 @@ body{
 @media (max-width:600px) {
   #search{
     position:absolute;
-    left:95vw;
+    left:40vw;
     align-self: center;
     top: 2vh;
     width: 55vw;
