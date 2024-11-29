@@ -38,8 +38,8 @@ export default function Edit_list() {
   
 
   
-  console.log(list)
-  console.log(prams.id)
+  //console.log(list)
+  //console.log(prams.id)
   const nav=useNavigate()
 
   
@@ -69,16 +69,16 @@ export default function Edit_list() {
   useEffect(()=>{
     const fetchlisting=async()=>{
       const listingid=prams.id
-      console.log(listingid)
-      const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, {
+      //console.log(listingid)
+      const res=await fetch(`http://localhost:5000/api/listing/list/${listingid}`, {
         method:"GET", 
         headers:{
           'Content-Type':'application/json'
         }
       })
       const data=await res.json()
-      console.log()
-      console.log(data.address.split("||")[0],data.address.split("||")[1],data.address.split("||")[2],data.address.split("||")[3],data.address.split("||")[4])
+      //console.log()
+      //console.log(data.address.split("||")[0],data.address.split("||")[1],data.address.split("||")[2],data.address.split("||")[3],data.address.split("||")[4])
       
       setFormData({...data, address:data.address.split("||")[0].split(",")[5]+data.address.split("||")[0].split(",")[3]+data.address.split("||")[0].split(",")[2]+data.address.split("||")[0].split(",")[1]+data.address.split("||")[0].split(",")[0]})
       
@@ -115,7 +115,7 @@ export default function Edit_list() {
           navigator.geolocation.getCurrentPosition(
            (position) => { 
               
-              console.log(position.coords.latitude)
+              //console.log(position.coords.latitude)
               setFormData({ ...formdata,Location:  [position.coords.latitude , position.coords.longitude]})
           })}
           else if(formdata.Location[0]===0){
@@ -127,8 +127,8 @@ export default function Edit_list() {
             await Updata_listing(formdata,setLoading, setError,prams.id)
             
             if(!setError){
-            console.log("Form submitted:", formdata);
-            console.error('Error getting location:', error);
+            //console.log("Form submitted:", formdata);
+            //console.error('Error getting location:', error);
           
         }
         if(!loading){
@@ -143,7 +143,7 @@ export default function Edit_list() {
       
       
      
-      console.log(formdata);
+      //console.log(formdata);
     };
    
     
@@ -159,7 +159,7 @@ export default function Edit_list() {
       setUploading(true)
       setPicno(parseInt(formdata.NumberofFloor)+parseInt(formdata.bathroom)+parseInt(formdata.bedroom)+3)
       e.preventDefault();
-      console.log(file)
+      //console.log(file)
       if(file.length>0 && file.length<picno){
           const promises=[]
           for(let i=0; i<file.length; i++){
@@ -209,7 +209,6 @@ export default function Edit_list() {
      
 
   }
-    
     
     if (!user) return <motion.h3>Please log in to view your profile</motion.h3>
     return(

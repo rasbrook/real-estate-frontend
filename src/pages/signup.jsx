@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { SignUpLink } from './page style/signinstyle';
 import { useUserStore } from '../store/user.store';
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import {motion} from 'framer-motion'
@@ -80,7 +79,7 @@ export default function SignUp() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-    console.log(formData)
+    //console.log(formData)
   };
   const handleSubmit = async(e) => {
     
@@ -88,8 +87,8 @@ export default function SignUp() {
     if (passwordMatch && passwordError==='') {
      
       await Signup(formData, setLoading, setError, setSuccess)
-      console.log(success)
-      console.log(error)
+      //console.log(success)
+     // console.log(error)
       if(success){
         nav('/')
       }
@@ -109,21 +108,21 @@ export default function SignUp() {
       const provider=new GoogleAuthProvider()
       const auth=getAuth(app)
       const result=await signInWithPopup(auth, provider)
-      console.log(result)
+      //console.log(result)
       const username=result.user.displayName
       const email=result.user.email
       const image=result.user.photoURL
       const data={username,email, image}
-      console.log(data)
+      //console.log(data)
         
         await Google_Sign_up(data, setLoading, setError, setSuccess)
-        console.log(success)
+        //console.log(success)
         if(success){
           nav('/')
         }
       
     } catch (error) {
-      console.log("Could Not sign in with google", error)
+     // console.log("Could Not sign in with google", error)
     }
   }
   return (

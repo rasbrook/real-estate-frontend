@@ -9,7 +9,7 @@ export default function Constact({listing}) {
     const [u, setUser]=useState()
     const [message, setMessage]=useState()
     const [loading, setLoading]=useState(false)
-    console.log(listing)
+    //console.log(listing)
     
 
     useEffect(()=>{
@@ -22,7 +22,7 @@ export default function Constact({listing}) {
             console.log(listing.useRef)
             const getuser=async()=>{
                 try {
-                    const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${listing.useRef}`, {
+                    const res=await fetch(`http://localhost:5000/api/user/${listing.useRef}`, {
                         method:"GET", 
                         header:{
                             'Content-Type': 'application/json'
@@ -34,14 +34,14 @@ export default function Constact({listing}) {
                 const user=await res.json()
                 if(user.success===true){
                     setUser(user)
-                    console.log(user)
+                    //console.log(user)
                     setLoading(false)
                     
                 }
                     
                     
                 } catch (error) {
-                    console.log(error)
+                    //console.log(error)
                     setLoading(false)
                     
                 }

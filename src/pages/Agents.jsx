@@ -20,7 +20,7 @@ export default function Agents() {
     const getagents=async ()=>{
       console.log('get all agents')
       setLoading(true)
-      const res= await fetch('https://estate-backend-1-d4pa.onrender.com/api/user/agents/all', {
+      const res= await fetch('http://localhost:5000/api/user/agents/all', {
         method:'GET',
         headers:{
           'Content-Type':'application/json'
@@ -42,7 +42,7 @@ export default function Agents() {
   getagents()
     }, [1])
 
-    console.log(data)
+   // console.log(data)
   return (
     <div>
     <div style={{display:'flex', flexWrap:'wrap', gap:20}}>

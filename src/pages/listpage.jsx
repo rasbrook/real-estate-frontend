@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import{ FaBath, FaBed, FaBuilding, FaMapMarkerAlt, FaPhone} from 'react-icons/fa'
+import{ FaBath, FaBed, FaBuilding, FaHeart, FaMapMarkerAlt, FaPhone} from 'react-icons/fa'
 import { AiOutlineAreaChart } from 'react-icons/ai'
 import { useUserStore } from '../store/user.store'
 import Constact from '../components/constact'
@@ -11,12 +11,25 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { PropagateLoader } from 'react-spinners'
 
 
-
-
 export default function Listpage() {
 
   const user = useUserStore((state) => state.user)
+  const {UpdatefavlistInfo}=useUserStore()
+  const [contact, setContact]=useState(false)
+  const [data, setData]=useState(null)
+  const [loading,setLoading]=useState(false)
+  const [message, setMessage]=useState(null)
+    const [bigimage, setBigimage]=useState(null)
+    const [List, SetListing]=useState('')
+    const [u, setUser]=useState('')
+    const [userid, serUserId]=useState('')
   const nav=useNavigate()
+  const [profileData, setProfileData] = useState({
+    FavListing: user?.rest?.FavListing || [],
+    
+  })
+
+  const [fav, setFav]=useState(profileData.FavListing)
 
   
 
@@ -29,14 +42,8 @@ export default function Listpage() {
 
 
     
-    const [contact, setContact]=useState(false)
-    const [data, setData]=useState(null)
-    const [loading,setLoading]=useState(false)
-    const [message, setMessage]=useState(null)
-    const [bigimage, setBigimage]=useState(null)
-    const [List, SetListing]=useState('')
-    const [u, setUser]=useState('')
-    const [userid, serUserId]=useState('')
+    
+    
   
 
     const params=useParams()
@@ -50,7 +57,7 @@ export default function Listpage() {
             try {
               setLoading(true)
               console.log(listingid)
-            const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, {
+            const res=await fetch(`http://localhost:5000/api/listing/list/${listingid}`, {
               method:"GET", 
               headers:{
                 'Content-Type':'application/json'
@@ -61,7 +68,7 @@ export default function Listpage() {
             if(d){
               setLoading(false)
               setData(d)
-            console.log(d)
+            //console.log(d)
             return
             }
             setLoading(false)
@@ -84,12 +91,12 @@ export default function Listpage() {
 
    
       if(data){
-        console.log(data.useRef)
+        //console.log(data.useRef)
         
          
           const getuser=async()=>{
               try {
-                  const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`, {
+                  const res=await fetch(`http://localhost:5000/api/user/${data.useRef}`, {
                       method:"GET", 
                       header:{
                           'Content-Type': 'application/json'
@@ -101,13 +108,13 @@ export default function Listpage() {
               const user=await res.json()
               if(user){
                   setUser(user)
-                  console.log(user)
+                 // console.log(user)
                   
               }
                   
                   
               } catch (error) {
-                  console.log(error)
+                 // console.log(error)
                   
               }
           
@@ -127,9 +134,51 @@ export default function Listpage() {
       }, [data])
   
 
-console.log(u)
-console.log(data)
-console.log(userid)
+//console.log(u)
+//console.log(data)
+//console.log(userid)
+
+
+const addtofav=async()=>{
+  console.log('add fav')
+  
+  try {
+
+ 
+    
+    profileData.map((item)=>{
+      setProfileData({...item,FavListing:[...fav, data._id]})
+      
+
+      
+     
+   
+      
+      })
+      
+
+      
+    
+  
+    
+
+   
+
+    console.log(profileData)
+
+    await UpdatefavlistInfo(profileData, setError, setLoading,user.rest._id)
+
+
+    
+    
+   
+   
+   
+   
+  } catch (error) {
+    
+  }
+}
 
       
    
@@ -155,7 +204,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
         <motion.div style={{display:'flex', flexWrap:'wrap',width:'35%',justifyContent:'center',minWidth:400, gap:10}}>
           <motion.div style={{display:'flex', flexWrap:'wrap',justifyContent:'center',minWidth:310, gap:10}} >
           {data.ImageUrls.map((i)=>
-            (<motion.img loading='lazy' style={{width:180, height:180, borderRadius:10, position:'relative', top:0, justifySelf:'self-start'}} key={i} onClick={()=>setBigimage(i)}  src={i}/>)
+            (<motion.img loading='lazy' style={{width:185, height:185, borderRadius:10, position:'relative', top:0, justifySelf:'self-start'}} key={i} onClick={()=>setBigimage(i)}  src={i}/>)
 
           )}
           </motion.div>
@@ -196,6 +245,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
           <div style={{display:'flex', flexWrap:'wrap',alignItems:'center',gap:10}}><FaBath style={iconsstyle} /><p>{data.bathroom} Bath Room</p></div>
           <div style={{display:'flex', flexWrap:'wrap',alignItems:'center',gap:10}}><FaBuilding style={{fontSize:30,color:"#009fbe"}} /><p>{data.NumberofFloor ===0 ? `bungalow /Ground +${data.NumberofFloor}`:`Ground +${data.NumberofFloor}`}</p></div>
           <div style={{display:'flex',alignItems:'center',gap:10}}><FaMapMarkerAlt style={iconsstyle} /><p>{`${data.address.split('||')[0].split(',')[4]},  ${data.address.split('||')[0].split(',')[3]}, ${data.address.split('||')[0].split(',')[2]},${data.address.split('||')[0].split(',')[1]}`}</p></div>
+          <div onClick={addtofav}><FaHeart /></div>
 
 
 

@@ -22,6 +22,7 @@ import Rent from './pages/rent'
 import Agentcard from './components/agentcard.jsx'
 import Agentpage from './pages/agentpage.jsx'
 import AgentListing from './pages/agentlist.jsx'
+import Favorite from './pages/favorite.jsx'
 
 
 const MainContent = styled.main`
@@ -54,6 +55,7 @@ function App() {
     <Route path='/profile' element={<Profile />} />
     <Route path='/create-listing' element={<CreateListing />} />
     <Route path='/listing' element={<Listing />} />
+    <Route path='/fav/listings' element={<Favorite />} />
     <Route path='/listing/edit_list/:id' element={<Edit_list/>} />
     
 

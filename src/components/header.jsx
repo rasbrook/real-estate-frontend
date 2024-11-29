@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { color, motion, useAnimationControls } from 'framer-motion';
-import { FaBars, FaTimes, FaSearch , FaSun, FaMoon} from 'react-icons/fa';
+import { FaBars, FaTimes, FaSearch , FaSun, FaMoon, FaHeart} from 'react-icons/fa';
 import { useUserStore } from '../store/user.store';
 import { useNavigate } from 'react-router-dom';
 import { useModeState } from '../store/mode.store';
@@ -37,7 +37,7 @@ const Header = () => {
   const hbuttdarkmode=useModeState((state) => state.hbuttdarkmode)
   
 
-  console.log(darkmode, backdarkmode)
+  //console.log(darkmode, backdarkmode)
   
   const [searchTerm, setSearchform]=useState('')
   const nav=useNavigate()
@@ -48,7 +48,7 @@ const Header = () => {
 
 
 
-  console.log(user)
+  //console.log(user)
 
   const handlesubmit=async(e)=>{
     e.preventDefault()
@@ -132,10 +132,13 @@ const Header = () => {
           
     
           
-          {<motion.div>{user? <motion.div whileHover={hovereffect}>
-            <Link  style={linkstyle} as={Link} to="/profile">
+          {<motion.div>{user? <motion.div  style={{display:'flex', flexWrap:'wrap'}}>
+            <motion.div whileHover={hovereffect}>
+            <Link style={linkstyle} as={Link} to="/profile">
                     <motion.img style={{height:36, width:36, borderRadius:18, border:'none', marginRight:10}} src={user.rest.avator}/><p>{user.rest.username}</p>
                 </Link>
+            </motion.div>
+            <Link style={{position:'absolute', left:'95vw'}}   as={Link} to="/fav/listings"><motion.h3 style={linkstyle}  whileHover={hovereffect}><FaHeart /></motion.h3></Link>
           </motion.div>
                 :
                       <Link style={linkstyle} as={Link} to="/sign-in">Sign in</Link>}
@@ -188,10 +191,14 @@ const Header = () => {
         <FaTimes onClick={Hide} style={{fontSize:30, position:'relative', top:10, color:hbuttdarkmode}} />
         <div onClick={toggleMenu} style={{position:'absolute', left:0,top:0, fontSize:40, padding:10}}> {darkmode!=='#ffffff' || darkmode===undefined  ? <FaSun style={{ color: '#fff000' }} /> : <FaMoon style={{ color: '#00000f' }} />}</div>
         <motion.div  whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-          {<motion.div style={{position:'relative', top:20}} >{user? <Link  style={{textDecoration:'none'}} onClick={Hide}
-          as={Link} to="/profile"><img  style={{width:80,maxHeight:80, borderRadius:40}} 
-          src={user.rest.avator}/><p >{user.rest.username}</p></Link>:
+          {<motion.div style={{position:'relative', top:20}} >{user? <div><Link  style={{textDecoration:'none'}} onClick={Hide}
+          as={Link} to="/profile">
+            <img  style={{width:80,maxHeight:80, borderRadius:40}} 
+          src={user.rest.avator}/>
+          
+          <p >{user.rest.username}</p></Link></div>:
           <Link onClick={Hide}  style={{position:'relative', top:20, textDecoration:'none', color:darkmode || '#000000'}} as={Link} to="/sign-in">Sign in</Link>}</motion.div>} 
+          <Link onClick={Hide} style={{position:'absolute', left:'100vw',top:'-5vh', fontSize:40, padding:10, zIndex:9999, textDecoration:'none',color:hdarkmode || '#ffffff'||'white'}} as={Link} to="/fav/listings"><motion.h3  ><FaHeart /></motion.h3></Link>
           </motion.div>
           <motion.div style={{margin:20}} whileTap={{ scale: 0.95 }}>
             <Link onClick={Hide} style={hiddlenlink}as={Link} to="/">Home</Link>
@@ -207,6 +214,7 @@ const Header = () => {
           <motion.div style={{margin:20}}   whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
           <Link onClick={Hide} style={hiddlenlink} as={Link} to="/find/agent">Find An Agent</Link>
           </motion.div>
+
          
         </motion.div>
       </motion.div>

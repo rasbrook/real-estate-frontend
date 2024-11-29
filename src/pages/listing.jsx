@@ -26,7 +26,7 @@ export default function Listing() {
     const [s, setS]=useState(0)
     const containdarkmode=useModeState((state) => state.containdarkmode)
     
-    console.log(user.rest._id)
+    //console.log(user.rest._id)
    
 
     useEffect(()=>{
@@ -37,7 +37,13 @@ export default function Listing() {
           
       }
       if(screensize<=1100){
-        if(data){
+       // console.log(data)
+        if(data.message==="UnAuthorized access"){
+          setError('401 Unauthorized access')
+          return
+
+        }
+        if(data && data.listings){
           const a =270*data.listings.length 
         setW(a)
         }
@@ -45,7 +51,7 @@ export default function Listing() {
 
     }, [screensize, data])
 
-    console.log(screensize)
+    //console.log(screensize)
 
 
 
@@ -67,7 +73,7 @@ export default function Listing() {
       const getuser=async()=>{
         try {
           setLoading(true)
-        const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/userlisting/${user.rest._id}`, {
+        const res= await fetch(`http://localhost:5000/api/user/userlisting/${user.rest._id}`, {
            credentials: 'include'})
         const d=await res.json()
         setData(d)
@@ -100,7 +106,7 @@ export default function Listing() {
           await DeleteListing(setError, List)
           //nav('/profile')
           if(!setError){
-            console.log('Deleted sucessfully')
+          console.log('Deleted sucessfully')
           }
           
         } catch (error) {
@@ -119,10 +125,10 @@ export default function Listing() {
  
 
   if(data!==''){
-    console.log(data.listings)
+   // console.log(data.listings)
   }
     
-console.log(List)
+//console.log(List)
 
   
     
@@ -130,6 +136,7 @@ console.log(List)
 
 
 if(loading) return <PropagateLoader color="#58fcff"  />
+if(error) return <div>{error}</div>
 
 
   return (
@@ -138,7 +145,7 @@ if(loading) return <PropagateLoader color="#58fcff"  />
 
 
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab'}} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!==''? data.listings.map((list)=>list.isSell?
+    {data!=='' && data.listings? data.listings.map((list)=>list.isSell?
 
 
 
@@ -170,7 +177,7 @@ if(loading) return <PropagateLoader color="#58fcff"  />
     </motion.div>
     <h1 style={{justifySelf:'start'}}>For Rent</h1>
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!==''? data.listings.map((list)=>!list.isSell ?
+    {data!=='' && data.listings? data.listings.map((list)=>!list.isSell ?
 
 
 

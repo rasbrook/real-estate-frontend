@@ -1,11 +1,14 @@
 import { motion } from "framer-motion"
-import React from "react"
 import image from '../assets/a3.jpg'
 import { useModeState } from "../store/mode.store"
 import { FontWeight } from "@cloudinary/url-gen/qualifiers"
+import React, { useState } from 'react'; 
+import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 
 function Cards(props){
+    const [isFavorite, setIsFavorite]=useState(false)
+    
     const darkmode=useModeState((state) => state.darkmode)
 const backdarkmode=useModeState((state) => state.backdarkmode)
 const containdarkmode=useModeState((state) => state.containdarkmode)
@@ -21,13 +24,25 @@ const cardstyle={Height:'25vh',
                 minHeight:250,
                 minWidth:320,
                 maxHeight:400,
-                border:'none', borderRadius:15, backgroundColor:containdarkmode ||  '#EEE', color:darkmode || '#000000', alignSelf:'center', FontWeight:600, overflow:'hidden' } 
+                border:'none', 
+                borderRadius:15, 
+                backgroundColor:containdarkmode ||  '#EEE', 
+                color:darkmode || '#000000', 
+                alignSelf:'center', 
+                FontWeight:600, 
+                overflow:'hidden' }
+
+
+    
     return(
-    <motion.div  key={props.id} whileTap={props.idset} whileInView={props.idset}  onMouseEnter={props.idset} onClick={props.detail} className="cards" style={cardstyle} whileHover={{cursor:'pointer'}} > 
+
+    <motion.div  key={props.id} onFocus={props.idset} onHoverStart={props.idset} onTouchStart={props.idset} onMouseEnter={props.idset}  className="cards" style={cardstyle} whileHover={{cursor:'pointer'}} > 
         <a hred='./process.jpx'>
-            <img loading='lazy' className='cardimage' style={{width:'100%', border:'none', alignSelf:'center', borderRadius:10, Height:'50%', maxHeight:170}} src={props.cardimage} />
+            <img onClick={props.detail} loading='lazy' className='cardimage' style={{width:'100%', border:'none', alignSelf:'center', borderRadius:10, Height:'50%', maxHeight:170}} src={props.cardimage} />
+            {props.owner? '':<div onClick={()=>{setIsFavorite(prev=>!prev)}} style={{ position:'relative', top: '0px', right: '10px', cursor: 'pointer', fontSize: '24px', justifySelf:'end', color: isFavorite ? 'red' : 'grey', }} > 
+            {isFavorite ? <FaHeart /> : <FaRegHeart />} </div>}
             <motion.div style={{height: 'max-content'}} >
-            <h2 style={{display:'flex', left:20, gap:10}}><span>{props.Price.toLocaleString()}</span>{props.isSell?'ETB':"ETB/Month"}</h2>
+            <h2 onClick={props.detail} style={{display:'flex', left:20, gap:10}}><span>{props.Price.toLocaleString()}</span>{props.isSell?'ETB':"ETB/Month"}</h2>
             <motion.p style={{position:'relative', left:10, zIndex:1, display:'flex', gap:10, marginTop:10, marginBottom:10, fontSize:12, overflow:'hidden'}}><span>{<span>{props.bed}</span>} bed</span> |
                                                                                                                             <span>{<span>{props.bath}</span>} bath</span>|
                                                                                                                             <span>{<span>{props.area}</span>} sqm</span>|

@@ -53,7 +53,7 @@ export default function Sell() {
       if(listin.length>0){
        
           const a =280*length 
-        console.log(a)
+        //console.log(a)
         setW(a)
         
       
@@ -73,9 +73,9 @@ export default function Sell() {
 
   }, [listin, length])
 
-  console.log(screensize)
-  console.log(listin)
-  console.log(lat, lon)
+  //console.log(screensize)
+  //console.log(listin)
+  //console.log(lat, lon)
 
 
   if(listin!==''){
@@ -91,7 +91,7 @@ export default function Sell() {
     }
     
   }
-  console.log(lat, lon)
+  //console.log(lat, lon)
 
 
 
@@ -101,7 +101,7 @@ export default function Sell() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
+            const res= await fetch(`http://localhost:5000/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json',
@@ -113,7 +113,7 @@ export default function Sell() {
             if(lists){
                 setLoading(false)
                 setListin(lists)
-                console.log(lists)
+                //console.log(lists)
                 
                 return
                 
@@ -133,14 +133,13 @@ export default function Sell() {
 }, [])
 
 if(listin!==''){
-  listin.map((l)=>{console.log(l)})
+//  listin.map((l)=>{console.log(l)})
   
 }
 
+  if(loading) return <PropagateLoader color="#58fcff"  />
 
 
-
-if(loading) return <PropagateLoader color="#58fcff"  />
   return (<div>
     <div style={{width:'100%', height:'50vh',  border:'none',marginBottom:50, minWidth:320}}>
     {listin.length!==0 && lat!==0 && lon!==0 ? <Map zoom={12} center={{lat, lon}} pin={listin!=='' ?listin.map((items)=>items.isSell? ((<Pin id={items._id} 

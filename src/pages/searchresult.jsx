@@ -61,16 +61,16 @@ export default function Searchresult() {
 
       
     }, [sidebardata])
-    console.log(isRent, isSell)
+    //console.log(isRent, isSell)
 
 
 
     useEffect(()=>{
-        console.log(query)
+        //console.log(query)
         const getListings=async()=>{
             setLoading(true)
             try {
-                const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get${query}`, {
+                const res= await fetch(`http://localhost:5000/api/listing/get${query}`, {
                     method:"GET", 
                     headers:{
                         'Content-Type':'application/json',
@@ -100,8 +100,8 @@ export default function Searchresult() {
 
     }, [query])
     
-    console.log(listings)
-    console.log(list)
+    //console.log(listings)
+    //console.log(list)
 
     const handlesidebarchange=(e)=>{
       if(e.target.id==='isRent'||e.target.id==='isSell'||e.target.id==='Both'){
@@ -141,7 +141,7 @@ export default function Searchresult() {
 
 
       const searchQuery=urlparam.toString()
-      console.log(searchQuery)
+      //console.log(searchQuery)
       nav(`?${searchQuery}`)
 
 
@@ -149,7 +149,7 @@ export default function Searchresult() {
 
     }
 
-   console.log(sidebardata)
+   //console.log(sidebardata)
 
 
    
@@ -185,7 +185,7 @@ export default function Searchresult() {
       setisBig(false)
       if(listings.length>0){
         const a =270*listings.length 
-        console.log(a)
+        //console.log(a)
         setW(a)
         listings.map((item)=>{setLat(prev=>(parseFloat(prev)+parseFloat(item.Location[0]))),setLon(prev=>(parseFloat(prev)+parseFloat(item.Location[1])))})
 
@@ -202,7 +202,7 @@ export default function Searchresult() {
   }, [listings, screensize])
 
 
-  console.log(lat, lon)
+  //console.log(lat, lon)
 
 
 

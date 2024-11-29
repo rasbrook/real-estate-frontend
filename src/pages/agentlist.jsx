@@ -70,7 +70,7 @@ export default function AgentListing() {
       const getuser=async()=>{
         try {
           setLoading(true)
-        const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/agentlisting/${id}`, {
+        const res= await fetch(`http://localhost:5000/api/user/agentlisting/${id}`, {
            credentials: 'include'})
         const d=await res.json()
         setData(d)
@@ -102,7 +102,7 @@ export default function AgentListing() {
       if (window.confirm("Are you sure You Want to delete This listing?")) {
         try {
           await DeleteListing(setError, List)
-          //nav('/profile')
+          nav('/profile')
           if(!setError){
             console.log('Deleted sucessfully')
           }
@@ -123,10 +123,10 @@ export default function AgentListing() {
  
 
   if(data!==''){
-    console.log(data.listings)
+    //console.log(data.listings)
   }
     
-console.log(List)
+//console.log(List)
 
   
     

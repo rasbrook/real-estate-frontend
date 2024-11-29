@@ -85,7 +85,7 @@ export default function CreateListing() {
              navigator.geolocation.getCurrentPosition(
              (position) => { 
                 
-                console.log(position.coords.latitude)
+                //console.log(position.coords.latitude)
                 setFormData({ ...formdata, Location:  [position.coords.latitude , position.coords.longitude]})
                 
                 
@@ -94,7 +94,7 @@ export default function CreateListing() {
           console.log(formdata)
           
           if(formdata.Location){
-            console.log(formdata.Location[0])
+            //console.log(formdata.Location[0])
             
            
             
@@ -117,8 +117,8 @@ export default function CreateListing() {
              
               
               if(!setError){
-              console.log("Form submitted:", formdata);
-              console.error('Error getting location:', error);
+              //console.log("Form submitted:", formdata);
+              //console.error('Error getting location:', error);
             
   
               
@@ -138,7 +138,7 @@ export default function CreateListing() {
         
         
        
-        console.log(formdata);
+        //console.log(formdata);
       };
       useEffect(()=>{
        if(formdata.Location[0]!==0){

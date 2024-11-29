@@ -45,14 +45,13 @@ export default function Home() {
     if(screensize<=1100){
       if(listin!==''){
         const a =270*listin.length 
-        console.log(a)
       setW(a)
       }
     }
 
   }, [listin])
 
-  console.log(screensize)
+  
  
 
 
@@ -63,7 +62,7 @@ export default function Home() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
+            const res= await fetch(`http://localhost:5000/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
@@ -74,7 +73,7 @@ export default function Home() {
             if(lists){
                 setLoading(false)
                 setListin(lists)
-                console.log(lists)
+             
                 
                 return
                 
@@ -95,10 +94,8 @@ export default function Home() {
 
 }, [])
 
-if(listin!==''){
-  listin.map((l)=>{console.log(l)})
-  
-}
+///if(listin!==''){
+//  listin.map((l)=>{console.log(l)})}
 
 
 

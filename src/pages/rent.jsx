@@ -48,7 +48,7 @@ export default function Rent() {
     if(screensize<=1100){
       if(listin!==''){
         const a =270*length 
-        console.log(a)
+        //console.log(a)
         
       setW(a)
       
@@ -63,7 +63,7 @@ export default function Rent() {
 
   }, [listin, length])
 
-  console.log(screensize)
+  //console.log(screensize)
 
 
 
@@ -73,7 +73,7 @@ export default function Rent() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
+            const res= await fetch(`http://localhost:5000/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
@@ -84,7 +84,7 @@ export default function Rent() {
             if(lists){
                 setLoading(false)
                 setListin(lists)
-                console.log(lists)
+                //console.log(lists)
                 
                 return
                 
@@ -104,7 +104,7 @@ export default function Rent() {
 }, [])
 
 
-console.log(lat, lon)
+//console.log(lat, lon)
 
 if(listin!==''){
 

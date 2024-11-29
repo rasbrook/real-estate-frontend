@@ -68,7 +68,7 @@ const Signin = () => {
     e.preventDefault();
     ///send data to an API
     await Signin(formData, setLoading, setError, setSuccess)
-      console.log(success)
+      //console.log(success)
       
       if(success){
        return nav('/')
@@ -109,7 +109,7 @@ const Signin = () => {
       const data={email, password}
       const image=result.user.photoURL
       await Google_Sign_in(data, setLoading, setError, setSuccess)
-      console.log(success)
+      //console.log(success)
       setFormData({email:email, password:password, image})
       
       if(success){
@@ -121,7 +121,7 @@ const Signin = () => {
 
 
     } catch (error) {
-      console.log("Could Not sign in with google", error)
+      //console.log("Could Not sign in with google", error)
     }
   };
 
