@@ -32,7 +32,7 @@ export default function Favorite() {
             if (user && profileData.FavListing.length > 0)  { 
             try
         { const fetchedData = await Promise.all( profileData.FavListing.map(async (listingId) => 
-                { const res = await fetch(`http://localhost:5000/api/listing/list/${listingId}`, 
+                { const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingId}`, 
                     { method: 'GET',
                      headers: { 'Content-Type': 'application/json', }
                     , }); 
@@ -50,7 +50,7 @@ export default function Favorite() {
 
    
       
-      console.log(user.rest._id)
+      //console.log(user.rest._id)
      
   
       useEffect(()=>{
@@ -61,7 +61,7 @@ export default function Favorite() {
             
         }
         if(screensize<=1100){
-          console.log(data)
+          //console.log(data)
           if(data.message==="UnAuthorized access"){
             setError('401 Unauthorized access')
             return
@@ -75,7 +75,7 @@ export default function Favorite() {
   
       }, [screensize, data])
   
-      console.log(data)
+      //console.log(data)
 
 
   return (

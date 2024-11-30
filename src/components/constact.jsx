@@ -22,7 +22,7 @@ export default function Constact({listing}) {
             console.log(listing.useRef)
             const getuser=async()=>{
                 try {
-                    const res=await fetch(`http://localhost:5000/api/user/${listing.useRef}`, {
+                    const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${listing.useRef}`, {
                         method:"GET", 
                         header:{
                             'Content-Type': 'application/json'
