@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import Map from '../components/map'
 import Pin from '../components/pin'
 import { PropagateLoader } from 'react-spinners'
+import { useUserStore } from '../store/user.store'
 
 export default function Rent() {
   const [loading, setLoading] = useState(false)
@@ -27,6 +28,7 @@ export default function Rent() {
   const [lat, setLatt]=useState(0)
   const [lon, setLong]=useState(0)
   const nav=useNavigate()
+  const user = useUserStore((state) => state.user); 
 
   
 
@@ -159,6 +161,7 @@ if(loading) return <PropagateLoader color="#58fcff"  />
        companyname={list.CompanyName}
        owner={false}
        detail={()=>nav(`/listing/list/${List}`)}
+       fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
        />
       )
  ) :''

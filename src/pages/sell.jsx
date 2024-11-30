@@ -8,8 +8,10 @@ import { useNavigate } from 'react-router-dom'
 import Pin from '../components/pin'
 import Map from '../components/map'
 import { PropagateLoader } from 'react-spinners'
+import { useUserStore } from '../store/user.store'
 
 export default function Sell() {
+  const user = useUserStore((state) => state.user); 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [l, setL]=useState('Show Listing')
@@ -174,6 +176,7 @@ if(listin!==''){
        isSell={list.isSell} 
        agentname={list.AgentName}
        companyname={list.CompanyName}
+       fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
        owner={false}
        detail={()=>nav(`/listing/list/${List}`)}
        />

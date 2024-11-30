@@ -10,6 +10,7 @@ import { PropagateLoader } from 'react-spinners'
 
 
 export default function Listing() {
+  
   const nav=useNavigate()
   const {Updata_listing}=useListingStore()
     const [loading, setLoading] = useState(false)
@@ -162,7 +163,8 @@ if(error) return <div>{error}</div>
    isSell={list.isSell} 
    agentname={list.AgentName}
    companyname={list.CompanyName}
-   owner={true} 
+   owner={true}
+   fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false} 
    edit={()=>{nav(`/listing/edit_list/${List}`)}} 
    delete={()=>{Deletelist(),console.log(data)}} />
 
@@ -195,6 +197,7 @@ if(error) return <div>{error}</div>
    agentname={list.AgentName}
    companyname={list.CompanyName}
    owner={true} 
+   fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
    edit={()=>{nav(`/listing/edit_list/${List}`)}} 
    delete={()=>{Deletelist(),console.log(data)}} />
 

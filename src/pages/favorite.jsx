@@ -104,6 +104,7 @@ export default function Favorite() {
    agentname={list.AgentName}
    companyname={list.CompanyName}
    owner={false} 
+   fav={true}
    detail={()=>nav(`/listing/list/${List}`)}
    />
 
@@ -138,6 +139,7 @@ export default function Favorite() {
    agentname={list.AgentName}
    companyname={list.CompanyName}
    owner={false} 
+   fav={true}
    detail={()=>nav(`/listing/list/${List}`)}
   />
 

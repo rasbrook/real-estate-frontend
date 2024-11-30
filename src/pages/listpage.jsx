@@ -12,7 +12,7 @@ import { PropagateLoader } from 'react-spinners'
 
 
 export default function Listpage() {
-  const iconsstyle={fontSize:'5vh',color:"#009fbe"}
+const iconsstyle={fontSize:'5vh',color:"#009fbe"}
 const user = useUserStore((state) => state.user); 
 const { UpdatefavlistInfo } = useUserStore(); 
 const [contact, setContact] = useState(false); 
@@ -82,6 +82,7 @@ const addtofav = async () => {
     setFavorite(fav.indexOf(data._id)!==-1);
       
     
+
   } }; 
 
 

@@ -5,6 +5,7 @@ import {motion } from 'framer-motion'
 import Map from '../components/map'
 import Pin from '../components/pin'
 import { PropagateLoader } from 'react-spinners'
+import { useUserStore } from '../store/user.store'
 
 
 export default function Searchresult() {
@@ -21,6 +22,7 @@ export default function Searchresult() {
    const [center, setCenter]=useState()
    const [lat, setLatt]=useState(0)
    const [lon, setLong]=useState(0)
+   const user = useUserStore((state) => state.user);
 
     let query=useLocation().search
 
@@ -330,6 +332,7 @@ export default function Searchresult() {
          agentname={l.AgentName}
          companyname={l.CompanyName}
          owner={false}
+         fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
          detail={()=>nav(`/listing/list/${list}`)}
          />)
 
@@ -367,6 +370,7 @@ export default function Searchresult() {
          agentname={l.AgentName}
          companyname={l.CompanyName}
          owner={false}
+         fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
          detail={()=>nav(`/listing/list/${list}`)}
          />)
 

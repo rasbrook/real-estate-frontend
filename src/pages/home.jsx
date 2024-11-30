@@ -9,6 +9,7 @@ import home1 from '../assets/home1.png'
 import home2 from '../assets/home2.png'
 import home3 from '../assets/home3.png'
 import { PropagateLoader } from 'react-spinners'
+import { useUserStore } from '../store/user.store'
 
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
   const [s, setS]=useState(0)
   const [randomHome, setRandomhome]=useState()
   const nav=useNavigate()
+  const user = useUserStore((state) => state.user); 
 
   const homearray=[home1,home2,home3]
 
@@ -126,6 +128,7 @@ export default function Home() {
      agentname={list.AgentName}
      companyname={list.CompanyName}
      owner={false}
+     fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
      detail={()=>nav(`/listing/list/${List}`)}
      />
     )
