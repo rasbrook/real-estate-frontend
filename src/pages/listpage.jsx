@@ -12,173 +12,90 @@ import { PropagateLoader } from 'react-spinners'
 
 
 export default function Listpage() {
-
-  const user = useUserStore((state) => state.user)
-  const {UpdatefavlistInfo}=useUserStore()
-  const [contact, setContact]=useState(false)
-  const [data, setData]=useState(null)
-  const [loading,setLoading]=useState(false)
-  const [message, setMessage]=useState(null)
-    const [bigimage, setBigimage]=useState(null)
-    const [List, SetListing]=useState('')
-    const [u, setUser]=useState('')
-    const [userid, serUserId]=useState('')
-  const nav=useNavigate()
-  const [profileData, setProfileData] = useState({
-    FavListing: user?.rest?.FavListing || [],
-    
-  })
-
-  const [fav, setFav]=useState(profileData.FavListing)
-
-  
-
   const iconsstyle={fontSize:'5vh',color:"#009fbe"}
-  
-
-
-  
-  
-
-
-    
-    
-    
-  
-
-    const params=useParams()
-
-    useEffect(()=>{
+const user = useUserStore((state) => state.user); 
+const { UpdatefavlistInfo } = useUserStore(); 
+const [contact, setContact] = useState(false); 
+const [data, setData] = useState(null); 
+const [loading, setLoading] = useState(false); 
+const [message, setMessage] = useState(null); 
+const [bigimage, setBigimage] = useState(null); 
+const [List, SetListing] = useState(''); 
+const [u, setUser] = useState(''); 
+const [userid, serUserId] = useState(''); 
+const nav = useNavigate(); 
+const params = useParams(); 
+const [profileData, setProfileData] = useState({ FavListing: user.rest.FavListing, }); 
+const [fav, setFav] = useState(profileData.FavListing); 
+const [favorite, setFavorite] = useState(false); 
+useEffect(() => { 
+  if (data) { 
+    console.log(fav.indexOf(data._id)!==-1)
+    setFavorite(fav.indexOf(data._id)!==-1); 
+  } }, [data]);
+ useEffect(() => { 
+  const fetchlisting = async () => { 
+    const listingid = params.id; try {
+       setLoading(true); 
+       const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, 
+        { method: 'GET', 
+          headers: { 'Content-Type': 'application/json', }, 
+        }); const d = await res.json(); 
+        setLoading(false);
+         if (d) { 
+          setData(d); 
+          setBigimage(d.ImageUrls[0]); } 
+        } catch (error) { 
+          setLoading(false); 
+          console.error('Error fetching listing:', error); } 
+        }; fetchlisting(); 
+      }, [params.id]); 
       
-
-        
-        const fetchlisting=async()=>{
-            const listingid=params.id
-            try {
-              setLoading(true)
-              console.log(listingid)
-            const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, {
-              method:"GET", 
-              headers:{
-                'Content-Type':'application/json'
-              }
-            })
-            setLoading(false)
-            const d=await res.json()
-            if(d){
-              setLoading(false)
-              setData(d)
-            //console.log(d)
-            return
-            }
-            setLoading(false)
-
-              
-            } catch (error) {
-              
-            }
-            
-            
-            
-    
-          }
-    
-          fetchlisting()
-
-
-    }, [])
-    useEffect(()=>{
-
-   
-      if(data){
-        //console.log(data.useRef)
-        
-         
-          const getuser=async()=>{
-              try {
-                  const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`, {
-                      method:"GET", 
-                      header:{
-                          'Content-Type': 'application/json'
-
-                      }
-                  })
-                  
-              
-              const user=await res.json()
-              if(user){
-                  setUser(user)
-                 // console.log(user)
-                  
-              }
-                  
-                  
-              } catch (error) {
-                 // console.log(error)
-                  
-              }
-          
-         
+      
+      useEffect(() => { 
+        if (data) { 
+          const getuser = async () => {
+             try { 
+              const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`, 
+                { method: 'GET', 
+                  headers: { 'Content-Type': 'application/json', }, 
+                }); 
+            const user = await res.json(); 
+            if (user) { 
+              setUser(user);
+            } } 
+            catch (error) { 
+              console.error('Error fetching user:', error); 
+            } }; 
+            getuser(); 
+          } }, [data]); 
   
-      }
-      getuser()
-      }
-      
   
-      
-  
-      
-     
-      
-  
-      }, [data])
-  
-
-//console.log(u)
-//console.log(data)
-//console.log(userid)
-
-
-const addtofav=async()=>{
-  console.log('add fav')
-  
-  try {
-
- 
-    
-    profileData.map((item)=>{
-      setProfileData({...item,FavListing:[...fav, data._id]})
-      
-
-      
-     
-   
-      
-      })
-      
-
+const addtofav = async () => { 
+  if (!favorite) {
+    setFav([...fav, data._id]); 
+    setFavorite(fav.indexOf(data._id)!==-1);
+    } 
+    else { 
+      const updatedItems = fav.filter((id) => id !== data._id); 
+    setFav(updatedItems);
+    setFavorite(fav.indexOf(data._id)!==-1);
       
     
+  } }; 
+
+
   
-    
-
-   
-
-    //console.log(profileData)
-
-    await UpdatefavlistInfo(profileData, setError, setLoading,user.rest._id)
+useEffect(() => { 
+    setProfileData((prevProfileData) => ({ ...prevProfileData, FavListing: fav, })); 
+    const send = async () => { 
+      await UpdatefavlistInfo(profileData, user.rest._id); 
+    }; send(); }, [fav]);
 
 
-    
-    
-   
-   
-   
-   
-  } catch (error) {
-    
-  }
-}
+
+
+
 
       
    
@@ -245,7 +162,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
           <div style={{display:'flex', flexWrap:'wrap',alignItems:'center',gap:10}}><FaBath style={iconsstyle} /><p>{data.bathroom} Bath Room</p></div>
           <div style={{display:'flex', flexWrap:'wrap',alignItems:'center',gap:10}}><FaBuilding style={{fontSize:30,color:"#009fbe"}} /><p>{data.NumberofFloor ===0 ? `bungalow /Ground +${data.NumberofFloor}`:`Ground +${data.NumberofFloor}`}</p></div>
           <div style={{display:'flex',alignItems:'center',gap:10}}><FaMapMarkerAlt style={iconsstyle} /><p>{`${data.address.split('||')[0].split(',')[4]},  ${data.address.split('||')[0].split(',')[3]}, ${data.address.split('||')[0].split(',')[2]},${data.address.split('||')[0].split(',')[1]}`}</p></div>
-          <div onClick={addtofav}><FaHeart /></div>
+          <div onClick={addtofav}><FaHeart  style={{ color: favorite ?  'red' : 'gray', fontSize:30}} /></div>
 
 
 

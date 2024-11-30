@@ -184,7 +184,7 @@ export default function Edit_list() {
      
   }
   const storeimages=async(file)=>{
-      return new Promise(async(resolve, reject)=>{
+      return new Promise(async(resolve, _reject)=>{
           if (file) {
     
               try {
@@ -205,7 +205,7 @@ export default function Edit_list() {
       })
   }
   const handleRemoveImage= (index)=>{
-      setFormData({...formdata, ImageUrls:formdata.ImageUrls.filter((u, i)=>i !==index)})
+      setFormData({...formdata, ImageUrls:formdata.ImageUrls.filter((_u, i)=>i !==index)})
      
 
   }

@@ -278,7 +278,7 @@ export const useUserStore = create(
 
         
       },
-      UpdatefavlistInfo:async(update, setError, setLoading, id)=>{
+      UpdatefavlistInfo:async(update, id)=>{
         const cookieName = 'access_token'; 
         const cookies = document.cookie.split('; '); 
         let jwtToken = ''; 
@@ -288,8 +288,9 @@ export const useUserStore = create(
               { jwtToken = cookie[1]; break; } }
 
         console.log(jwtToken)
+        console.log(update)
         try {
-          setLoading(true)
+    
           const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/update/favlisting/${id}`,
           {
             method:"PUT", 
@@ -302,26 +303,17 @@ export const useUserStore = create(
           })
           
           const data = await res.json()
-          setLoading(false)
           console.log(data)
-          
-          if(data.success === false){
-            
-            setError(data.message)
-            console.log(data.message)
-            setLoading(false)
-            return 
-          } else {
+          if(data.success===true){
             set({ user: data })
-            setSuccess(true)
-            setLoading(false)
-            console.log('Form submitted:', data);
+            
           }
+         
+        
+          
         } catch (error) {
-          setLoading(false)
-          setError(error)
+         
         }
-
 
 
       },
