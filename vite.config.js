@@ -28,4 +28,3 @@ export default defineConfig({
 
 // https://vitejs.dev/config/
 
-//https://estate-backend-1-d4pa.onrender.com
