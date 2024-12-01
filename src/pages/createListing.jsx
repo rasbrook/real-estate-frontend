@@ -145,14 +145,18 @@ export default function CreateListing() {
         if(formdata.Location[0]!==0){
           await Create_Listing(formdata, setLoading, setError)
           
+          
          }
        }
+       
 
        submit()
-       if(!loading ){
+
+       if(!loading && formdata.Location[0]!==0 ){
         nav('/listing')
         
       }
+       
 
 
       }, [formdata.Location])
