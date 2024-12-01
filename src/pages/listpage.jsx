@@ -125,7 +125,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
         <motion.div style={{display:'flex', flexWrap:'wrap',width:'35%',justifyContent:'center',minWidth:400, gap:10}}>
           <motion.div style={{display:'flex', flexWrap:'wrap',justifyContent:'center',minWidth:310, gap:10}} >
           {data.ImageUrls.map((i)=>
-            (<motion.img loading='lazy' style={{width:185, height:'100%', borderRadius:10, position:'relative', top:0, justifySelf:'self-start', objectFit:"cover"}} key={i} onClick={()=>setBigimage(i)}  src={i}/>)
+            (<motion.img loading='lazy' style={{maxWidth:185,width:185, borderRadius:10, position:'relative', top:0, justifySelf:'self-start', objectFit:"cover"}} key={i} onClick={()=>setBigimage(i)}  src={i}/>)
 
           )}
           </motion.div>
