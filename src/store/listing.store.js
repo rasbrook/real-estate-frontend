@@ -18,6 +18,7 @@ export const useListingStore=create(
         
 
         Create_Listing: async(list, setLoading, setError)=>{
+          setLoading(true)
           const {user, token}=get()
             console.log('listing')
             console.log(list.Location)

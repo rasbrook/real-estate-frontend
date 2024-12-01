@@ -141,13 +141,18 @@ export default function CreateListing() {
         //console.log(formdata);
       };
       useEffect(()=>{
-       if(formdata.Location[0]!==0){
-        Create_Listing(formdata, setLoading, setError)
-        if(!loading){
-          nav('/listing')
+       const submit=async()=>{
+        if(formdata.Location[0]!==0){
+          await Create_Listing(formdata, setLoading, setError)
           
-        }
+         }
        }
+
+       submit()
+       if(!loading ){
+        nav('/listing')
+        
+      }
 
 
       }, [formdata.Location])

@@ -39,7 +39,10 @@ useEffect(() => {
        setLoading(true); 
        const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, 
         { method: 'GET', 
-          headers: { 'Content-Type': 'application/json', }, 
+          headers: { 
+            'Content-Type': 'application/json', 
+          
+        }, 
         }); const d = await res.json(); 
         setLoading(false);
          if (d) { 
