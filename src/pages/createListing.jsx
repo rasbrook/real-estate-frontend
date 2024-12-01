@@ -144,7 +144,10 @@ export default function CreateListing() {
        const submit=async()=>{
         if(formdata.Location[0]!==0){
           Create_Listing(formdata, setLoading, setError)
+          console.log(loading)
           if(!loading && formdata.Location[0]!==0 && error==='no error' ){
+            console.log(error)
+            
             nav('/listing')
             
           }
