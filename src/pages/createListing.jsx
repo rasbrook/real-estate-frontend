@@ -143,8 +143,12 @@ export default function CreateListing() {
       useEffect(()=>{
        const submit=async()=>{
         if(formdata.Location[0]!==0){
-          await Create_Listing(formdata, setLoading, setError)
-          
+          Create_Listing(formdata, setLoading, setError)
+          if(!loading && formdata.Location[0]!==0 && error==='no error' ){
+            nav('/listing')
+            
+          }
+           
           
          }
        }
@@ -152,10 +156,6 @@ export default function CreateListing() {
 
        submit()
 
-       if(!loading && formdata.Location[0]!==0 ){
-        nav('/listing')
-        
-      }
        
 
 

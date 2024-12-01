@@ -80,6 +80,7 @@ export const useListingStore=create(
                 } )
                 const data=await res.json()
                 if(data.success){
+                  setError('no error')
                   setLoading(false)
                   set({listing:data})
                   console.log(data)
