@@ -227,7 +227,7 @@ export default function CreateListing() {
        
 
     }
-      
+      //add dragable map
       
       if (!user) return <div>Please log in to view your profile</div>
   return (
@@ -263,6 +263,7 @@ export default function CreateListing() {
         />
         
         </div>
+      
 
 
         <div>

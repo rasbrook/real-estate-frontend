@@ -75,7 +75,7 @@ export default function Favorite() {
   
       }, [screensize, data])
   
-      //console.log(data)
+     // console.log(data)
 
 
   return (
@@ -86,7 +86,7 @@ export default function Favorite() {
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab'}} drag="x" dragConstraints={{ left:-w , right: 0 }}>
     {user && profileData.FavListing!=='' && 
     profileData.FavListing.length>0 && 
-    data.length>0 ? data.map((list)=>list.isSell?
+    data.length>0 ? data.map((list)=>list.isSell && list.success!==false?
 
 
 
@@ -121,7 +121,7 @@ export default function Favorite() {
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
     {user && profileData.FavListing!=='' && 
     profileData.FavListing.length>0 && 
-    data.length>0 ? data.map((list)=>!list.isSell ?
+    data.length>0 ? data.map((list)=>!list.isSell  && list.success!==false ?
 
 
 
