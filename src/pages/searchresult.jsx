@@ -332,7 +332,7 @@ export default function Searchresult() {
          agentname={l.AgentName}
          companyname={l.CompanyName}
          owner={false}
-         fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
+         fav={user ? user.rest.FavListing.indexOf(l._id)!==-1:false}
          detail={()=>nav(`/listing/list/${list}`)}
          />)
 
@@ -370,7 +370,7 @@ export default function Searchresult() {
          agentname={l.AgentName}
          companyname={l.CompanyName}
          owner={false}
-         fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
+         fav={user ? user.rest.FavListing.indexOf(l._id)!==-1:false}
          detail={()=>nav(`/listing/list/${list}`)}
          />)
 
