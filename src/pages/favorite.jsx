@@ -25,7 +25,7 @@ export default function Favorite() {
         FavListing: user?.rest?.FavListing || [],
         
       })
-      https://estate-backend-1-d4pa.onrender.com
+     
       
       useEffect(() => { 
         const getListing = async () => { 
