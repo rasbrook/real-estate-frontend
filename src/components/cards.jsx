@@ -42,7 +42,7 @@ const cardstyle={Height:'25vh',
             {props.owner? '':<div onClick={()=>{setIsFavorite(prev=>!prev)}} style={{ position:'relative', top: '0px', right: '10px', cursor: 'pointer', fontSize: '24px', justifySelf:'end', color: isFavorite ? 'red' : 'grey', }} > 
             {props.fav ? <FaHeart style={{ color:'red'}} /> : <FaRegHeart />} </div>}
             <motion.div style={{height: 'max-content'}} >
-            <h2 onClick={props.detail} style={{display:'flex', left:20, gap:10}}><span>{props.Price.toLocaleString()}</span>{props.isSell?'ETB':"ETB/Month"}</h2>
+            <h2 onClick={props.detail} style={{display:'flex', left:20, gap:10}}><span>{props.Price.toLocaleString()}</span>{props.isSell?'ETB':"ETB/Month"}</h2><p></p>{props.valid ? null:'Pending...'}
             <motion.p style={{position:'relative', left:10, zIndex:1, display:'flex', gap:10, marginTop:10, marginBottom:10, fontSize:12, overflow:'hidden'}}><span>{<span>{props.bed}</span>} bed</span> |
                                                                                                                             <span>{<span>{props.bath}</span>} bath</span>|
                                                                                                                             <span>{<span>{props.area}</span>} sqm</span>|
@@ -57,6 +57,7 @@ const cardstyle={Height:'25vh',
             <div style={{display:'flex', fontSize:11, marginTop:30,opacity:0.4, alignItems:'center', justifyContent:'space-between'}}>
             <p style={{position:'relative', margin:10}}>{props.agentname}</p>
             <p style={{position:'relative', margin:10}}>{props.companyname}</p>
+           
            
             </div>
             {props.owner ?<div style={{display:'flex', gap:50, justifyContent:'center'}}>

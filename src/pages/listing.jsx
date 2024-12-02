@@ -74,7 +74,7 @@ export default function Listing() {
       const getuser=async()=>{
         try {
           setLoading(true)
-        const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/userlisting/${user.rest._id}`, {
+        const res= await fetch(` http://localhost:5000/api/user/userlisting/${user.rest._id}`, {
            credentials: 'include'})
         const d=await res.json()
         setData(d)
@@ -146,7 +146,7 @@ if(error) return <div>{error}</div>
 
 
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab'}} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!=='' && data.listings? data.listings.map((list)=>list.isSell?
+    {data!=='' && data.listings? data.listings.map((list)=>list.isSell && list.isValid ?
 
 
 
@@ -164,6 +164,7 @@ if(error) return <div>{error}</div>
    agentname={list.AgentName}
    companyname={list.CompanyName}
    owner={true}
+   valid={list.isValid}
    fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false} 
    edit={()=>{nav(`/listing/edit_list/${List}`)}} 
    delete={()=>{Deletelist(),console.log(data)}} />
@@ -179,7 +180,7 @@ if(error) return <div>{error}</div>
     </motion.div>
     <h1 style={{justifySelf:'start'}}>For Rent</h1>
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!=='' && data.listings? data.listings.map((list)=>!list.isSell ?
+    {data!=='' && data.listings? data.listings.map((list)=>!list.isSell && list.isValid  ?
 
 
 
@@ -197,6 +198,7 @@ if(error) return <div>{error}</div>
    agentname={list.AgentName}
    companyname={list.CompanyName}
    owner={true} 
+   valid={list.isValid}
    fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
    edit={()=>{nav(`/listing/edit_list/${List}`)}} 
    delete={()=>{Deletelist(),console.log(data)}} />

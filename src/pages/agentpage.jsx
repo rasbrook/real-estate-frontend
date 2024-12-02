@@ -23,7 +23,7 @@ export default function Agentpage() {
         setLoading(true)
         const agentid=params.id
         const getuserbyid=async()=>{
-            const res=await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/findaget/${agentid}`,  {
+            const res=await fetch(` http://localhost:5000/api/user/findaget/${agentid}`,  {
                 method:"GET", 
                 headers:{
                   'Content-Type':'application/json',

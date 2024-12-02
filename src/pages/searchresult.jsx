@@ -72,7 +72,7 @@ export default function Searchresult() {
         const getListings=async()=>{
             setLoading(true)
             try {
-                const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get${query}`, {
+                const res= await fetch(` http://localhost:5000/api/listing/get${query}`, {
                     method:"GET", 
                     headers:{
                         'Content-Type':'application/json',
@@ -300,7 +300,7 @@ export default function Searchresult() {
 
       {isbig ? <div style={{display:'flex', flexWrap:'wrap'}}>
       <div style={{width:'100%', height:'50vh',  border:'none',marginBottom:50, minWidth:600, borderRadius:20, marginLeft:10}}>
-      {listings.length!==0 && lat!==0 && lon!==0 ? <Map maxZoom={20}  zoom={10} center={[9.033468114828745, 38.76315561094813]} pin={listings.length>0 ?listings.map((items)=><Pin id={items._id} 
+      {listings.length!==0 && lat!==0 && lon!==0 ? <Map maxZoom={20}  zoom={10} center={[9.033468114828745, 38.76315561094813]} pin={listings.length>0 ?listings.map((items)=>items.isValid? <Pin id={items._id} 
                                                                                               idset={()=>setlist(items._id)} 
                                                                                               detail={()=>nav(`/listing/list/${list}`)}
                                                                                               image={items.ImageUrls[0]} 
@@ -310,7 +310,7 @@ export default function Searchresult() {
                                                                                               Area={items.Area}
                                                                                               NoofFloor={items.NumberofFloor}
                                                                                               
-                                                                                              />):''}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
+                                                                                              />:''):''}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
 
         </div>
       <motion.div 
@@ -318,7 +318,7 @@ export default function Searchresult() {
       drag="x" dragConstraints={{ left:-w , right: 0 }} >
         
         
-       {listings!=='' && listings.length>0 ? listings.map((l)=>
+       {listings!=='' && listings.length>0 ? listings.map((l)=>l.isValid ?
         (<Cards idset={()=>setlist(l._id)} 
         county={l.address.split('||')[0].split(',')[1]} 
          state={l.address.split('||')[0].split(',')[2]} 
@@ -332,9 +332,10 @@ export default function Searchresult() {
          agentname={l.AgentName}
          companyname={l.CompanyName}
          owner={false}
+         valid={list.isValid}
          fav={user ? user.rest.FavListing.indexOf(l._id)!==-1:false}
          detail={()=>nav(`/listing/list/${list}`)}
-         />)
+         />):''
 
        ):<h1>No home found</h1>}
       </motion.div>
@@ -342,13 +343,13 @@ export default function Searchresult() {
      
       </div>:<div style={{display:'flex', flexWrap:'wrap'}}>
       <div style={{width:'50%', height:'50vh',  border:'none',borderRadius:10, maxWidth:700, minWidth:400,overflow:'hidden', zIndex:0, marginLeft:10}}>
-      {listings.length!==0 && lat!==0 && lon!==0 &&listings!=='' && listings.length>0? <Map maxZoom={20}  zoom={10} center={[9.033468114828745, 38.76315561094813]} pin={listings!=='' ?listings.map((items)=><Pin id={items._id} 
+      {listings.length!==0 && lat!==0 && lon!==0 &&listings!=='' && listings.length>0? <Map maxZoom={20}  zoom={10} center={[9.033468114828745, 38.76315561094813]} pin={listings!=='' ?listings.map((items)=>items.isValid?<Pin id={items._id} 
                                                                                               idset={()=>setlist(items._id)} 
                                                                                               detail={()=>nav(`/listing/list/${list}`)}
                                                                                               image={items.ImageUrls[0]} 
                                                                                               price={items.Price} 
                                                                                               isSell={items.isSell} 
-                                                                                              position={items.Location}/>):[8,36]}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
+                                                                                              position={items.Location}/>:""):[8,36]}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
 
         </div>
       <div style={{width: '100vw', padding: '10px' , maxWidth:1500}}>
@@ -356,7 +357,7 @@ export default function Searchresult() {
      style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', position:"relative", left:-150}} drag="x" dragConstraints={{ left:-w , right: 0 }} >
         
         
-       {listings!=='' && listings.length>0 ? listings.map((l)=>
+       {listings!=='' && listings.length>0 ? listings.map((l)=>l.isValid?
         (<Cards idset={()=>setlist(l._id)} 
         county={l.address.split('||')[0].split(',')[1]} 
          state={l.address.split('||')[0].split(',')[2]} 
@@ -370,9 +371,10 @@ export default function Searchresult() {
          agentname={l.AgentName}
          companyname={l.CompanyName}
          owner={false}
+         valid={list.isValid}
          fav={user ? user.rest.FavListing.indexOf(l._id)!==-1:false}
          detail={()=>nav(`/listing/list/${list}`)}
-         />)
+         />):''
 
        ):<h1>No home found</h1>}
       </motion.div>

@@ -75,7 +75,7 @@ export default function Rent() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
+            const res= await fetch(` http://localhost:5000/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
@@ -111,7 +111,7 @@ export default function Rent() {
 if(listin!==''){
 
   if(length===0){
-    listin.map((l)=>{ if(!l.isSell){
+    listin.map((l)=>{ if(!l.isSell && l.isValid){
       setLat(prev=>(parseFloat(prev)+parseFloat(l.Location[0]))),setLon(prev=>(parseFloat(prev)+parseFloat(l.Location[1])))
 
       return setLength(prev=>prev+1)
@@ -128,7 +128,7 @@ if(listin!==''){
 if(loading) return <PropagateLoader color="#58fcff"  />
   return (<div>
     <div style={{width:'100%', height:'50vh',  border:'none',marginBottom:50, minWidth:320}}>
-    {listin.length!==0 && lat!==0 && lon!==0 ? <Map zoom={12} center={{lat, lon}} pin={listin!=='' ?listin.map((items)=>!items.isSell? ((<Pin id={items._id} 
+    {listin.length!==0 && lat!==0 && lon!==0 ? <Map zoom={12} center={{lat, lon}} pin={listin!=='' ?listin.map((items)=>!items.isSell && items.isValid? ((<Pin id={items._id} 
                                                                                               idset={()=>SetListing(items._id)} 
                                                                                               detail={()=>nav(`/listing/list/${List}`)}
                                                                                               image={items.ImageUrls[0]} 
@@ -136,6 +136,7 @@ if(loading) return <PropagateLoader color="#58fcff"  />
                                                                                               isSell={items.isSell} 
                                                                                               position={items.Location}
                                                                                               Area={items.Area}
+                                                                                          
                                                                                               NoofFloor={items.NumberofFloor}
                                                                                               />)):''):[8,36]}/>:null}
 
@@ -145,7 +146,7 @@ if(loading) return <PropagateLoader color="#58fcff"  />
 
 <div style={{ overflow: 'hidden', width: '100vw', padding: '10px' , maxWidth:1500}}>
  <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
- {listin!==''? listin.map((list)=>!list.isSell? (
+ {listin!==''? listin.map((list)=>!list.isSell && list.isValid? (
     (
         <Cards idset={()=>SetListing(list._id)} 
       county={list.address.split('||')[0].split(',')[1]} 
@@ -160,6 +161,7 @@ if(loading) return <PropagateLoader color="#58fcff"  />
        agentname={list.AgentName}
        companyname={list.CompanyName}
        owner={false}
+       valid={list.isValid}
        detail={()=>nav(`/listing/list/${List}`)}
        fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
        />

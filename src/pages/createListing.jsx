@@ -56,7 +56,9 @@ export default function CreateListing() {
       NumberofFloor:0,
       AgentName:'Owner',
       CompanyName:'solo',
-      useRef:user.rest._id
+      useRef:user.rest._id,
+      isValid:false
+      
 
   })
     
@@ -125,6 +127,7 @@ export default function CreateListing() {
     
             
           }
+          window.confirm('you have successfully submitted the propery, it will appear on the site once it has been Validated')
           
           
           
