@@ -146,7 +146,7 @@ if(error) return <div>{error}</div>
 
 
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab'}} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!=='' && data.listings? data.listings.map((list)=>list.isSell && list.isValid ?
+    {data!=='' && data.listings? data.listings.map((list)=>list.isSell ?
 
 
 
@@ -180,7 +180,7 @@ if(error) return <div>{error}</div>
     </motion.div>
     <h1 style={{justifySelf:'start'}}>For Rent</h1>
     <motion.div style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
-    {data!=='' && data.listings? data.listings.map((list)=>!list.isSell && list.isValid  ?
+    {data!=='' && data.listings? data.listings.map((list)=>!list.isSell ?
 
 
 
