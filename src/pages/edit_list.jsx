@@ -62,7 +62,8 @@ export default function Edit_list() {
       NumberofFloor:0,
       AgentName:'Owner',
       CompanyName:'Solo',
-      useRef:user.rest._id
+      useRef:user.rest._id,
+      isValid:false
 
   })
   //console.log(formdata)

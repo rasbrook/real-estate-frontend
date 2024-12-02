@@ -127,7 +127,7 @@ export default function CreateListing() {
     
             
           }
-          window.confirm('you have successfully submitted the propery, it will appear on the site once it has been Validated')
+          
           
           
           
