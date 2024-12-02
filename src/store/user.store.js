@@ -21,7 +21,7 @@ export const useUserStore = create(
 
         try {
           setLoading(true)
-          const res = await fetch(' http://localhost:5000/api/auth/sign-up',
+          const res = await fetch('  https://estate-backend-1-d4pa.onrender.com/api/auth/sign-up',
           {
             method:"POST", 
             headers:{
@@ -68,7 +68,7 @@ export const useUserStore = create(
         console.log(jwtToken)
 
         try {
-          const res = await fetch(' http://localhost:5000/api/auth/sign-in', {
+          const res = await fetch('  https://estate-backend-1-d4pa.onrender.com/api/auth/sign-in', {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
@@ -100,7 +100,7 @@ export const useUserStore = create(
       Google_Sign_up:async (newUser, setLoading, setError, setSuccess) => {
         try {
           setLoading(true)
-          const res = await fetch(' http://localhost:5000/api/auth/google-signup',
+          const res = await fetch('  https://estate-backend-1-d4pa.onrender.com/api/auth/google-signup',
           {
             method:"POST", 
             headers:{
@@ -134,7 +134,7 @@ export const useUserStore = create(
       Google_Sign_in: async (signinuser, setLoading, setError, setSuccess) => {
         setLoading(true)
         try {
-          const res = await fetch(' http://localhost:5000/api/auth/google-signin', {
+          const res = await fetch('  https://estate-backend-1-d4pa.onrender.com/api/auth/google-signin', {
             method: "POST",
             headers: {
               'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ export const useUserStore = create(
         console.log(jwtToken)
         try {
           setLoading(true)
-          const res = await fetch(` http://localhost:5000/api/user/update/${id}`,
+          const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/update/${id}`,
           {
             method:"PUT", 
             headers:{
@@ -213,7 +213,7 @@ export const useUserStore = create(
        
         setLoading(true)
         try {
-          const res = await fetch(` http://localhost:5000/api/user/delete/${id}`,
+          const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/delete/${id}`,
             {
               method:"DELETE", 
               headers:{
@@ -252,7 +252,7 @@ export const useUserStore = create(
         set({ user: null })
         
         try {
-          const res=await fetch(' http://localhost:5000/api/user/sign--out',
+          const res=await fetch('  https://estate-backend-1-d4pa.onrender.com/api/user/sign--out',
             {
             method:"GET", 
             headers:{
@@ -291,7 +291,7 @@ export const useUserStore = create(
         console.log(update)
         try {
     
-          const res = await fetch(` http://localhost:5000/api/user/update/favlisting/${id}`,
+          const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/update/favlisting/${id}`,
           {
             method:"PUT", 
             headers:{

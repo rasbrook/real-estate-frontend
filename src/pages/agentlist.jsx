@@ -70,7 +70,7 @@ export default function AgentListing() {
       const getuser=async()=>{
         try {
           setLoading(true)
-        const res= await fetch(` http://localhost:5000/api/user/agentlisting/${id}`, {
+        const res= await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/agentlisting/${id}`, {
            credentials: 'include'})
         const d=await res.json()
         setData(d)
