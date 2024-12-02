@@ -310,7 +310,7 @@ export default function Searchresult() {
                                                                                               Area={items.Area}
                                                                                               NoofFloor={items.NumberofFloor}
                                                                                               
-                                                                                              />:''):''}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
+                                                                                              />:null):''}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
 
         </div>
       <motion.div 
@@ -343,13 +343,13 @@ export default function Searchresult() {
      
       </div>:<div style={{display:'flex', flexWrap:'wrap'}}>
       <div style={{width:'50%', height:'50vh',  border:'none',borderRadius:10, maxWidth:700, minWidth:400,overflow:'hidden', zIndex:0, marginLeft:10}}>
-      {listings.length!==0 && lat!==0 && lon!==0 &&listings!=='' && listings.length>0? <Map maxZoom={20}  zoom={10} center={[9.033468114828745, 38.76315561094813]} pin={listings!=='' ?listings.map((items)=>items.isValid?<Pin id={items._id} 
+      {listings.length!==0 && lat!==0 && lon!==0 &&listings!=='' && listings.length>0? <Map maxZoom={20}  zoom={10} center={[9.033468114828745, 38.76315561094813]} pin={listings!=='' ?listings.map((items)=> items.isValid ?<Pin id={items._id} 
                                                                                               idset={()=>setlist(items._id)} 
                                                                                               detail={()=>nav(`/listing/list/${list}`)}
                                                                                               image={items.ImageUrls[0]} 
                                                                                               price={items.Price} 
                                                                                               isSell={items.isSell} 
-                                                                                              position={items.Location}/>:""):[8,36]}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
+                                                                                              position={items.Location}/>:null):[8,36]}/>:<div>{lon===0 ? <PropagateLoader color="#58fcff"  />:<h1>No Result</h1>}</div>}
 
         </div>
       <div style={{width: '100vw', padding: '10px' , maxWidth:1500}}>
