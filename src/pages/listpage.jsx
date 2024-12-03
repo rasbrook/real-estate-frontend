@@ -174,8 +174,8 @@ if(loading) return <PropagateLoader color="#58fcff"/>
         </motion.div>
         <div>
         <h2 style={{position:'relative', justifySelf:'self-start'}}>{data.name}</h2>
-          <h3 style={{position:'relative', justifySelf:'self-start'}}>Home Description</h3>
-          <p style={{position:'relative', justifySelf:'self-start',fontWeight:100}}>{data.description}</p>
+          <h3 style={{position:'relative', justifySelf:'self-start'}}>Description</h3>
+          <p style={{position:'relative', justifySelf:'self-start',fontWeight:100, textAlign:'justify'}}>{data.description}</p>
         </div>
         {data && u && (!user ||u.rest._id!==user.rest._id) ? <h2 style={{position:'relative', 
                         justifySelf:'self-start'}}>Agent Account</h2>:null }

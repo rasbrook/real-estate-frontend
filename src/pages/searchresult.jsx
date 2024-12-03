@@ -221,13 +221,14 @@ export default function Searchresult() {
 
     
   return (
-    <div style={{display:'flex', overflowX:'hidden', width:'110vw'}}>
-      <div style={{height:'30vh'}}>
-        <form onSubmit={handlesubmit}>
-          <div>
-          <div style={{gap:20}}>
-            <label>Search Term:</label>
+    <div style={{display:'flex', overflowX:'hidden', width:'110vw', flexWrap:"wrap"}}>
+      <div style={{height:'30vh',width:'contain',alignItems:'center', justifyItems:'center'}}>
+        <form style={{display:"flex", flexWrap:'wrap'}} onSubmit={handlesubmit}>
+          
+          <div style={{minWidth:200, marginLeft:10, marginRight:10, justifySelf:'self-start'}}>
+            <label>Search Term</label>
             <input
+            style={{marginBottom:10, borderColor:'#58fcff', backgroundColor:'#ffffff' , height:30, borderRadius:10, marginLeft:10}}
             id='searchTerm'
             type='text'
             value={sidebardata.searchTerm}
@@ -236,7 +237,7 @@ export default function Searchresult() {
             />
           </div>
         
-          <div>
+          <div style={{minWidth:200, marginLeft:10, marginRight:10,marginBottom:10, justifyItems:'start'}}>
           <div>
           <label>Rent And Sale</label>
             <input
@@ -269,9 +270,10 @@ export default function Searchresult() {
           </div>
           
 
-          <div>
-            <label>Sort:</label>
+          <div style={{minWidth:200, marginLeft:0, marginRight:10,marginBottom:10, justifyItems:'start'}}>
+            <label style={{marginLeft:-20, marginRight:0}} >Sort:</label>
             <select
+            style={{}}
             id='sort_order'
             onChange={handlesidebarchange}
             >
@@ -288,18 +290,21 @@ export default function Searchresult() {
             </select>
 
           </div>
-          <button >Search</button>
+          
 
-          </div>
           
           
+        
+          <motion.button whileHover={{backgroundColor:'#58fcff88', cursor:'pointer'}}  style={{height:30, width:100, border:'none', backgroundColor:"#58fcff" , borderRadius:5, justifySelf:'center'}}> Search </motion.button>
           
         </form>
+       
 
       </div>
 
+
       {isbig ? <div style={{display:'flex', flexWrap:'wrap'}}>
-      <div style={{width:'100%', height:'50vh',  border:'none',marginBottom:50, minWidth:600, borderRadius:20, marginLeft:10}}>
+      <div style={{width:'100%', height:'50vh',  border:'none',marginBottom:50, minWidth:600, borderRadius:20, marginLeft:0}}>
       {listings.length!==0 && lat!==0 && lon!==0 ? <Map maxZoom={20}  zoom={10} center={[9.033468114828745, 38.76315561094813]} pin={listings.length>0 ?listings.map((items)=>items.isValid? <Pin id={items._id} 
                                                                                               idset={()=>setlist(items._id)} 
                                                                                               detail={()=>nav(`/listing/list/${list}`)}
@@ -314,7 +319,7 @@ export default function Searchresult() {
 
         </div>
       <motion.div 
-      style={{ height:'max-containt',display: 'flex', flexWrap:'wrap', gap: '20px', cursor: 'grab', position:'relative', left:'-11vw'}} 
+      style={{ height:'max-containt',display: 'flex', flexWrap:'wrap', gap: '20px', cursor: 'grab', position:'relative', left:'0vw'}} 
       drag="x" dragConstraints={{ left:-w , right: 0 }} >
         
         
@@ -354,7 +359,7 @@ export default function Searchresult() {
         </div>
       <div style={{width: '100vw', padding: '10px' , maxWidth:1500}}>
       <motion.div 
-     style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', position:"relative", left:-150}} drag="x" dragConstraints={{ left:-w , right: 0 }} >
+     style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', position:"relative", left:0}} drag="x" dragConstraints={{ left:-w , right: 0 }} >
         
         
        {listings!=='' && listings.length>0 ? listings.map((l)=>l.isValid?
