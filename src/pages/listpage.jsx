@@ -178,9 +178,9 @@ if(loading) return <PropagateLoader color="#58fcff"/>
           <h3 style={{position:'relative', justifySelf:'self-start'}}>Description</h3>
           <p style={{position:'relative', justifySelf:'self-start',fontWeight:100, textAlign:'justify'}}>{data.description}</p>
         </div>
-        {data && u && (!user ||u.rest._id!==user.rest._id) ? <h2 style={{position:'relative', 
+        {data && u &&  user!==null && (!user ||u.rest._id!==user.rest._id) ? <h2 style={{position:'relative', 
                         justifySelf:'self-start'}}>Agent Account</h2>:null }
-            {data && u  && (!user ||user.rest._id!==u.rest._id)  ?  
+            {data && u  &&  user!==null && (!user ||user.rest._id!==u.rest._id)  ?  
             <div onMouseEnter={()=>{serUserId(u.rest._id)}} onTouchStart={()=>{serUserId(u.rest._id)}} style={{position:'relative', 
                         justifySelf:'self-start', 
                         width:'20vw', 
@@ -221,7 +221,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
 
 
         {!contact ? '':<Constact listing={data} />}
-        {data && user &&  u._id!==user.rest._id && !contact ?  <button onClick={()=>{setContact(true)}}>Contact Owner</button>:null}
+        {data && user && user!==null &&  u._id!==user.rest._id && !contact ?  <button onClick={()=>{setContact(true)}}>Contact Owner</button>:null}
     </div>:
     
     
