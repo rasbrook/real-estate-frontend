@@ -179,7 +179,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
         </div>
         {data && u && (!user ||u.rest._id!==user.rest._id) ? <h2 style={{position:'relative', 
                         justifySelf:'self-start'}}>Agent Account</h2>:null }
-            {data && u  && (!user ||u.rest._id!==user.rest._id)  ?  
+            {data && u  && (!user ||user.rest._id!==u.rest._id)  ?  
             <div onMouseEnter={()=>{serUserId(u.rest._id)}} onTouchStart={()=>{serUserId(u.rest._id)}} style={{position:'relative', 
                         justifySelf:'self-start', 
                         width:'20vw', 
