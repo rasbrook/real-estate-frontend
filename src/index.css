@@ -124,7 +124,7 @@ body{
   #bar{
     display: flex;
     position: absolute;
-    left: 90vw;
+    left: 85vw;
     top:3vh;
     height: 100;
     color: rgb(44, 44, 44);
@@ -155,7 +155,7 @@ body{
   #bar{
     display: flex;
     position: absolute;
-    right: 105vw;
+    left: 105vw;
     top:3vh;
     color: rgb(44, 44, 44);
 

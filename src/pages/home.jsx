@@ -9,9 +9,12 @@ import { useNavigate } from 'react-router-dom'
 import home1 from '../assets/home1.png'
 import home2 from '../assets/home2.png'
 import home3 from '../assets/home3.png'
+import home4 from '../assets/home4.png'
+import home5 from '../assets/home6.png'
+import home6 from '../assets/home7.png'
 import { PropagateLoader } from 'react-spinners'
 import { useUserStore } from '../store/user.store'
-import buy from '../assets/buy.png'
+import buy from '../assets/sale.webp'
 import sell from '../assets/sale.png'
 import rent from '../assets/rent.webp'
 import { justify } from '@cloudinary/url-gen/qualifiers/textAlignment'
@@ -33,7 +36,7 @@ export default function Home() {
   const nav=useNavigate()
   const user = useUserStore((state) => state.user); 
 
-  const homearray=[home1,home2,home3]
+  const homearray=[home1,home2,home3,home5,home6]
 
   
 
@@ -111,13 +114,13 @@ console.log(user)
 
   if(loading) return <PropagateLoader color="#58fcff"  />
   return (<div>
-<div style={{height:'90vh', display:'flex', flexWrap:'wrap',width: '100vw', marginBottom:'10vh', overflow:'hidden',minHeight:400}}>
-  <h1 style={{position:'relative', left:0,textAlign:'justify', fontSize:'2.5em', maxWidth:400}}>Find Your Dream Home With Unoode</h1>
+<div style={{height:'containt', display:'flex', flexWrap:'wrap',width: '100vw', overflow:'hidden',minHeight:400}}>
+  <h1 style={{position:'relative', left:0,textAlign:'justify', fontSize:'2.8em', maxWidth:400}}>Find Your Dream Home With <span style={{color:"#58fcff"}}>Unoode</span></h1>
   <div style={{position:'relative', right:0, zIndex:0, top:0}}>
-    <img loading='lazy' style={{zIndex:0,  width:'100%'}} src={randomHome}/>
+    <img loading='lazy' style={{zIndex:0,  width:'80%'}} src={randomHome}/>
   </div>
 </div>
-<div style={{display:'flex', flexWrap:'wrap', justifySelf:'center', marginBottom:100, maxWidth:'100vw', justifyItems:'center', justifyContent:'center'}}>
+<div style={{display:'flex', flexWrap:'wrap', justifySelf:'center', marginBottom:50, maxWidth:'100vw', justifyItems:'center', justifyContent:'center'}}>
 <BigCard soure={sell} 
 head='Buy A Home'
 contain='Find your place with an immersive photo 
@@ -158,7 +161,7 @@ contain='We’re creating a seamless online experience – from shopping on the 
      companyname={list.CompanyName}
      owner={false}
      valid={list.isValid}
-     fav={user && user.FavListing? user.rest.FavListing.indexOf(list._id)!==-1:null}
+     fav={user && user.rest.FavListing ? user.rest.FavListing.indexOf(list._id)!==-1:null}
      detail={()=>nav(`/listing/list/${List}`)}
      />
     ):''

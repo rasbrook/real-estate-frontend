@@ -1,6 +1,7 @@
 import React from 'react'
 import { useModeState } from '../store/mode.store'
 import { motion } from 'framer-motion'
+import { scale } from '@cloudinary/url-gen/actions/resize'
 
 export default function BigCard(props) {
 
@@ -14,13 +15,13 @@ export default function BigCard(props) {
     const hbuttdarkmode=useModeState((state) => state.hbuttdarkmode)
     const cardstyle={
         width:380,
-        boxShadow: '5px 5px 5px 5px  rgba(128,128 ,128, 0.3)',
+        boxShadow: '7px 7px 7px 7px  rgba(128,128 ,128, 0.1)',
         backgroundColor:`${containdarkmode}FF` ||  '#EEEEEEff', 
         color:darkmode || '#000000', 
         alignSelf:'center',  
         overflow:'hidden' ,
         height:500,
-        minHeight:600,
+        minHeight:550,
         border:'none',
         borderRadius:30,
         alignItems:"center", 
@@ -32,7 +33,7 @@ export default function BigCard(props) {
         
     }
   return (
-    <motion.div whileHover={{cursor:'pointer'}} onClick={props.handleclick} style={cardstyle}>
+    <motion.div whileHover={{cursor:'pointer', scale:1.03}} onClick={props.handleclick} style={cardstyle}>
   <img style={{width:250}} src={props.soure}/>
   <h1>{props.head}</h1>
   <p style={{width:'70%', fontWeight:100, textAlign:'center'}}>{props.contain}</p>
