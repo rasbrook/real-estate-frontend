@@ -18,7 +18,7 @@ const hbackdarkmode=useModeState((state) => state.hbackdarkmode)
 const hcontaindarkmode=useModeState((state) => state.hcontaindarkmode)
 const hbuttdarkmode=useModeState((state) => state.hbuttdarkmode)
 const cardstyle={Height:'25vh',
-                boxShadow: '5px 5px 5px  rgba(128,128 ,128, 0.3)',
+                boxShadow: '5px 5px 5px 5px  rgba(128,128 ,128, 0.3)',
                 width:'20vw',
                 maxWidth:400,
                 minHeight:250,
@@ -26,7 +26,7 @@ const cardstyle={Height:'25vh',
                 maxHeight:450,
                 border:'none', 
                 borderRadius:15, 
-                backgroundColor:containdarkmode ||  '#EEE', 
+                backgroundColor:`${containdarkmode}FF` ||  '#EEEEEEff', 
                 color:darkmode || '#000000', 
                 alignSelf:'center', 
                 FontWeight:600, 

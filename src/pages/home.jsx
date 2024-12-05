@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Cards from '../components/cards'
+import BigCard from '../components/bigCard'
 import img from '../assets/a3.jpg'
 import { motion } from 'framer-motion'
 import { useModeState } from '../store/mode.store'
@@ -10,6 +11,11 @@ import home2 from '../assets/home2.png'
 import home3 from '../assets/home3.png'
 import { PropagateLoader } from 'react-spinners'
 import { useUserStore } from '../store/user.store'
+import buy from '../assets/buy.png'
+import sell from '../assets/sale.png'
+import rent from '../assets/rent.webp'
+import { justify } from '@cloudinary/url-gen/qualifiers/textAlignment'
+
 
 
 export default function Home() {
@@ -64,7 +70,7 @@ export default function Home() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
+            const res= await fetch(`http://localhost:5000/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
@@ -111,6 +117,28 @@ console.log(user)
     <img loading='lazy' style={{zIndex:0,  width:'100%'}} src={randomHome}/>
   </div>
 </div>
+<div style={{display:'flex', flexWrap:'wrap', justifySelf:'center', marginBottom:100, maxWidth:'100vw', justifyItems:'center', justifyContent:'center'}}>
+<BigCard soure={sell} 
+head='Buy A Home'
+contain='Find your place with an immersive photo 
+experience and the most listings, including things
+ you won’t find anywhere else.'
+ button='Find Home'
+ handleclick={()=>nav('/listings/forsell')} />
+
+<BigCard soure={buy} 
+head='Sell A Home'
+contain='No matter what path you take to sell your home, we can help you navigate a successful sale.'
+ button='Create Listing'
+ handleclick={()=>nav('/create-listing')} />
+
+<BigCard soure={rent} 
+head='Rent'
+contain='We’re creating a seamless online experience – from shopping on the largest rental network, to applying, to paying rent.'
+ button='Find Rental'
+ handleclick={()=>nav('/listings/forrent')} />
+</div>
+
 
 <div style={{ overflow: 'hidden', width: '100vw', padding: '10px' , maxWidth:1500, zIndex:10}}>
  <motion.div  style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
