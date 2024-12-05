@@ -25,11 +25,11 @@ const [u, setUser] = useState('');
 const [userid, serUserId] = useState(''); 
 const nav = useNavigate(); 
 const params = useParams(); 
-const [profileData, setProfileData] = useState({ FavListing: user.rest.FavListing, }); 
+const [profileData, setProfileData] = useState({ FavListing: user ? user.rest.FavListing:null, }); 
 const [fav, setFav] = useState(profileData.FavListing); 
 const [favorite, setFavorite] = useState(false); 
 useEffect(() => { 
-  if (data) { 
+  if (data && user) { 
     console.log(fav.indexOf(data._id)!==-1)
     setFavorite(fav.indexOf(data._id)!==-1); 
   } }, [data]);
@@ -37,7 +37,7 @@ useEffect(() => {
   const fetchlisting = async () => { 
     const listingid = params.id; try {
        setLoading(true); 
-       const res = await fetch(`http://localhost:5000/api/listing/list/${listingid}`, 
+       const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, 
         { method: 'GET', 
           headers: { 
             'Content-Type': 'application/json', 
@@ -59,7 +59,7 @@ useEffect(() => {
         if (data) { 
           const getuser = async () => {
              try { 
-              const res = await fetch(`  http://localhost:5000/api/user/${data.useRef}`, 
+              const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`, 
                 { method: 'GET', 
                   headers: { 'Content-Type': 'application/json', }, 
                 }); 
@@ -91,10 +91,13 @@ const addtofav = async () => {
 
   
 useEffect(() => { 
+  if(user){
     setProfileData((prevProfileData) => ({ ...prevProfileData, FavListing: fav, })); 
     const send = async () => { 
       await UpdatefavlistInfo(profileData, user.rest._id); 
-    }; send(); }, [fav]);
+    }; send();
+  }
+    }, [fav]);
 
 
 

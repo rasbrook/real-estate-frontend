@@ -71,7 +71,7 @@ export default function Edit_list() {
     const fetchlisting=async()=>{
       const listingid=prams.id
       //console.log(listingid)
-      const res=await fetch(`  http://localhost:5000/api/listing/list/${listingid}`, {
+      const res=await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, {
         method:"GET", 
         headers:{
           'Content-Type':'application/json'
