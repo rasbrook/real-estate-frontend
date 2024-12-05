@@ -101,7 +101,8 @@ useEffect(() => {
 
 
 
-      
+     console.log(u) 
+     console.log(user)
    
    
 
