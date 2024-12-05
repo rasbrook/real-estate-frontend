@@ -64,7 +64,7 @@ export default function Home() {
     const getListings=async()=>{
         setLoading(true)
         try {
-            const res= await fetch(`https://estate-backend-1-d4pa.onrender.com/api/listing/get`, {
+            const res= await fetch(`http://localhost:5000/api/listing/get`, {
                 method:"GET", 
                 headers:{
                     'Content-Type':'application/json'
@@ -98,7 +98,7 @@ export default function Home() {
 
 ///if(listin!==''){
 //  listin.map((l)=>{console.log(l)})}
-//console.log(listin)
+console.log(user)
 
 
 
@@ -114,7 +114,7 @@ export default function Home() {
 
 <div style={{ overflow: 'hidden', width: '100vw', padding: '10px' , maxWidth:1500, zIndex:10}}>
  <motion.div  style={{ height:'max-containt',display: 'flex', flexWrap:wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left:-w , right: 0 }}>
- {listin!==''? listin.map((list)=>list.isValid?
+ {listin!==''? listin.map((list)=>list.isValid ?
     (
       <Cards idset={()=>SetListing(list._id)} 
     county={list.address.split('||')[0].split(',')[1]} 
@@ -130,7 +130,7 @@ export default function Home() {
      companyname={list.CompanyName}
      owner={false}
      valid={list.isValid}
-     fav={user ? user.rest.FavListing.indexOf(list._id)!==-1:false}
+     fav={user && user.FavListing? user.rest.FavListing.indexOf(list._id)!==-1:null}
      detail={()=>nav(`/listing/list/${List}`)}
      />
     ):''

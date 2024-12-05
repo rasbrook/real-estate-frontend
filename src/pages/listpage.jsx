@@ -37,7 +37,7 @@ useEffect(() => {
   const fetchlisting = async () => { 
     const listingid = params.id; try {
        setLoading(true); 
-       const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/listing/list/${listingid}`, 
+       const res = await fetch(`http://localhost:5000/api/listing/list/${listingid}`, 
         { method: 'GET', 
           headers: { 
             'Content-Type': 'application/json', 
@@ -59,7 +59,7 @@ useEffect(() => {
         if (data) { 
           const getuser = async () => {
              try { 
-              const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`, 
+              const res = await fetch(`  http://localhost:5000/api/user/${data.useRef}`, 
                 { method: 'GET', 
                   headers: { 'Content-Type': 'application/json', }, 
                 }); 
@@ -117,7 +117,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
     <div>
    
    {
-    data && !loading ? <div>
+    data && !loading  && u ? <div>
       
 
       
@@ -178,9 +178,9 @@ if(loading) return <PropagateLoader color="#58fcff"/>
           <h3 style={{position:'relative', justifySelf:'self-start'}}>Description</h3>
           <p style={{position:'relative', justifySelf:'self-start',fontWeight:100, textAlign:'justify'}}>{data.description}</p>
         </div>
-        {data && u &&  user!==null && (!user ||u.rest._id!==user.rest._id) ? <h2 style={{position:'relative', 
+        {data && u  && (!user ||u.rest._id!==user.rest._id) ? <h2 style={{position:'relative', 
                         justifySelf:'self-start'}}>Agent Account</h2>:null }
-            {data && u  &&  user!==null && (!user ||user.rest._id!==u.rest._id)  ?  
+            {data && u  && (!user ||user.rest._id!==u.rest._id)  ?  
             <div onMouseEnter={()=>{serUserId(u.rest._id)}} onTouchStart={()=>{serUserId(u.rest._id)}} style={{position:'relative', 
                         justifySelf:'self-start', 
                         width:'20vw', 
@@ -221,7 +221,7 @@ if(loading) return <PropagateLoader color="#58fcff"/>
 
 
         {!contact ? '':<Constact listing={data} />}
-        {data && user && user!==null &&  u._id!==user.rest._id && !contact ?  <button onClick={()=>{setContact(true)}}>Contact Owner</button>:null}
+        {data && user  &&  u._id!==user.rest._id && !contact ?  <button onClick={()=>{setContact(true)}}>Contact Owner</button>:null}
     </div>:
     
     

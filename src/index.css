@@ -124,7 +124,7 @@ body{
   #bar{
     display: flex;
     position: absolute;
-    left: 105vw;
+    left: 90vw;
     top:3vh;
     height: 100;
     color: rgb(44, 44, 44);
