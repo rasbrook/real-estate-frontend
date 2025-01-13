@@ -64,13 +64,15 @@ export default function Listpage() {
   useEffect(() => {
     if (data) {
       const getuser = async () => {
+        console.log(data)
         try {
-          const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`,
+          const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/${data.useRef}`,
             {
               method: 'GET',
               headers: { 'Content-Type': 'application/json', },
             });
           const user = await res.json();
+          console.log(user)
           if (user) {
             setUser(user);
           }
