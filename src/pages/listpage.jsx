@@ -62,7 +62,7 @@ export default function Listpage() {
 
 
   useEffect(() => {
-    if (data) {
+    if (data && data.useRef) {
       const getuser = async () => {
         console.log(data)
         try {
