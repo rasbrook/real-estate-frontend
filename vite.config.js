@@ -3,11 +3,11 @@ import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 export default defineConfig({
-  server:{
-    proxy:{
-      '/api':{
-        target:"https://estate-backend-ah7v.onrender.com",
-        secure:false
+  server: {
+    proxy: {
+      '/api': {
+        target: "https://estate-backend-ah7v.onrender.com",
+        secure: false
       },
     },
   },

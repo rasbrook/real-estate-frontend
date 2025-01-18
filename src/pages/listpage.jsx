@@ -34,6 +34,8 @@ export default function Listpage() {
       setFavorite(fav.indexOf(data._id) !== -1);
     }
   }, [data]);
+
+
   useEffect(() => {
     const fetchlisting = async () => {
       const listingid = params.id; try {
@@ -58,11 +60,11 @@ export default function Listpage() {
     }; fetchlisting();
   }, [params.id]);
 
-  console.log(data.useRef)
+  //console.log(data.useRef)
 
 
   useEffect(() => {
-    if (data && data.useRef) {
+    if (data?.useRef) {
       const getuser = async () => {
         console.log(data)
         try {
