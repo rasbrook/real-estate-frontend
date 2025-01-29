@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import React from 'react'
 import Profile from './pages/profile'
 import Signin from './pages/signin'
@@ -23,6 +23,7 @@ import Agentcard from './components/agentcard.jsx'
 import Agentpage from './pages/agentpage.jsx'
 import AgentListing from './pages/agentlist.jsx'
 import Favorite from './pages/favorite.jsx'
+import PrivacyPolicy from './pages/privacy.jsx'
 
 
 const MainContent = styled.main`
@@ -32,45 +33,47 @@ const MainContent = styled.main`
 
 
 function App() {
-  const darkmode=useModeState((state) => state.darkmode)
-  const backdarkmode=useModeState((state) => state.backdarkmode)
-  
-  document.getElementById('root').style.color=darkmode
-  document.getElementById('root').style.backgroundColor=backdarkmode
+  const darkmode = useModeState((state) => state.darkmode)
+  const backdarkmode = useModeState((state) => state.backdarkmode)
+
+  document.getElementById('root').style.color = darkmode
+  document.getElementById('root').style.backgroundColor = backdarkmode
 
   return (
-  <BrowserRouter>
-  <Header />
-  <MainContent>
-  <Routes>
-    <Route path='/' element={<Home />} />
-    <Route path='/listings/forsell' element={<Sell />} />
-    <Route path='/listings/forrent' element={<Rent />} />
-    <Route path='/find/agent' element={<Agents />} />
-    <Route path='/forgot-password' element={<ForgotPassword />} />
-    <Route path='/sign-in' element={<Signin />} />
-    <Route path='/sign-up' element={<SignUp />} />
-    <Route path='/log-in' element={<Login/>} />
-    <Route element={<PrivateRoute />}>
-    <Route path='/profile' element={<Profile />} />
-    <Route path='/create-listing' element={<CreateListing />} />
-    <Route path='/listing' element={<Listing />} />
-    <Route path='/fav/listings' element={<Favorite />} />
-    <Route path='/listing/edit_list/:id' element={<Edit_list/>} />
-    
+    <BrowserRouter>
+      <Header />
+      <MainContent>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/listings/forsell' element={<Sell />} />
+          <Route path='/listings/forrent' element={<Rent />} />
+          <Route path='/find/agent' element={<Agents />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/sign-in' element={<Signin />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/log-in' element={<Login />} />
+          <Route path='/privacy ' element={<PrivacyPolicy />} />
+          <Route element={<PrivateRoute />}>
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/create-listing' element={<CreateListing />} />
+            <Route path='/listing' element={<Listing />} />
+            <Route path='/fav/listings' element={<Favorite />} />
+            <Route path='/listing/edit_list/:id' element={<Edit_list />} />
 
-    
-    </Route>
-    
-    <Route path='/listing/list/:id' element={<Listpage/>} />
-    <Route path='/agent/agentpage/:id' element={<Agentpage />}/>
-    <Route path='/search' element={<Searchresult />} />
-    <Route path='/agent/listings/:id' element={<AgentListing />} />
-    
-    
-  </Routes>
-  </MainContent>
-  </BrowserRouter>
+
+
+
+          </Route>
+
+          <Route path='/listing/list/:id' element={<Listpage />} />
+          <Route path='/agent/agentpage/:id' element={<Agentpage />} />
+          <Route path='/search' element={<Searchresult />} />
+          <Route path='/agent/listings/:id' element={<AgentListing />} />
+
+
+        </Routes>
+      </MainContent>
+    </BrowserRouter>
   )
 }
 
