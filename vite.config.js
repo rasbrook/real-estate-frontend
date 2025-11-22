@@ -6,7 +6,7 @@ export default defineConfig({
   server:{
     proxy:{
       '/api':{
-        target:'https://estate-backend-ah7v.onrender.com',
+        target:"https://estate-backend-ah7v.onrender.com",
         secure:false
       },
     },
