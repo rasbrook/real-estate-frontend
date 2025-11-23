@@ -4,7 +4,7 @@ import Profile from './pages/profile'
 import Signin from './pages/signin'
 import About from './pages/about'
 import Login from './pages/login'
-import Privacy from './pages/privacy'
+
 import DeleteAccount from './pages/delete'
 import Home from './pages/home'
 import SignUp from './pages/signup'
@@ -21,6 +21,7 @@ import { useModeState } from './store/mode.store';
 import Sell from './pages/sell'
 import Agents from './pages/Agents.jsx'
 import Rent from './pages/rent'
+import Privacy from './pages/privacy.jsx'
 
 
 const MainContent = styled.main`

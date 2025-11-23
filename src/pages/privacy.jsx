@@ -1,9 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useModeState } from '../store/mode.store'
 
 const Privacy = () => {
-    const darkmode = useModeState((s) => s.darkmode)
-    const backdarkmode = useModeState((s) => s.backdarkmode)
+    const darkmode = useModeState((state) => state.darkmode);
+    const backdarkmode = useModeState((state) => state.backdarkmode);
+    const [agreed, setAgreed] = useState(false);
+
+    useEffect(() => {
+        try {
+            const saved = localStorage.getItem('privacyAgreed');
+            if (saved === 'true') setAgreed(true);
+        } catch (e) {
+            // ignore
+        }
+    }, []);
+
+
 
     return (
         <div style={{ color: darkmode, backgroundColor: backdarkmode, padding: 24, minHeight: '80vh' }}>
@@ -151,6 +163,32 @@ const Privacy = () => {
                 where you operate or your specific data processing activities, you should consult a lawyer to
                 ensure full compliance with applicable laws (for example: GDPR, CCPA, COPPA and local regulations).
             </p>
+
+            <div style={{ marginTop: 24 }}>
+                {!agreed ? (
+                    <button
+                        onClick={() => {
+                            try {
+                                localStorage.setItem('privacyAgreed', 'true');
+                            } catch (e) { }
+                            setAgreed(true);
+                        }}
+                        style={{
+                            padding: 10,
+                            borderRadius: 6,
+                            border: 'none',
+                            cursor: 'pointer',
+                            backgroundColor: '#0d6efd',
+                            color: '#fff'
+                        }}
+                        aria-label="Agree to privacy policy"
+                    >
+                        Agree
+                    </button>
+                ) : (
+                    <div style={{ fontWeight: 600, marginTop: 8 }}>Thank you for agreeing to the Privacy Policy.</div>
+                )}
+            </div>
         </div>
     )
 }

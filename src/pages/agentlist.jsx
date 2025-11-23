@@ -2,23 +2,24 @@ import React, { useEffect, useRef } from 'react'
 import { useUserStore } from '../store/user.store.js'
 import { useListingStore } from '../store/listing.store'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Cards from '../components/cards.jsx'
 import { motion } from 'framer-motion'
 import { useModeState } from '../store/mode.store.js'
 import { PropagateLoader } from 'react-spinners'
 
 
-export default function Listing() {
-
+export default function AgentListing() {
   const nav = useNavigate()
-  const { Updata_listing } = useListingStore()
+
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const { DeleteListing } = useListingStore()
   const [l, setL] = useState('Show Listing')
   const [data, setData] = useState('')
   const [List, SetListing] = useState('')
+  const [listin, setListin] = useState('')
   const user = useUserStore((state) => state.user)
   const listing = useUserStore((state) => state.listing)
   const [screensize, setScreensize] = useState(null)
@@ -27,7 +28,7 @@ export default function Listing() {
   const [s, setS] = useState(0)
   const containdarkmode = useModeState((state) => state.containdarkmode)
 
-  //console.log(user.rest._id)
+
 
 
   useEffect(() => {
@@ -38,12 +39,6 @@ export default function Listing() {
 
     }
     if (screensize <= 1100) {
-      // console.log(data)
-      if (data.message === "UnAuthorized access") {
-        setError('401 Unauthorized access')
-        return
-
-      }
       if (data && data.listings) {
         const a = 270 * data.listings.length
         setW(a)
@@ -52,7 +47,7 @@ export default function Listing() {
 
   }, [screensize, data])
 
-  //console.log(screensize)
+  console.log(screensize)
 
 
 
@@ -68,13 +63,14 @@ export default function Listing() {
 
 
 
-
+  const params = useParams()
 
   useEffect(() => {
+    const id = params.id
     const getuser = async () => {
       try {
         setLoading(true)
-        const res = await fetch(`https://estate-backend-1-d4pa.onrender.com/api/user/userlisting/${user.rest._id}`, {
+        const res = await fetch(`  https://estate-backend-1-d4pa.onrender.com/api/user/agentlisting/${id}`, {
           credentials: 'include'
         })
         const d = await res.json()
@@ -91,6 +87,7 @@ export default function Listing() {
 
           return
         }
+        setLoading(false)
 
       } catch (error) {
         setError('There has been an error, please try again')
@@ -106,7 +103,7 @@ export default function Listing() {
     if (window.confirm("Are you sure You Want to delete This listing?")) {
       try {
         await DeleteListing(setError, List)
-        //nav('/profile')
+        nav('/profile')
         if (!setError) {
           console.log('Deleted sucessfully')
         }
@@ -129,7 +126,7 @@ export default function Listing() {
 
 
   if (data !== '') {
-    // console.log(data.listings)
+    //console.log(data.listings)
   }
 
   //console.log(List)
@@ -140,8 +137,6 @@ export default function Listing() {
 
 
   if (loading) return <PropagateLoader color="#58fcff" />
-  if (error) return <div>{error}</div>
-
 
   return (
     <div style={{ overflow: 'hidden', width: '100vw', padding: '10px', maxWidth: 1500 }}>
@@ -149,11 +144,12 @@ export default function Listing() {
 
 
       <motion.div style={{ height: 'max-containt', display: 'flex', flexWrap: wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left: -w, right: 0 }}>
-        {data !== '' && data.listings ? data.listings.map((list) => list.isSell ?
+        {data.listings ? data.listings.map((list) => list.isSell ?
 
 
 
           (
+
             <Cards idset={() => SetListing(list._id)}
               county={list.address.split('||')[0].split(',')[1]}
               state={list.address.split('||')[0].split(',')[2]}
@@ -166,11 +162,9 @@ export default function Listing() {
               isSell={list.isSell}
               agentname={list.AgentName}
               companyname={list.CompanyName}
-              owner={true}
-              valid={list.isValid}
-              fav={user ? user.rest.FavListing.indexOf(list._id) !== -1 : false}
-              edit={() => { nav(`/listing/edit_list/${List}`) }}
-              delete={() => { Deletelist(), console.log(data) }} />
+              owner={false}
+              detail={() => nav(`/listing/list/${List}`)}
+            />
 
           ) : ''
 
@@ -183,7 +177,7 @@ export default function Listing() {
       </motion.div>
       <h1 style={{ justifySelf: 'start' }}>For Rent</h1>
       <motion.div style={{ height: 'max-containt', display: 'flex', flexWrap: wrapp, gap: '20px', cursor: 'grab' }} drag="x" dragConstraints={{ left: -w, right: 0 }}>
-        {data !== '' && data.listings ? data.listings.map((list) => !list.isSell ?
+        {data.listings ? data.listings.map((list) => !list.isSell ?
 
 
 
@@ -200,11 +194,9 @@ export default function Listing() {
               isSell={list.isSell}
               agentname={list.AgentName}
               companyname={list.CompanyName}
-              owner={true}
-              valid={list.isValid}
-              fav={user ? user.rest.FavListing.indexOf(list._id) !== -1 : false}
-              edit={() => { nav(`/listing/edit_list/${List}`) }}
-              delete={() => { Deletelist(), console.log(data) }} />
+              owner={false}
+              detail={() => nav(`/listing/list/${List}`)}
+            />
 
           ) : ''
 

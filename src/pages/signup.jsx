@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { SignUpLink } from './page style/signinstyle';
 import { useUserStore } from '../store/user.store';
 import {getAuth, GoogleAuthProvider, signInWithPopup} from 'firebase/auth'
 import {motion} from 'framer-motion'
@@ -49,22 +48,21 @@ export default function SignUp() {
   
     }
   
-  const inpu={color:darkmode, backgroundColor:backdarkmode,width:'100%', height:30, borderRadius:8, border:'none'}
+  const inpu={color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE',width:'100%', height:30, borderRadius:8, border:'none'}
   const {Signup}=useUserStore()
   const {Google_Sign_up}=useUserStore()
   
 
   const validatePassword = (password) => {
     const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumbers = /\d/.test(password);
-    const hasNonalphas = /\W/.test(password);
+   
 
     if (password.length < minLength) {
       return 'Password must be at least 8 characters long';
-    } else if (!(hasUpperCase && hasLowerCase && hasNumbers && hasNonalphas)) {
-      return 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character';
+    } else if (!(hasLowerCase && hasNumbers)) {
+      return 'Password must contain at least one number';
     }
     return '';
   };
@@ -81,7 +79,7 @@ export default function SignUp() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
-    console.log(formData)
+    //console.log(formData)
   };
   const handleSubmit = async(e) => {
     
@@ -89,8 +87,8 @@ export default function SignUp() {
     if (passwordMatch && passwordError==='') {
      
       await Signup(formData, setLoading, setError, setSuccess)
-      console.log(success)
-      console.log(error)
+      //console.log(success)
+     // console.log(error)
       if(success){
         nav('/')
       }
@@ -110,25 +108,25 @@ export default function SignUp() {
       const provider=new GoogleAuthProvider()
       const auth=getAuth(app)
       const result=await signInWithPopup(auth, provider)
-      console.log(result)
+      //console.log(result)
       const username=result.user.displayName
       const email=result.user.email
       const image=result.user.photoURL
       const data={username,email, image}
-      console.log(data)
+      //console.log(data)
         
         await Google_Sign_up(data, setLoading, setError, setSuccess)
-        console.log(success)
+        //console.log(success)
         if(success){
           nav('/')
         }
       
     } catch (error) {
-      console.log("Could Not sign in with google", error)
+     // console.log("Could Not sign in with google", error)
     }
   }
   return (
-    <div style={{width:'60%',backgroundColor:containdarkmode, justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
+    <div style={{width:'60%',backgroundColor:containdarkmode ||  '#EEE', justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
       <motion.form
       onSubmit={handleSubmit}
       >
@@ -145,8 +143,8 @@ export default function SignUp() {
             minWidth:250,
             border:'none',
             margin:'3vh',
-            color:darkmode, 
-            backgroundColor:backdarkmode
+            color:darkmode || '#000000', 
+             backgroundColor:backdarkmode || '#FEFEFE'
           }}
           onClick={handleGoogleSignUp}
           whileHover={{ scale: 1.05 , cursor:'pointer'}}
@@ -234,7 +232,7 @@ export default function SignUp() {
           onClick={()=>handleSubmit()}
           whileTap={{ scale: 0.95 }}
           //disabled={!passwordMatch || !!passwordError|| loading}
-          style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode}}
+          style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode || '#4A628A'}}
           whileHover={{scale:1.05, backgroundColor:'#59caffe3', cursor:'pointer'}}
           
         >

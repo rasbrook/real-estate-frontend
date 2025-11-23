@@ -20,16 +20,16 @@ export default function Agentcard(props) {
         maxHeight:250,
         border:'none', 
         borderRadius:15, 
-        backgroundColor:containdarkmode, 
-        color:darkmode, 
+        backgroundColor:containdarkmode ||  '#EEE', 
+        color:darkmode || '#000000', 
         alignSelf:'center', 
         FontWeight:600, 
         overflow:'hidden', 
         display:'flex', flexWrap:'wrap' }
   return (
-    <motion.div whileHover={props.setId} onClick={props.detail} style={cardstyle}>
+    <motion.div onMouseEnter={props.setId} onHoverStart={props.setId} onClick={props.detail} style={cardstyle}>
         <motion.div style={{width:'30%', backgroundColor:`${darkmode}88`}}>
-            <img  src={props.agentProfile} style={{width:50, height:50, borderColor:containdarkmode, borderRadius:40, position:'relative', left:0, top:20, borderWidth:2}}/>
+            <img loading='lazy'  src={props.agentProfile} style={{width:50, height:50, borderColor:containdarkmode, borderRadius:40, position:'relative', left:0, top:20, borderWidth:2}}/>
         </motion.div>
 
 

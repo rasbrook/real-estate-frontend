@@ -185,7 +185,7 @@ const Profile = () => {
   
 
   return (
-    <Container style={{color:darkmode||'#00000', backgroundColor:backdarkmode||'#11111'}}
+    <Container style={{color:darkmode || '#000000'||'#00000',  backgroundColor:backdarkmode || '#FEFEFE'||'#11111'}}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

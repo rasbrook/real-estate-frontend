@@ -45,7 +45,8 @@ const Signin = () => {
   
     }
   
-  const inpu={color:darkmode, backgroundColor:backdarkmode,width:'100%', height:30, borderRadius:8, border:'none'}
+  const inpu={color:darkmode || '#000000',  backgroundColor:backdarkmode || '#FEFEFE',width:'100%', height:30, borderRadius:8, border:'none'}
+  
  
 
 
@@ -67,7 +68,7 @@ const Signin = () => {
     e.preventDefault();
     ///send data to an API
     await Signin(formData, setLoading, setError, setSuccess)
-      console.log(success)
+      //console.log(success)
       
       if(success){
        return nav('/')
@@ -108,7 +109,7 @@ const Signin = () => {
       const data={email, password}
       const image=result.user.photoURL
       await Google_Sign_in(data, setLoading, setError, setSuccess)
-      console.log(success)
+      //console.log(success)
       setFormData({email:email, password:password, image})
       
       if(success){
@@ -120,12 +121,12 @@ const Signin = () => {
 
 
     } catch (error) {
-      console.log("Could Not sign in with google", error)
+      //console.log("Could Not sign in with google", error)
     }
   };
 
   return (
-    <div style={{width:'60%',backgroundColor:containdarkmode, justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
+    <div style={{width:'60%',backgroundColor:containdarkmode ||  '#EEE', justifySelf:'center', minWidth:350, border:'none', borderRadius:10, height:'max-content'}}>
       <motion.form
       onSubmit={handleSubmit}
       >
@@ -142,14 +143,14 @@ const Signin = () => {
             minWidth:250,
             border:'none',
             margin:'3vh',
-            color:darkmode, 
-            backgroundColor:backdarkmode
+            color:darkmode || '#000000', 
+             bbackgroundColor:'#222831'
           }}
           onClick={handleGoogleSignIn}
           whileHover={{ scale: 1.05 , cursor:'pointer'}}
           whileTap={{ scale: 0.95 }}
         >
-          <img style={{width:25}} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
+          <img loading='lazy' style={{width:25}} src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" />
           <h4>Continue with Google</h4>
         </motion.button>
         
@@ -204,7 +205,7 @@ const Signin = () => {
           type="submit"
           whileTap={{ scale: 0.95 }}
           disabled={ loading}
-          style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode}}
+          style={{width:'15vw', minWidth:200, height:35, backgroundColor:'#59caff', borderRadius:10, border:'none', color:buttdarkmode || '#4A628A'}}
           whileHover={{scale:1.05, backgroundColor:'#59caffe3', cursor:'pointer'}}
           
         >

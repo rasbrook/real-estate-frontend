@@ -79,7 +79,7 @@ body{
 
 
 
-@media (min-width:1000px) {
+@media (min-width:1500px) {
   #profile{
     display:flex;
     margin-left: 47vw;
@@ -108,7 +108,7 @@ body{
    
     
 }
-@media (max-width:1000px) {
+@media (max-width:1500px) {
   #search{
     position:absolute;
     left:35vw;
@@ -124,10 +124,11 @@ body{
   #bar{
     display: flex;
     position: absolute;
-    left: 110vw;
-    top:0vh;
+    left: 85vw;
+    top:3vh;
     height: 100;
     color: rgb(44, 44, 44);
+    
 
 }
 #bars{
