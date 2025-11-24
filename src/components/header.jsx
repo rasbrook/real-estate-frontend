@@ -82,8 +82,8 @@ const Header = () => {
 
 
         <div style={{ position: 'relative', left: '8vw', display: "flex", alignContent: 'center', marginRight: '10vw', alignItems: 'center' }}>
-          <img style={{ width: 50, height: 50 }} src='https://firebasestorage.googleapis.com/v0/b/real-estate-3e0dc.appspot.com/o/Profile%2Funoode%20logo.png71dfe3c8-90e7-431e-aff7-a09bc4d62008?alt=media&token=0093f1fe-558f-47be-ab1c-67ba6481abf0' />
-          <motion.h2 style={{ marginLeft: '0em', fontWeight: 300, marginRight: '0.8em', color: '#28A745' }} onClick={() => nav('/')} whileHover={{ cursor: 'pointer' }} id='name'>Unoode</motion.h2>
+          <img style={{ width: 50, height: 50 }} src='https://firebasestorage.googleapis.com/v0/b/real-estate-3e0dc.appspot.com/o/Profile%2Fgoojoye%20logo.png71dfe3c8-90e7-431e-aff7-a09bc4d62008?alt=media&token=0093f1fe-558f-47be-ab1c-67ba6481abf0' />
+          <motion.h2 style={{ marginLeft: '0em', fontWeight: 300, marginRight: '0.8em', color: '#28A745' }} onClick={() => nav('/')} whileHover={{ cursor: 'pointer' }} id='name'>goojoye</motion.h2>
         </div>
 
       </div>

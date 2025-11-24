@@ -75,7 +75,7 @@ export default function Agentpage() {
                                 placeholder='Message'
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}></textarea><br />
-                            <Link style={{ textDecoration: 'none', padding: 10, backgroundColor: buttdarkmode || '#4A628A', position: 'relative', top: '5vh', color: backdarkmode, border: 'none', borderRadius: 5 }} to={`mailto:${agent.rest.email}?subject=Regarding Finding Unoode property&body=${message}`}>Send Message</Link>
+                            <Link style={{ textDecoration: 'none', padding: 10, backgroundColor: buttdarkmode || '#4A628A', position: 'relative', top: '5vh', color: backdarkmode, border: 'none', borderRadius: 5 }} to={`mailto:${agent.rest.email}?subject=Regarding Finding goojoye property&body=${message}`}>Send Message</Link>
                         </div>
                     </form>
                     <motion.button whileHover={{

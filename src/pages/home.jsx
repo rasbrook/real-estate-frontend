@@ -115,7 +115,7 @@ export default function Home() {
   if (loading) return <PropagateLoader color="#58fcff" />
   return (<div>
     <div style={{ height: 'containt', display: 'flex', flexWrap: 'wrap', width: '100vw', overflow: 'hidden', minHeight: 400 }}>
-      <h1 style={{ position: 'relative', left: 0, textAlign: 'justify', fontSize: '2.8em', maxWidth: 400 }}>Find Your Dream Home With <span style={{ color: "#58fcff" }}>Unoode</span></h1>
+      <h1 style={{ position: 'relative', left: 0, textAlign: 'justify', fontSize: '2.8em', maxWidth: 400 }}>Find Your Dream Home With <span style={{ color: "#58fcff" }}>goojoye</span></h1>
       <div style={{ position: 'relative', right: 0, zIndex: 0, top: 0 }}>
         <img loading='lazy' style={{ zIndex: 0, width: '80%' }} src={randomHome} />
       </div>
